@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # MIT License
 
 Copyright (c) 2024 RMI-PACTA
