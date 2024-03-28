@@ -1,82 +1,30 @@
-# workflow.template.pacta
+# workflow.multi.loanbook
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-This repository can be used as a template for all PACTA workflow repositories. It includes typical workflow scaffolding, and an explanation of good practices for developing a workflow.
+The goal of `workflow.multi.loanbook` is to provide an easy-to-use
+interface for anyone who wants to run PACTA on multiple loan books. It
+allows tailoring the analysis to the individual needs of a project in a
+simple and straight-forward manner.
 
-## How to use this template
+## Run in RStudio
 
-When you are starting a new workflow, you may choose to: 
-* Click "New Repository" on GitHub
-* Select this repository as a "template"
+### R package dependencies
 
-After this, you should submit a PR that changes the names in the following files to suit the name of your new repository:
-* `*.Rproj` file
-* `README.md`
+Running `workflow.multi.loanbook` has a number of R package dependencies that are listed in the `DESCRIPTION` file. These can be installed manually or by using something like `pak::local_install_deps()`.
 
-You can then begin to work on your workflow using the `demo.R` file as a basis, and document how to run the workflow using the `README.md`.
+### Setting config options
 
-## Guidelines for writing a reproducible workflow (WIP)
+You will need to set options in a config.yml file that should be placed at the root level of the repository. You can use `example.config.yml` as a template to set options in your `config.yml`. The config file is used to set up project parameters, such as paths and file names, and to decide which modules to run with which individual settings. This allows tailoring the calculations to individual research questions while ensuring that project-wide parameters are used consistently across all modules.
 
-These are a handful of guidelines for some best practices in developing a reproducible workflow repository. Please consider this when writing one yourself!
+### Detailed documentation of parameters in config.yml
 
+to be added...
 
-### Consider Logically Separating Your Code into the "Data Science Pipeline"
+### Running the multi loan book analysis
 
-A good way to keep your scripts organized is to think about them in terms of the "data science pipeline". It structures a typical data analysis path as follows:
+The analysis is run in two steps. The first step is to run the process of matching the raw input loan books with the asset/based company data (ABCD), using the `run_matching.R` script. Initial matching results will be saved in the `matched/` directory specified in the `config.yml`. These files need to be validated manually. Once the manual validation of the matched loan books is completed, the checked files are further processed, using the script `run_pacta_multi_loanbook.R`, which calculates standard PACTA results for the loan books and additional related metrics and analytics.
 
-* Import
-* Tidy
-* Do the following iteratively:
-  * Transform
-  * Visualize
-  * Model
-* Communicate (when you are happy with the output)
-
-In the `tidyverse`, there are individual packages that can help you with each step of this process:
-
-[<img src="https://teachdatascience.com/post/tidyverse/tidyverse-package-workflow.png">](http://google.com.au/)
-
-
-
-### Version Control
-Don't commit data or other sensitive information to version control. Data should be written to and read from an external source
-
-### Organize Your Project:
-
-Create a clear folder structure for your project. Separate code (which can live in this repository) from outputs like: data, figures, and reports.
-
-Consider using R projects (.Rproj) for a more organized environment.
-
-### Manage Dependencies:
-
-At the beginning of your script, explicitly state all required R packages and their versions. You can use, for example, the renv package to manage package dependencies.
-
-Always try to keep dependencies to a minimum, and remove those that are unused.
-
-### Always Manipulate Data Through a `.R` or `.Rmd` File!
-
-If you want to be truly reproducible, then STOP OPENING EXCEL!
-
-
-### Use External Config Files
-
-Store parameters, configurations, or settings in separate config files (e.g., a `config.yml` or `.env`) for easy modification without altering the code. 
-
-It is a good idea to document paths here, for example. 
-
-
-### Clean Output:
-
-Remove unnecessary or temporary files and folders from your script's output to keep things tidy.
-
-
-### Create an R Script for Data Downloading:
-
-If your analysis relies on external data sources, create a separate R script to download and prepare the data automatically.
-
-### Reproducibility Checklist:
-
-Develop a checklist to verify that your script meets all reproducibility requirements before sharing it.
+Both these scripts can either be run line-by-line, or by calling `source("run_matching.R")` and `source("run_pacta_multi_loanbook.R")`.

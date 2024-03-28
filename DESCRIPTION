@@ -1,0 +1,31 @@
+Package: workflow.multi.loanbook
+Title: Run PACTA on multiple loan books easily
+Version: 0.0.0.9000
+Authors@R:
+    c(person(given = "Jacob",
+             family = "Kastl",
+             role = c("aut", "cre", "ctr"),
+             email = "jacob.kastl@gmail.com"),
+      person(given = "RMI",
+             role = c("cph", "fnd"),
+             email = "PACTA4supervisors@rmi.org"))
+Description: This repo allows running PACTA analyses on multiple loan books in a
+    structured way and provides access to additional PACTA-related metrics for
+    multiple loan books. Results take the form of csv files and plots and are
+    exported to specified project paths.
+Encoding: UTF-8
+Imports:
+    config,
+    dplyr,
+    pacta.multi.loanbook.analysis,
+    pacta.multi.loanbook.plot,
+    readr,
+    rlang,
+    tidyr
+Remotes:
+    RMI-PACTA/pacta.data.preparation,
+    RMI-PACTA/pacta.data.scraping,
+    RMI-PACTA/pacta.scenario.preparation
+Depends:
+    R (>= 4.1.0)
+License: MIT + file LICENSE
