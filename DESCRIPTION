@@ -21,11 +21,8 @@ Imports:
     pacta.multi.loanbook.plot,
     readr,
     rlang,
-    tidyr
-Remotes:
-    RMI-PACTA/pacta.data.preparation,
-    RMI-PACTA/pacta.data.scraping,
-    RMI-PACTA/pacta.scenario.preparation
+    tidyr,
+    vroom
 Depends:
     R (>= 4.1.0)
 License: MIT + file LICENSE
