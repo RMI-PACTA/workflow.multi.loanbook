@@ -12,7 +12,7 @@ config_dir <- config::get("directories")
 dir_matched <- config_dir$dir_matched
 
 config_match_prio <- config::get("match_prioritize")
-match_prio_priority <- config_matching$match_prioritize$priority
+match_prio_priority <- config_match_prio$priority
 
 # validate config values----
 if (!length(dir_matched) == 1) {
@@ -21,15 +21,21 @@ if (!length(dir_matched) == 1) {
 if (!inherits(dir_matched, "character")) {
   stop("Argument dir_matched must be of class character. Please check your input.")
 }
-# TODO: check for appropriate expectations
-# if (!is.null(match_prio_priority)) {
-#   if (!length(match_prio_priority) == 1) {
-#     stop("Argument match_prio_priority must be of length 1. Please check your input.")
-#   }
-#   if (!inherits(match_prio_priority, "character")) {
-#     stop("Argument match_prio_priority must be of class character. Please check your input.")
-#   }
-# }
+if (!is.null(match_prio_priority)) {
+  if (
+    !inherits(match_prio_priority, "character") &
+    !inherits(match_prio_priority, "formula") &
+    !inherits(match_prio_priority, "function")
+  ) {
+    stop(
+      glue::glue(
+        "Argument match_prio_priority must be of one of: a character vector, a
+        function, or a quosure-style lambda function. Your input is of class
+        {class(match_prio_priority)}. Please check your input."
+      )
+    )
+  }
+}
 
 # laod manually matched files----
 list_matched_manual <- list.files(dir_matched)[grepl("^matched_lbk_.*_manual.csv$", list.files(dir_matched))]
