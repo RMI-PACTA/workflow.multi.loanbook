@@ -137,30 +137,36 @@ if (matching_use_own_sector_classification) {
     dplyr::select(names(r2dii.data::sector_classifications))
 }
 
-# load, match, and save loan books----
+## load raw loan books----
 list_raw <- list.files(dir_raw)[grepl(".csv", list.files(dir_raw))]
 
 if (length(list_raw) == 0) {
   stop(glue::glue("No raw loan book csvs found in {dir_raw}. Please check your project setup!"))
 }
 
-for (i in list_raw) {
-  # load raw loan books
-  raw_lbk_i <- readr::read_csv(
-    file.path(dir_raw, i),
-    col_types = col_types_raw
-  )
+raw_lbk <- vroom::vroom(
+  file = file.path(dir_raw, list_raw),
+  col_types = col_types_raw,
+  id = "group_id"
+) %>%
+  dplyr::mutate(
+    group_id = gsub(glue::glue("{dir_raw}/"), "", .data$group_id),
+    group_id = gsub(".csv", "", .data$group_id)
+  ) %>%
+  dplyr::group_split(.data$group_id)
 
-  group_name <- gsub(".csv", "", i)
+# match and save loan books----
+for (i in 1:length(raw_lbk)) {
+  group_name <- unique(raw_lbk[[i]]$group_id)
 
-  # match data
+  ## match data----
   if (matching_use_own_sector_classification) {
     withr::with_options(
       new = list(r2dii.match.sector_classifications = sector_classification_system),
       code = {
         getOption("r2dii.match.sector_classifications")
         matched_lbk_i <- r2dii.match::match_name(
-          loanbook = raw_lbk_i,
+          loanbook = raw_lbk[[i]],
           abcd = abcd,
           by_sector = matching_by_sector,
           min_score = matching_min_score,
@@ -174,7 +180,7 @@ for (i in list_raw) {
     )
   } else {
     matched_lbk_i <- r2dii.match::match_name(
-      loanbook = raw_lbk_i,
+      loanbook = raw_lbk[[i]],
       abcd = abcd,
       by_sector = matching_by_sector,
       min_score = matching_min_score,
@@ -185,7 +191,7 @@ for (i in list_raw) {
     )
   }
 
-  # write matched data to file
+  ## write matched data to file----
   matched_lbk_i %>%
     readr::write_csv(
       file = file.path(dir_matched, glue::glue("matched_lbk_{group_name}.csv")),
