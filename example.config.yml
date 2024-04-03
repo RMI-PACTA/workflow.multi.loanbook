@@ -47,3 +47,8 @@ default:
     priority: NULL
   prepare_abcd:
     remove_inactive_companies: TRUE
+  match_success_rate:
+    plot_width: 12
+    plot_height: 8
+    plot_units: "in"
+    plot_resolution: 300
