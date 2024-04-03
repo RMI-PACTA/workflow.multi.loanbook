@@ -98,7 +98,7 @@ if (!length(matching_use_own_sector_classification) == 1) {
 if (!inherits(matching_use_own_sector_classification, "logical")) {
   stop("Argument matching_use_own_sector_classification must be of class logical. Please check your input.")
 }
-# path to own sector classification onlz required if boolean TRUE
+# path to own sector classification only required if boolean TRUE
 if (matching_use_own_sector_classification) {
   if (!length(path_own_sector_classification) == 1) {
     stop("When matching_use_own_sector_classification == TRUE, argument path_own_sector_classification must be of length 1. Please check your input.")
@@ -132,14 +132,9 @@ if (matching_use_own_sector_classification) {
 
   sector_classification_system <- readr::read_csv(
     file = path_own_sector_classification,
-    col_types = readr::cols_only(
-      code_system = "c",
-      code = "c",
-      sector = "c",
-      borderline = "l"
-    )
-  ) %>%
-    dplyr::select(names(r2dii.data::sector_classifications))
+    col_types = col_types_sector_classification,
+    col_select = dplyr::all_of(col_select_sector_classification)
+  )
 }
 
 ## load raw loan books----

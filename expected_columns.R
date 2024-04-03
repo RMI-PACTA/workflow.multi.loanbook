@@ -50,7 +50,7 @@ cols_abcd <- tibble::tribble(
 )
 
 # expected columns matched_prioritized_all_groups file
-col_types_matched_prio_all_groups <- readr::cols_only(
+col_types_matched_prioritized <- readr::cols_only(
   group_id = "c",
   id_loan = "c",
   id_direct_loantaker = "c",
@@ -81,7 +81,7 @@ col_types_matched_prio_all_groups <- readr::cols_only(
   source = "c",
   borderline = "l"
 )
-col_select_matched_prio_all_groups <- names(col_types_matched_prio_all_groups[["cols"]])
+col_select_matched_prioritized <- names(col_types_matched_prioritized[["cols"]])
 
 # expected columns matched_all_groups file
 col_types_matched_manual <- readr::cols_only(
@@ -155,3 +155,12 @@ col_types_companies_sector_split_worst_case <- readr::cols_only(
   sector_split = "n"
 )
 col_select_companies_sector_split_worst_case <- names(col_types_companies_sector_split_worst_case[["cols"]])
+
+# expected columns sector classifications file
+col_types_sector_classification <- readr::cols_only(
+  code_system = "c",
+  code = "c",
+  sector = "c",
+  borderline = "l"
+)
+col_select_sector_classification <- names(r2dii.data::sector_classifications)
