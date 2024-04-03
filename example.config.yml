@@ -9,15 +9,16 @@ default:
     filename_raw: "raw_loanbook_123.csv"
     filename_scenario_tms: "scenarios_2022_tms.csv"
     filename_scenario_sda: "scenarios_2022_sda.csv"
-    filename_abcd: "abcd.csv"
+    filename_abcd: "abcd.xlsx"
+    sheet_abcd: "Company Indicators - PACTA Comp"
   project_parameters:
     scenario_source: "weo_2022"
     scenario_select: "nze_2050"
     region_select: "global"
     # normally the start year should correspond with year of the publication of
     # the scenario in use
-    start_year_select: 2022
-    time_frame_select: 5
+    start_year: 2022
+    time_frame: 5
     # regions must be available for the selected scenario
     benchmark_regions_select: "global,european union"
     remove_inactive_companies: TRUE
@@ -44,3 +45,5 @@ default:
       filename_own_sector_classification: "own_sector_classification.csv"
   match_prioritize:
     priority: NULL
+  prepare_abcd:
+    remove_inactive_companies: TRUE

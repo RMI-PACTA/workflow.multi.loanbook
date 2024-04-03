@@ -32,22 +32,22 @@ col_types_scenario_sda <- readr::cols_only(
 col_select_scenario_sda <- names(col_types_scenario_sda[["cols"]])
 
 # expected columns abcd file
-col_types_abcd <- readr::cols_only(
-  company_id = "i",
-  name_company = "c",
-  lei = "c",
-  is_ultimate_owner = "l",
-  sector = "c",
-  technology = "c",
-  plant_location = "c",
-  year = "i",
-  production = "n",
-  production_unit = "c",
-  emission_factor = "n",
-  emission_factor_unit = "c",
-  ald_timestamp = "c"
+cols_abcd <- tibble::tribble(
+  ~col_names_abcd, ~col_types_abcd,
+  "company_id", "numeric",
+  "name_company", "text",
+  "lei", "text",
+  "is_ultimate_owner", "logical",
+  "sector", "text",
+  "technology", "text",
+  "plant_location", "text",
+  "year", "numeric",
+  "production", "numeric",
+  "production_unit", "text",
+  "emission_factor", "numeric",
+  "emission_factor_unit", "text",
+  "ald_timestamp", "text"
 )
-col_select_abcd <- names(col_types_abcd[["cols"]])
 
 # expected columns matched_prioritized_all_groups file
 col_types_matched_prio_all_groups <- readr::cols_only(

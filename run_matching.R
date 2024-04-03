@@ -3,6 +3,7 @@ library(dplyr, warn.conflicts = FALSE)
 library(r2dii.data)
 library(r2dii.match)
 library(readr)
+library(readxl)
 library(withr)
 
 # source helpers----
@@ -15,6 +16,7 @@ config_files <- config::get("file_names")
 
 dir_raw <- config_dir$dir_raw
 path_abcd <- file.path(config_dir$dir_abcd, config_files$filename_abcd)
+sheet_abcd <- config_files$sheet_abcd
 dir_matched <- config_dir$dir_matched
 
 config_matching <- config::get("matching")
@@ -113,11 +115,14 @@ if (!file.exists(path_abcd)) {
   stop(glue::glue("No ABCD file found at path {path_abcd}. Please check your project setup!"))
 }
 
-abcd <- readr::read_csv(
-  file.path(path_abcd),
-  col_types = col_types_abcd,
-  col_select = dplyr::all_of(col_select_abcd)
+abcd <- readxl::read_xlsx(
+  path = file.path(path_abcd),
+  sheet = sheet_abcd,
+  col_types = cols_abcd$col_types_abcd
 )
+if (!all(cols_abcd$col_names_abcd %in% names(abcd))) {
+  stop("Columns in abcd do not match expected input names. Please check your input.")
+}
 
 ## optionally load own classification system----
 if (matching_use_own_sector_classification) {
