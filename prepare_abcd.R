@@ -74,12 +74,14 @@ if (!all(cols_abcd$col_names_abcd %in% names(abcd))) {
 
 # optional: remove inactive companies----
 
-# remove company-sector combinations where production in t5 = 0 when
+# (1) remove company-sector combinations where production in t5 = 0 when
 # it was greater than 0 in t0.
+# (2) remove company-sector combinations where production is 0 for the entire
+# time frame from t0 to t5.
 rm_inactive_companies <- function(data,
                                   start_year,
                                   time_frame) {
-  data_no_prod_t5 <- data %>%
+  comp_sec_no_prod_t5 <- data %>%
     dplyr::filter(
       year %in% c(.env$start_year, .env$start_year + .env$time_frame)
     ) %>%
@@ -95,15 +97,13 @@ rm_inactive_companies <- function(data,
     dplyr::filter(
       !!rlang::sym(paste0("prod_", start_year)) > 0,
       !!rlang::sym(paste0("prod_", start_year + time_frame)) == 0
-    )
-
-  comp_sec_no_prod_t5 <- data_no_prod_t5 %>%
+    ) %>%
     dplyr::distinct(
       .data$name_company,
       .data$sector
     )
 
-  data_no_prod_t0_to_t5 <- data %>%
+  comp_sec_no_prod_t0_to_t5 <- data %>%
     dplyr::filter(
       year %in% c(.env$start_year, .env$start_year + .env$time_frame)
     ) %>%
@@ -113,9 +113,7 @@ rm_inactive_companies <- function(data,
     ) %>%
     dplyr::filter(
       .data$sum_production == 0
-    )
-
-  comp_sec_no_prod_t0_to_t5 <- data_no_prod_t0_to_t5 %>%
+    ) %>%
     dplyr::distinct(
       .data$name_company,
       .data$sector
