@@ -84,7 +84,7 @@ col_types_matched_prio_all_groups <- readr::cols_only(
 col_select_matched_prio_all_groups <- names(col_types_matched_prio_all_groups[["cols"]])
 
 # expected columns matched_all_groups file
-col_types_matched_all_groups <- readr::cols_only(
+col_types_matched_manual <- readr::cols_only(
   group_id = "c",
   id_loan = "c",
   id_direct_loantaker = "c",
@@ -115,7 +115,7 @@ col_types_matched_all_groups <- readr::cols_only(
   source = "c",
   borderline = "l"
 )
-col_select_matched_all_groups <- names(col_types_matched_all_groups[["cols"]])
+col_select_matched_manual <- names(col_types_matched_manual[["cols"]])
 
 # expected columns raw loan book file
 col_types_raw <- readr::cols(
