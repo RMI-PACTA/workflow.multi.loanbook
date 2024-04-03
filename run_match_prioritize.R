@@ -37,7 +37,7 @@ if (!is.null(match_prio_priority)) {
   }
 }
 
-# laod manually matched files----
+# load manually matched files----
 list_matched_manual <- list.files(dir_matched)[grepl("^matched_lbk_.*_manual.csv$", list.files(dir_matched))]
 
 if (length(list_matched_manual) == 0) {
