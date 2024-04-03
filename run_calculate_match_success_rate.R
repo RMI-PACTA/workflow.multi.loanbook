@@ -218,6 +218,7 @@ lbk_match_success <- raw_lbk_with_sectors %>%
     )
   )
 
+## remove misclassified loans----
 # optional: manually exclude loans from the match success calculation
 # this is intended to allow excluding loans that are misclassified as in scope,
 # but research shows that the company is not actually in scope
