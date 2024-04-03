@@ -1,4 +1,4 @@
-# TODO: move to `pacta.multi.loanbook.plot` and export
+# TODO: move to `r2dii.plot` and export
 plot_match_success_rate <- function(data,
                                     aggregate = c(TRUE, FALSE),
                                     metric_type = c("absolute", "relative"),
