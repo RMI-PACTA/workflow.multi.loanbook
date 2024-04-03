@@ -43,8 +43,7 @@ default:
       use_own_sector_classification: FALSE
       dir_own_sector_classification: "path/to/own_sector_classification_folder"
       filename_own_sector_classification: "own_sector_classification.csv"
+  match_prioritize:
+    priority: NULL
   prepare_abcd:
     remove_inactive_companies: TRUE
-
-
-
