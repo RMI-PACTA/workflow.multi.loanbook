@@ -32,21 +32,19 @@ col_types_scenario_sda <- readr::cols_only(
 col_select_scenario_sda <- names(col_types_scenario_sda[["cols"]])
 
 # expected columns abcd file
-cols_abcd <- tibble::tribble(
-  ~col_names_abcd, ~col_types_abcd,
-  "company_id", "numeric",
-  "name_company", "text",
-  "lei", "text",
-  "is_ultimate_owner", "logical",
-  "sector", "text",
-  "technology", "text",
-  "plant_location", "text",
-  "year", "numeric",
-  "production", "numeric",
-  "production_unit", "text",
-  "emission_factor", "numeric",
-  "emission_factor_unit", "text",
-  "ald_timestamp", "text"
+cols_abcd <- c(
+  "company_id",
+  "name_company",
+  "lei",
+  "is_ultimate_owner",
+  "sector",
+  "technology",
+  "plant_location",
+  "year",
+  "production",
+  "production_unit",
+  "emission_factor",
+  "emission_factor_unit"
 )
 
 # expected columns matched_prioritized_all_groups file
@@ -84,7 +82,8 @@ col_types_matched_prioritized <- readr::cols_only(
 col_select_matched_prioritized <- names(col_types_matched_prioritized[["cols"]])
 
 # expected columns matched_all_groups file
-col_types_matched_manual <- readr::cols_only(
+# col_types_matched_manual <- readr::cols_only(
+col_types_matched_manual <- readr::cols(
   group_id = "c",
   id_loan = "c",
   id_direct_loantaker = "c",
