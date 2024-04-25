@@ -32,21 +32,19 @@ col_types_scenario_sda <- readr::cols_only(
 col_select_scenario_sda <- names(col_types_scenario_sda[["cols"]])
 
 # expected columns abcd file
-cols_abcd <- tibble::tribble(
-  ~col_names_abcd, ~col_types_abcd,
-  "company_id", "numeric",
-  "name_company", "text",
-  "lei", "text",
-  "is_ultimate_owner", "logical",
-  "sector", "text",
-  "technology", "text",
-  "plant_location", "text",
-  "year", "numeric",
-  "production", "numeric",
-  "production_unit", "text",
-  "emission_factor", "numeric",
-  "emission_factor_unit", "text",
-  "ald_timestamp", "text"
+cols_abcd <- c(
+  "company_id",
+  "name_company",
+  "lei",
+  "is_ultimate_owner",
+  "sector",
+  "technology",
+  "plant_location",
+  "year",
+  "production",
+  "production_unit",
+  "emission_factor",
+  "emission_factor_unit"
 )
 
 # expected columns matched_prioritized_all_groups file
@@ -55,8 +53,6 @@ col_types_matched_prioritized <- readr::cols_only(
   id_loan = "c",
   id_direct_loantaker = "c",
   name_direct_loantaker = "c",
-  id_intermediate_parent_1 = "c",
-  name_intermediate_parent_1 = "c",
   id_ultimate_parent = "c",
   name_ultimate_parent = "c",
   loan_size_outstanding = "n",
@@ -64,11 +60,7 @@ col_types_matched_prioritized <- readr::cols_only(
   loan_size_credit_limit = "n",
   loan_size_credit_limit_currency = "c",
   sector_classification_system = "c",
-  sector_classification_input_type = "c",
   sector_classification_direct_loantaker = "c",
-  fi_type = "c",
-  flag_project_finance_loan = "c",
-  name_project = "c",
   lei_direct_loantaker = "c",
   isin_direct_loantaker = "c",
   id_2dii = "c",
@@ -84,13 +76,12 @@ col_types_matched_prioritized <- readr::cols_only(
 col_select_matched_prioritized <- names(col_types_matched_prioritized[["cols"]])
 
 # expected columns matched_all_groups file
-col_types_matched_manual <- readr::cols_only(
+# col_types_matched_manual <- readr::cols_only(
+col_types_matched_manual <- readr::cols(
   group_id = "c",
   id_loan = "c",
   id_direct_loantaker = "c",
   name_direct_loantaker = "c",
-  id_intermediate_parent_1 = "c",
-  name_intermediate_parent_1 = "c",
   id_ultimate_parent = "c",
   name_ultimate_parent = "c",
   loan_size_outstanding = "n",
@@ -98,11 +89,7 @@ col_types_matched_manual <- readr::cols_only(
   loan_size_credit_limit = "n",
   loan_size_credit_limit_currency = "c",
   sector_classification_system = "c",
-  sector_classification_input_type = "c",
   sector_classification_direct_loantaker = "c",
-  fi_type = "c",
-  flag_project_finance_loan = "c",
-  name_project = "c",
   lei_direct_loantaker = "c",
   isin_direct_loantaker = "c",
   id_2dii = "c",
@@ -122,8 +109,6 @@ col_types_raw <- readr::cols(
   id_loan = "c",
   id_direct_loantaker = "c",
   name_direct_loantaker = "c",
-  id_intermediate_parent_1 = "c",
-  name_intermediate_parent_1 = "c",
   id_ultimate_parent = "c",
   name_ultimate_parent = "c",
   loan_size_outstanding = "n",
@@ -131,11 +116,7 @@ col_types_raw <- readr::cols(
   loan_size_credit_limit = "n",
   loan_size_credit_limit_currency = "c",
   sector_classification_system = "c",
-  sector_classification_input_type = "c",
   sector_classification_direct_loantaker = "c",
-  fi_type = "c",
-  flag_project_finance_loan = "c",
-  name_project = "c",
   lei_direct_loantaker = "c",
   isin_direct_loantaker = "c"
 )

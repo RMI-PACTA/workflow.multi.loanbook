@@ -117,10 +117,25 @@ if (!file.exists(path_abcd)) {
 
 abcd <- readxl::read_xlsx(
   path = file.path(path_abcd),
-  sheet = sheet_abcd,
-  col_types = cols_abcd$col_types_abcd
-)
-if (!all(cols_abcd$col_names_abcd %in% names(abcd))) {
+  sheet = sheet_abcd
+) %>% dplyr::select(
+  dplyr::all_of(cols_abcd)
+) %>%
+  dplyr::mutate(
+    company_id = as.numeric(.data$company_id),
+    name_company = as.character(.data$name_company),
+    lei = as.character(.data$lei),
+    is_ultimate_owner = as.logical(.data$is_ultimate_owner),
+    sector = as.character(.data$sector),
+    technology = as.character(.data$technology),
+    plant_location = as.character(.data$plant_location),
+    year = as.integer(.data$year),
+    production = as.numeric(.data$production),
+    production_unit = as.character(.data$production_unit),
+    emission_factor = as.numeric(.data$emission_factor),
+    emission_factor_unit = as.character(.data$emission_factor_unit)
+  )
+if (!all(cols_abcd %in% names(abcd))) {
   stop("Columns in abcd do not match expected input names. Please check your input.")
 }
 

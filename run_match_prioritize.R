@@ -46,8 +46,8 @@ if (length(list_matched_manual) == 0) {
 
 matched_lbk_manual <- vroom::vroom(
   file = file.path(dir_matched, list_matched_manual),
-  col_types = col_types_matched_manual,
-  col_select = dplyr::all_of(col_select_matched_manual)
+  col_types = col_types_matched_manual#,
+  # col_select = dplyr::all_of(col_select_matched_manual)
 ) %>%
   dplyr::group_split(.data$group_id)
 
