@@ -30,6 +30,9 @@ Imports:
     tidyr,
     vroom,
     withr
+Remotes:
+    rmi-pacta/pacta.multi.loanbook.analysis,
+    rmi-pacta/pacta.multi.loanbook.plot
 Depends:
     R (>= 4.1.0)
 License: MIT + file LICENSE
