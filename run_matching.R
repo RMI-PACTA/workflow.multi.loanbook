@@ -153,7 +153,7 @@ if (matching_use_own_sector_classification) {
 }
 
 ## load raw loan books----
-list_raw <- list.files(dir_raw)[grepl(".csv", list.files(dir_raw))]
+list_raw <- list.files(path = dir_raw, pattern = "[.]csv$")
 
 if (length(list_raw) == 0) {
   stop(glue::glue("No raw loan book csvs found in {dir_raw}. Please check your project setup!"))
