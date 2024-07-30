@@ -17,12 +17,19 @@ Encoding: UTF-8
 Imports:
     config,
     dplyr,
+    ggplot2,
+    glue,
     pacta.multi.loanbook.analysis,
     pacta.multi.loanbook.plot,
+    r2dii.data,
+    r2dii.match,
+    r2dii.plot,
     readr,
+    readxl,
     rlang,
     tidyr,
-    vroom
+    vroom,
+    withr
 Depends:
     R (>= 4.1.0)
 License: MIT + file LICENSE
