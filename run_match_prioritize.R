@@ -10,19 +10,17 @@ source("helper_functions.R")
 # load config----
 config_dir <- config::get("directories")
 config_files <- config::get("file_names")
+config_match_prio <- config::get("match_prioritize")
+config_prepare_sector_split <- config::get("sector_split")
 
 dir_matched <- config_dir$dir_matched
-
-config_match_prio <- config::get("match_prioritize")
-match_prio_priority <- config_match_prio$priority
-
-config_prepare_sector_split <- config::get("sector_split")
-apply_sector_split <- config_prepare_sector_split$apply_sector_split
-sector_split_type_select <- config_prepare_sector_split$sector_split_type
-
 path_abcd <- file.path(config_dir$dir_abcd, config_files$filename_abcd)
 sheet_abcd <- config_files$sheet_abcd
 
+match_prio_priority <- config_match_prio$priority
+
+apply_sector_split <- config_prepare_sector_split$apply_sector_split
+sector_split_type_select <- config_prepare_sector_split$sector_split_type
 
 # validate config values----
 if (!length(dir_matched) == 1) {
@@ -49,7 +47,7 @@ if (!is.null(match_prio_priority)) {
 
 # load data----
 ## load manually matched files----
-list_matched_manual <- list.files(dir_matched)[grepl("^matched_lbk_.*_manual.csv$", list.files(dir_matched))]
+list_matched_manual <- list.files(path = dir_matched, pattern = "^matched_lbk_.*_manual[.]csv$")
 
 if (length(list_matched_manual) == 0) {
   stop(glue::glue("No manually matched loan book csvs found in {dir_matched}. Please check your project setup!"))
@@ -57,8 +55,7 @@ if (length(list_matched_manual) == 0) {
 
 matched_lbk_manual <- readr::read_csv(
   file = file.path(dir_matched, list_matched_manual),
-  col_types = col_types_matched_manual#,
-  # col_select = dplyr::all_of(col_select_matched_manual)
+  col_types = col_types_matched_manual
 ) %>%
   dplyr::group_split(.data$group_id)
 
