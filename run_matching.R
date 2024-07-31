@@ -153,7 +153,7 @@ if (matching_use_own_sector_classification) {
 }
 
 ## load raw loan books----
-list_raw <- list.files(dir_raw)[grepl(".csv", list.files(dir_raw))]
+list_raw <- list.files(path = dir_raw, pattern = "[.]csv$")
 
 if (length(list_raw) == 0) {
   stop(glue::glue("No raw loan book csvs found in {dir_raw}. Please check your project setup!"))
@@ -164,10 +164,7 @@ raw_lbk <- vroom::vroom(
   col_types = col_types_raw,
   id = "group_id"
 ) %>%
-  dplyr::mutate(
-    group_id = gsub(glue::glue("{dir_raw}/"), "", .data$group_id),
-    group_id = gsub(".csv", "", .data$group_id)
-  ) %>%
+  dplyr::mutate(group_id = tools::file_path_sans_ext(basename(.data$group_id))) %>%
   dplyr::group_split(.data$group_id)
 
 # match and save loan books----
