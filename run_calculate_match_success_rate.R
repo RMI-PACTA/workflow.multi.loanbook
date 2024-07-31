@@ -4,6 +4,7 @@ library(ggplot2)
 library(r2dii.data)
 library(r2dii.match)
 library(r2dii.plot)
+library(readr)
 library(tidyr)
 library(withr)
 
@@ -95,7 +96,7 @@ if (length(list_raw) == 0) {
   stop(glue::glue("No raw loan book csvs found in {dir_raw}. Please check your project setup!"))
 }
 
-raw_lbk <- vroom::vroom(
+raw_lbk <- readr::read_csv(
   file = file.path(dir_raw, list_raw),
   col_types = col_types_raw,
   id = "group_id"
@@ -112,7 +113,7 @@ if (length(list_matched_prioritized) == 0) {
   stop(glue::glue("No matched prioritized loan book csvs found in {dir_matched}. Please check your project setup!"))
 }
 
-matched_prioritized <- vroom::vroom(
+matched_prioritized <- readr::read_csv(
   file = file.path(dir_matched, list_matched_prioritized),
   col_types = col_types_matched_prioritized,
   col_select = dplyr::all_of(col_select_matched_prioritized)

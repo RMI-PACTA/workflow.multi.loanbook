@@ -2,7 +2,6 @@
 library(dplyr, warn.conflicts = FALSE)
 library(r2dii.match)
 library(readr)
-library(vroom)
 
 # source helpers----
 source("expected_columns.R")
@@ -44,7 +43,7 @@ if (length(list_matched_manual) == 0) {
   stop(glue::glue("No manually matched loan book csvs found in {dir_matched}. Please check your project setup!"))
 }
 
-matched_lbk_manual <- vroom::vroom(
+matched_lbk_manual <- readr::read_csv(
   file = file.path(dir_matched, list_matched_manual),
   col_types = col_types_matched_manual#,
   # col_select = dplyr::all_of(col_select_matched_manual)
