@@ -33,9 +33,6 @@
 # load packages----
 library(dplyr, warn.conflicts = FALSE)
 library(janitor)
-library(r2dii.analysis)
-library(r2dii.data)
-library(r2dii.match)
 library(readr)
 library(readxl)
 library(rlang)
@@ -47,10 +44,10 @@ source("expected_columns.R")
 # load config----
 config_dir <- config::get("directories")
 config_files <- config::get("file_names")
+config_project_parameters <- config::get("project_parameters")
+config_prepare_sector_split <- config::get("sector_split")
 
 dir_matched <- config_dir$dir_matched
-
-config_prepare_sector_split <- config::get("sector_split")
 
 path_sector_split <- file.path(
   config_prepare_sector_split$dir_split_company_id,
@@ -64,12 +61,8 @@ path_advanced_company_indicators <- file.path(
 
 sheet_advanced_company_indicators <- config_prepare_sector_split$sheet_advanced_company_indicators
 
-
-config_project_parameters <- config::get("project_parameters")
-
 start_year <- config_project_parameters$start_year
 time_frame <- config_project_parameters$time_frame
-
 
 ## load input data----
 advanced_company_indicators_raw <- readxl::read_xlsx(
@@ -77,17 +70,20 @@ advanced_company_indicators_raw <- readxl::read_xlsx(
   sheet = sheet_advanced_company_indicators
 )
 
-company_ids_included <- readr::read_csv(
+company_ids_primary_energy_split <- readr::read_csv(
   path_sector_split,
   col_types = readr::cols_only(company_id = "d"),
   col_select = "company_id"
 ) %>%
   dplyr::pull(.data$company_id)
 
-abcd_removed_inactive_companies <- readr::read_csv(
-  file.path(config_dir$dir_abcd, "abcd_removed_inactive_companies.csv"),
-  col_select = cols_abcd
-)
+# optional: remove inactive companies
+if (config_project_parameters$remove_inactive_companies) {
+  abcd_removed_inactive_companies <- readr::read_csv(
+    file.path(config_dir$dir_abcd, "abcd_removed_inactive_companies.csv"),
+    col_select = cols_abcd
+  )
+}
 
 ## auxiliary data sets----
 
@@ -123,13 +119,22 @@ unit_conversion <- tibble::tribble(
   "power",       "MWh",             8.598e-08
 )
 
-## calculate sector split----
+# calculate sector split----
+## wrangle input data----
 advanced_company_indicators <- advanced_company_indicators_raw %>%
   janitor::clean_names() %>%
+  # to compare primary energy units, we need power generation, not power capacity
   dplyr::filter(
-    (.data$asset_sector == "Power" & .data$activity_unit != "MW") | .data$asset_sector != "Power"
+    (.data$asset_sector == "Power" & .data$activity_unit == "MWh") | .data$asset_sector != "Power"
   ) %>%
-  dplyr::select(-c(starts_with("direct_ownership_"), starts_with("financial_control_"))) %>%
+  dplyr::select(
+    -dplyr::all_of(
+      c(
+        starts_with("direct_ownership_"),
+        starts_with("financial_control_")
+      )
+    )
+  ) %>%
   dplyr::rename_with(.fn = ~ gsub("asset_", "", .x)) %>%
   tidyr::pivot_longer(
     cols = dplyr::starts_with("equity_ownership_"),
@@ -139,13 +144,6 @@ advanced_company_indicators <- advanced_company_indicators_raw %>%
     values_ptypes = list("value" = numeric())
   ) %>%
   dplyr::mutate(year = as.numeric(.data$year)) %>%
-  dplyr::filter(
-    dplyr::between(
-      .data$year,
-      .env$start_year,
-      .env$start_year + .env$time_frame
-    )
-  ) %>%
   dplyr::mutate(
     sector = tolower(.data$sector),
     sector = dplyr::case_when(
@@ -181,14 +179,18 @@ advanced_company_indicators <- advanced_company_indicators_raw %>%
     production = "value",
     production_unit = "activity_unit"
   ) %>%
+  # we calculate the sector split based on the primary energy mix of the start year
   dplyr::filter(.data$year == .env$start_year)
 
-# remove inactive companies
-advanced_company_indicators <- advanced_company_indicators %>%
-  dplyr::anti_join(abcd_removed_inactive_companies, by = "company_id")
+# optional: remove inactive companies
+if (config_project_parameters$remove_inactive_companies) {
+  advanced_company_indicators <- advanced_company_indicators %>%
+    dplyr::anti_join(abcd_removed_inactive_companies, by = "company_id")
+}
 
+## determine sector splits by company----
 ### count number of sectors and energy sectors per company----
-multi_sector_companies_prep <- advanced_company_indicators %>%
+n_sectors_by_company <- advanced_company_indicators %>%
   dplyr::mutate(
     energy_sector = dplyr::if_else(
       .data$sector %in% c("coal", "oil and gas", "power"), TRUE, FALSE
@@ -209,19 +211,18 @@ multi_sector_companies_prep <- advanced_company_indicators %>%
   )
 
 ### identify companies active in more than one energy sector----
-multi_sector_companies_energy <- multi_sector_companies_prep %>%
+companies_in_multiple_energy_sectors <- n_sectors_by_company %>%
   dplyr::filter(.data$n_energy_sectors > 1) %>%
   dplyr::pull(.data$company_id)
 
 ## calculate equal weights sector split for all sectors----
-# keep only companies with activity in multiple sectors and split by number of
-# sectors equally
+# for each company add sector split by number of sectors the company operates in equally
 sector_split_all_companies <- advanced_company_indicators %>%
   dplyr::filter(
     .data$year == .env$start_year
   ) %>%
   dplyr::inner_join(
-    multi_sector_companies_prep,
+    n_sectors_by_company,
     by = "company_id"
   ) %>%
   dplyr::mutate(
@@ -235,26 +236,28 @@ sector_split_all_companies <- advanced_company_indicators %>%
     .by = c("company_id", "name_company", "sector", "year", "production_unit")
   )
 
+### check that the sum of the sector split of each company is 1----
 check_sector_split_all_companies <- sector_split_all_companies %>%
   dplyr::summarise(
     sum_share = sum(sector_split, na.rm = TRUE),
     .by = "company_id"
   )
+
 if (any(round(check_sector_split_all_companies$sum_share, 3) != 1)) {
   stop("sector_split_all_companies contains companies for which the sum of the sector split deviates from 1")
 }
 
-
-## calcualte primary energy-based sector split for energy sectors----
-sector_split_energy_companies <- advanced_company_indicators %>%
+## calculate primary energy-based sector split for energy sectors----
+# keep only companies that are active in multiple energy sectors
+sector_split_multi_energy_companies <- advanced_company_indicators %>%
   dplyr::filter(
-    .data$company_id %in% .env$multi_sector_companies_energy,
+    .data$company_id %in% .env$companies_in_multiple_energy_sectors,
     .data$sector %in% c("coal", "oil and gas", "power"),
     .data$year == .env$start_year
   )
 
-# adjust power capacity by primary energy efficiency
-sector_split_energy_companies_power <- sector_split_energy_companies %>%
+# adjust power generation by primary energy efficiency
+sector_split_multi_energy_companies_power <- sector_split_multi_energy_companies %>%
   dplyr::filter(.data$sector == "power") %>%
   dplyr::inner_join(
     primary_energy_efficiency,
@@ -266,9 +269,9 @@ sector_split_energy_companies_power <- sector_split_energy_companies %>%
   dplyr::select(-"primary_energy_efficiency_factor")
 
 # transform all energy sectors to common unit of energy: mtoe
-sector_split_energy_companies <- sector_split_energy_companies %>%
+sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
   dplyr::filter(.data$sector != "power") %>%
-  dplyr::bind_rows(sector_split_energy_companies_power) %>%
+  dplyr::bind_rows(sector_split_multi_energy_companies_power) %>%
   dplyr::summarise(
     production = sum(.data$production, na.rm = TRUE),
     .by = c("company_id", "name_company", "sector", "year", "production_unit")
@@ -283,8 +286,8 @@ sector_split_energy_companies <- sector_split_energy_companies %>%
   ) %>%
   dplyr::select(-"value_in_mtoe")
 
-# get the sector split for each company based on common energy units
-sector_split_energy_companies <- sector_split_energy_companies %>%
+# get the sector split for each multi energy sector company based on common energy units
+sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
   dplyr::mutate(
     sector_split = .data$production / sum(.data$production, na.rm = TRUE),
     .by = c(
@@ -293,7 +296,10 @@ sector_split_energy_companies <- sector_split_energy_companies %>%
       "year",
       "production_unit"
     )
-  ) %>%
+  )
+
+# wrangle
+sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
   dplyr::select(
     dplyr::all_of(
       c(
@@ -305,24 +311,31 @@ sector_split_energy_companies <- sector_split_energy_companies %>%
         "sector_split"
       )
     )
-  ) %>%
-  dplyr::filter(.data$company_id %in% company_ids_included)
+  )
 
+# keep only companies that are provided in input company list
+sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
+  dplyr::filter(.data$company_id %in% company_ids_primary_energy_split)
 
-check_sector_split_energy_companies <- sector_split_energy_companies %>%
+### check that the sum of the primary energy based sector split of each company is 1----
+check_sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
   dplyr::summarise(
     sum_share = sum(sector_split, na.rm = TRUE),
     .by = "company_id"
   )
-if (any(round(check_sector_split_energy_companies$sum_share, 3) != 1)) {
-  stop("sector_split_energy_companies contains companies for which the sum of the sector split deviates from 1")
+
+if (any(round(check_sector_split_multi_energy_companies$sum_share, 3) != 1)) {
+  stop("sector_split_multi_energy_companies contains companies for which the sum of the sector split deviates from 1")
 }
 
 ## combine the sector splits----
-# ... to use equal weights for non energy sectors and scaled primary energy bsaed splits for energy sectors
+# we want to use the plain equal weights split for companies that do not operate in more than one energy sector
+# for companies that operate in more than one energy sector, we want to scale the primary energy based split to the equal weights share of these sectors in the total company operations
+# this means that if a multi energy sector company only operates in energy sectors it will retain the primary energy based sector split
+# if a company operates in multiple energy sectors and non-energy sectors, we want to scale the primary energy based split to the equal weights share of the energy sectors to ensure the exosure to non-energy sectors is not lost
 sector_split_all_companies_final <- sector_split_all_companies %>%
   dplyr::left_join(
-    sector_split_energy_companies,
+    sector_split_multi_energy_companies,
     by = c("company_id", "name_company", "sector"),
     suffix = c("_all", "_energy")
   ) %>%
@@ -339,18 +352,20 @@ sector_split_all_companies_final <- sector_split_all_companies %>%
     production_unit = "production_unit_all"
   )
 
+### check that the sum of the combined sector split of each company is 1----
 check_sector_split_all_companies_final <- sector_split_all_companies_final %>%
   dplyr::summarise(
     sum_share = sum(.data$sector_split, na.rm = TRUE),
     .by = "company_id"
   )
+
 if (any(round(check_sector_split_all_companies_final$sum_share, 3) != 1)) {
   stop("sector_split_all_companies_final contains companies for which the sum of the sector split deviates from 1")
 }
 
 
 ## write output----
-sector_split_energy_companies %>%
+sector_split_multi_energy_companies %>%
   dplyr::select(
     all_of(
       c(
@@ -362,7 +377,7 @@ sector_split_energy_companies %>%
     )
   ) %>%
   readr::write_csv(
-    file.path(dir_matched, "companies_sector_split_energy_only.csv"),
+    file.path(dir_matched, "companies_sector_split_primary_energy_only.csv"),
     na = ""
   )
 
