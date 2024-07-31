@@ -26,7 +26,6 @@ Imports:
     r2dii.plot,
     readr,
     readxl,
-    rlang,
     tidyr,
     vroom,
     withr
