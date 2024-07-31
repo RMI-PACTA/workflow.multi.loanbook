@@ -110,8 +110,8 @@ rm_inactive_companies <- function(data,
       values_from = "sum_production"
     ) %>%
     dplyr::filter(
-      !!rlang::sym(paste0("prod_", start_year)) > 0,
-      !!rlang::sym(paste0("prod_", start_year + time_frame)) == 0
+      .data[[paste0("prod_", start_year)]] > 0,
+      .data[[paste0("prod_", start_year + time_frame)]] == 0
     ) %>%
     dplyr::distinct(
       .data$name_company,
