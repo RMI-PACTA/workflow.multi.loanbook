@@ -159,7 +159,7 @@ if (length(list_raw) == 0) {
   stop(glue::glue("No raw loan book csvs found in {dir_raw}. Please check your project setup!"))
 }
 
-raw_lbk <- vroom::vroom(
+raw_lbk <- readr::read_csv(
   file = file.path(dir_raw, list_raw),
   col_types = col_types_raw,
   id = "group_id"

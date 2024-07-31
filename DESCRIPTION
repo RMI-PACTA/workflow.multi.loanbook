@@ -24,11 +24,10 @@ Imports:
     r2dii.data,
     r2dii.match,
     r2dii.plot,
-    readr,
+    readr (>= 2.0.0),
     readxl,
     rlang,
     tidyr,
-    vroom,
     withr
 Remotes:
     rmi-pacta/pacta.multi.loanbook.analysis,
