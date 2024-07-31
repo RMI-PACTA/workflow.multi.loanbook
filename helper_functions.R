@@ -10,10 +10,7 @@ lost_companies_sector_split <- function(abcd,
       by = c("company_id")
     )
 
-  # lost_companies_sector_split %>%
-  #   readr::write_csv(
-  #     path = file.path(input_path_matched, "lost_companies_sector_split.csv")
-  #   )
+  return(lost_companies_sector_split)
 }
 
 apply_sector_split_to_loans <- function(data,
@@ -24,18 +21,6 @@ apply_sector_split_to_loans <- function(data,
 
   abcd_id <- abcd %>%
     dplyr::distinct(.data$company_id, .data$name_company)
-
-  # # identify lost_companies_sector_split and write to csv for inspection
-  # lost_companies_sector_split <- companies_sector_split %>%
-  #   dplyr::anti_join(
-  #     abcd_id,
-  #     by = c("company_id")
-  #   )
-  #
-  # lost_companies_sector_split %>%
-  #   readr::write_csv(
-  #     path = file.path(input_path_matched, "lost_companies_sector_split.csv")
-  #   )
 
   companies_sector_split <- companies_sector_split %>%
     dplyr::left_join(
