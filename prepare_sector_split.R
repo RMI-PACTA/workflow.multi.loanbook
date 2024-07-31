@@ -35,8 +35,6 @@ library(dplyr, warn.conflicts = FALSE)
 library(janitor)
 library(readr)
 library(readxl)
-library(rlang)
-library(vroom)
 
 # source helpers----
 source("expected_columns.R")
@@ -99,7 +97,7 @@ if (config_project_parameters$remove_inactive_companies) {
 # https://iea.blob.core.windows.net/assets/acaecb98-4430-4395-a4fa-d1a4d5ccb3d3/EnergyEfficiencyIndicatorsforPublicElectricityProductionfromFossilFuels.pdf
 # last accessed on 15 March, 2023.
 
-primary_energy_efficiency <- tibble::tribble(
+primary_energy_efficiency <- dplyr::tribble(
   ~region,  ~sector,     ~technology, ~primary_energy_efficiency_factor,
   "global", "power",       "coalcap",                             0.343,
   "global", "power",        "gascap",                             0.395,
@@ -112,7 +110,7 @@ primary_energy_efficiency <- tibble::tribble(
 # unit conversions are taken from: http://wds.iea.org/wds/pdf/WORLDBAL_Documentation.pdf
 # last accessed on 27 Feb 2023
 
-unit_conversion <- tibble::tribble(
+unit_conversion <- dplyr::tribble(
   ~sector,       ~unit,             ~value_in_mtoe,
   "coal",        "t coal",          7e-07,
   "oil and gas", "GJ",              2.3885e-08,
