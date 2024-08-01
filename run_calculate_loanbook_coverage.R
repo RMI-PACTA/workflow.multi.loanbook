@@ -11,78 +11,40 @@ source("expected_columns.R")
 
 # load config----
 config_dir <- config::get("directories")
+config_project_parameters <- config::get("project_parameters")
+
 dir_matched <- config_dir$dir_matched
 dir_output <- dir_matched
+dir.create(dir_output, recursive = TRUE)
 
-config_project_parameters <- config::get("project_parameters")
 scenario_source_input <- config_project_parameters$scenario_source
 start_year <- config_project_parameters$start_year
 
-config_sector_split <- config::get("sector_split")
-apply_sector_split <- config_sector_split$apply_sector_split
 
-if (apply_sector_split) {
-  sector_split_type <- config_sector_split$sector_split_type
-  dir_output <- file.path(dir_output, sector_split_type)
-}
-
-dir.create(dir_output, recursive = TRUE)
-
-# description production data ----
-# read abcd
+# load data ----
+## read abcd data----
 abcd <- readr::read_csv(
   file.path(config_dir$dir_abcd, "abcd_final.csv"),
-  # col_types = col_types_abcd,
   col_select = dplyr::all_of(cols_abcd)
 )
-# # replace potential NA values with 0 in production
-# abcd["production"][is.na(abcd["production"])] <- 0
+# replace potential NA values with 0 in production
+abcd["production"][is.na(abcd["production"])] <- 0
 
 # filter to start year as we calculate coverage in start year
-abcd <- abcd %>%
-  dplyr::filter(.data$year == .env$start_year)
+abcd <- dplyr::filter(abcd, .data$year == .env$start_year)
 
-# coverage of production by companies in loan books compared to total production----
-
-## load matched prioritized loan books----
-list_matched_prioritized <- list.files(dir_matched)[grepl("^matched_prio_.*csv$", list.files(dir_matched))]
+## read matched prioritized loan books----
+list_matched_prioritized <- list.files(path = dir_matched, pattern = "^matched_prio_.*csv$")
 
 if (length(list_matched_prioritized) == 0) {
   stop(glue::glue("No matched prioritized loan book csvs found in {dir_matched}. Please check your project setup!"))
 }
 
-matched_prioritized <- vroom::vroom(
+matched_prioritized <- readr::read_csv(
   file = file.path(dir_matched, list_matched_prioritized),
   col_types = col_types_matched_prioritized,
   col_select = dplyr::all_of(col_select_matched_prioritized)
 )
-
-# optional: apply sector split----
-# if (apply_sector_split & sector_split_type_select %in% c("equal_weights", "worst_case")) {
-#   if (sector_split_type_select == "equal_weights") {
-#     companies_sector_split <- readr::read_csv(
-#       file.path(input_path_matched, "companies_sector_split.csv"),
-#       col_types = col_types_companies_sector_split,
-#       col_select = dplyr::all_of(col_select_companies_sector_split)
-#     )
-#   } else {
-#     companies_sector_split <- readr::read_csv(
-#       file.path(input_path_matched, "companies_sector_split_worst_case.csv"),
-#       col_types = col_types_companies_sector_split_worst_case,
-#       col_select = dplyr::all_of(col_select_companies_sector_split_worst_case)
-#     )
-#   }
-#
-#   matched_prioritized <- matched_prioritized %>%
-#     apply_sector_split_to_loans(
-#       abcd = abcd,
-#       companies_sector_split = companies_sector_split,
-#       sector_split_type = sector_split_type_select,
-#       input_path_matched = input_path_matched
-#     )
-# }
-
-# create summary of loan book coverage----
 
 matched_companies <- matched_prioritized %>%
   dplyr::distinct(
@@ -93,7 +55,7 @@ matched_companies <- matched_prioritized %>%
     .data$score
   )
 
-# get required countries for region_select----
+## get required countries for region_select----
 region_isos_complete <- r2dii.data::region_isos
 
 region_isos_select <- region_isos_complete %>%
@@ -101,10 +63,12 @@ region_isos_select <- region_isos_complete %>%
     .data$source == .env$scenario_source_input
   )
 
-# available_regions
+# create summary of loan book coverage----
+# coverage of production by companies in loan books compared to total production
+# calculate summary stats for each available region
+
 available_regions <- unique(region_isos_select$region)
 
-# calculate summary stats for each available region----
 production_coverage_summary <- NULL
 
 for (region_i in available_regions) {
@@ -113,7 +77,7 @@ for (region_i in available_regions) {
     dplyr::pull(.data$isos) %>%
     toupper()
 
-  # summarise abcd by relevant region
+  # get total production and average emission intensity for each relevant region for all companies
   production_coverage_summary_i <- abcd %>%
     dplyr::filter(.data$plant_location %in% .env$countries_select_i) %>%
     dplyr::summarise(
@@ -136,7 +100,7 @@ for (region_i in available_regions) {
       )
     )
 
-  # add information on matched companies across analysed loan books
+  # add information on matched companies and corresponding exposures across all analyzed loan books
   production_coverage_summary_i <- production_coverage_summary_i %>%
     dplyr::left_join(
       matched_companies,
@@ -175,7 +139,7 @@ for (region_i in available_regions) {
 
 }
 
-# format
+# format----
 production_coverage_summary <- production_coverage_summary %>%
   dplyr::select(
     dplyr::all_of(
@@ -193,7 +157,7 @@ production_coverage_summary <- production_coverage_summary %>%
     )
   )
 
-# save to matched directory
+# save output to matched directory----
 production_coverage_summary %>%
   readr::write_csv(
     file.path(dir_output, "summary_statistics_loanbook_coverage.csv"),
