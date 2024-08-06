@@ -53,11 +53,11 @@ path_sector_split <- file.path(
 )
 
 path_advanced_company_indicators <- file.path(
-  config_prepare_sector_split$dir_advanced_company_indicators,
-  config_prepare_sector_split$filename_advanced_company_indicators
+  config_dir$dir_abcd,
+  config_files$filename_abcd
 )
 
-sheet_advanced_company_indicators <- config_prepare_sector_split$sheet_advanced_company_indicators
+sheet_advanced_company_indicators <- config_files$sheet_abcd
 
 start_year <- config_project_parameters$start_year
 time_frame <- config_project_parameters$time_frame
