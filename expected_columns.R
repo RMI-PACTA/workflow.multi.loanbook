@@ -31,7 +31,7 @@ col_types_scenario_sda <- readr::cols_only(
 )
 col_select_scenario_sda <- names(col_types_scenario_sda[["cols"]])
 
-# expected columns abcd file
+# expected columns abcd file (raw and final)
 cols_abcd <- c(
   "company_id",
   "name_company",
@@ -45,6 +45,22 @@ cols_abcd <- c(
   "production_unit",
   "emission_factor",
   "emission_factor_unit"
+)
+
+# expected column types final abcd file
+col_types_abcd_final <- c(
+  company_id = "i",
+  name_company = "c",
+  lei = "c",
+  is_ultimate_owner = "l",
+  sector = "c",
+  technology = "c",
+  plant_location = "c",
+  year = "i",
+  production = "n",
+  production_unit = "c",
+  emission_factor = "n",
+  emission_factor_unit = "c"
 )
 
 # expected columns matched_prioritized_all_groups file
