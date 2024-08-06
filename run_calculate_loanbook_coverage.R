@@ -12,7 +12,7 @@ config_project_parameters <- config::get("project_parameters")
 
 dir_matched <- config_dir$dir_matched
 dir_output <- dir_matched
-dir.create(dir_output, recursive = TRUE)
+dir.create(dir_output, recursive = TRUE, showWarnings = FALSE)
 
 scenario_source_input <- config_project_parameters$scenario_source
 start_year <- config_project_parameters$start_year
