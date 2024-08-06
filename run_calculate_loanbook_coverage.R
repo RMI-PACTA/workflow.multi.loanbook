@@ -44,9 +44,9 @@ matched_prioritized <- readr::read_csv(
   col_select = dplyr::all_of(col_select_matched_prioritized)
 )
 
-# TODO: either keep loanbook id or allow use of by_group to avoid double counting
 matched_companies <- matched_prioritized %>%
   dplyr::distinct(
+    .data$group_id,
     .data$name_abcd,
     .data$sector_abcd,
     .data$loan_size_outstanding,
@@ -106,7 +106,8 @@ for (region_i in available_regions) {
       by = c(
         "name_company" = "name_abcd",
         "sector" = "sector_abcd"
-      )
+      ),
+      relationship = "many-to-many"
     )
 
   # calculate summary statistics
@@ -117,21 +118,28 @@ for (region_i in available_regions) {
     ) %>%
     dplyr::mutate(
       matched_rows_company_sector = sum(.data$score, na.rm = TRUE),
-      .by =c("name_company", "sector")
+      .by =c("group_id", "name_company", "sector")
+    ) %>%
+    dplyr::mutate(
+      n_companies_total = dplyr::n_distinct(.data$name_company, na.rm = TRUE),
+      production_total = sum(.data$production, na.rm = TRUE),
+      .by = c("sector")
     ) %>%
     dplyr::summarise(
       total_exposure = sum(.data$loan_size_outstanding / .data$matched_rows_company_sector, na.rm = TRUE),
       n_companies_matched = dplyr::n_distinct(.data$matched_company, na.rm = TRUE),
-      n_companies_total = dplyr::n_distinct(.data$name_company, na.rm = TRUE),
       production_financed = sum(.data$financed_production, na.rm = TRUE),
-      production_total = sum(.data$production, na.rm = TRUE),
-      .by = c("sector")
+      .by = c("group_id", "sector", "n_companies_total", "production_total")
     ) %>%
     dplyr::mutate(
       share_companies_matched = .data$n_companies_matched / .data$n_companies_total,
       share_production_financed = .data$production_financed / .data$production_total,
       region = .env$region_i
     )
+
+  # remove entries that were not matched to any loan book AFTER calculating
+  # summary statistics, so that totals are calculated correctly
+  production_coverage_summary_i <- dplyr::filter(production_coverage_summary_i, !is.na(.data$group_id))
 
   production_coverage_summary <- production_coverage_summary %>%
     dplyr::bind_rows(production_coverage_summary_i)
@@ -143,6 +151,7 @@ production_coverage_summary <- production_coverage_summary %>%
   dplyr::select(
     dplyr::all_of(
       c(
+        "group_id",
         "region",
         "sector",
         "total_exposure",
