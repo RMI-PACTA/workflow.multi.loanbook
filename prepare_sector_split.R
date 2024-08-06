@@ -79,7 +79,8 @@ company_ids_primary_energy_split <- readr::read_csv(
 if (config_project_parameters$remove_inactive_companies) {
   abcd_removed_inactive_companies <- readr::read_csv(
     file.path(config_dir$dir_abcd, "abcd_removed_inactive_companies.csv"),
-    col_select = cols_abcd
+    col_select = cols_abcd,
+    col_types = col_types_abcd_final
   )
 }
 

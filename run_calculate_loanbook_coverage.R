@@ -2,9 +2,6 @@
 library(dplyr, warn.conflicts = FALSE)
 library(r2dii.data)
 library(readr)
-library(rlang)
-library(tidyr)
-library(vroom)
 
 # source helpers----
 source("expected_columns.R")
@@ -25,7 +22,8 @@ start_year <- config_project_parameters$start_year
 ## read abcd data----
 abcd <- readr::read_csv(
   file.path(config_dir$dir_abcd, "abcd_final.csv"),
-  col_select = dplyr::all_of(cols_abcd)
+  col_select = dplyr::all_of(cols_abcd),
+  col_types = col_types_abcd_final
 )
 # replace potential NA values with 0 in production
 abcd["production"][is.na(abcd["production"])] <- 0
@@ -46,6 +44,7 @@ matched_prioritized <- readr::read_csv(
   col_select = dplyr::all_of(col_select_matched_prioritized)
 )
 
+# TODO: either keep loanbook id or allow use of by_group to avoid double counting
 matched_companies <- matched_prioritized %>%
   dplyr::distinct(
     .data$name_abcd,
