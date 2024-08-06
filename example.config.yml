@@ -30,6 +30,7 @@ default:
     filename_split_company_id: "split_company_ids.csv"
     dir_advanced_company_indicators: "path/to/advanced_company_indicators_folder"
     filename_advanced_company_indicators: "advanced_company_indicators.xlsx"
+    sheet_advanced_company_indicators: "Company Activities"
   matching:
     prep_input_level: "direct_loantaker"
     params_match_name:
