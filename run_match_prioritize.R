@@ -23,12 +23,10 @@ apply_sector_split <- config_prepare_sector_split$apply_sector_split
 sector_split_type_select <- config_prepare_sector_split$sector_split_type
 
 # validate config values----
-if (!length(dir_matched) == 1) {
-  stop("Argument dir_matched must be of length 1. Please check your input.")
-}
-if (!inherits(dir_matched, "character")) {
-  stop("Argument dir_matched must be of class character. Please check your input.")
-}
+stop_if_not_length(dir_matched, 1L)
+stop_if_not_inherits(dir_matched, "character")
+stop_if_dir_not_found(dir_matched, desc = "Matched loanbooks")
+
 if (!is.null(match_prio_priority)) {
   if (
     !inherits(match_prio_priority, "character") &
@@ -88,9 +86,8 @@ if (apply_sector_split & sector_split_type_select == "equal_weights") {
       emission_factor = as.numeric(.data$emission_factor),
       emission_factor_unit = as.character(.data$emission_factor_unit)
     )
-  if (!all(cols_abcd %in% names(abcd))) {
-    stop("Columns in abcd do not match expected input names. Please check your input.")
-  }
+
+  stop_if_not_expected_columns(abcd, cols_abcd, "ABCD")
 }
 
 # prioritize and save files----

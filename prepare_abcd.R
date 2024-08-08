@@ -6,6 +6,7 @@ library(tidyr)
 
 # source helpers----
 source("expected_columns.R")
+source("helper_functions.R")
 
 # load config----
 config_dir <- config::get("directories")
@@ -24,44 +25,27 @@ project_parameters_start_year <- config_project_parameters$start_year
 project_parameters_time_frame <- config_project_parameters$time_frame
 
 # validate config values----
-if (!length(path_abcd) == 1) {
-  stop("Argument path_abcd must be of length 1. Please check your input.")
-}
-if (!inherits(path_abcd, "character")) {
-  stop("Argument path_abcd must be of class character. Please check your input.")
-}
-if (!length(sheet_abcd) == 1) {
-  stop("Argument sheet_abcd must be of length 1. Please check your input.")
-}
-if (!inherits(sheet_abcd, "character")) {
-  stop("Argument sheet_abcd must be of class character. Please check your input.")
-}
+stop_if_not_length(path_abcd, 1L)
+stop_if_not_inherits(path_abcd, "character")
+stop_if_file_not_found(path_abcd, desc = "ABCD")
+
+stop_if_not_length(sheet_abcd, 1L)
+stop_if_not_inherits(sheet_abcd, "character")
+stop_if_sheet_not_found(sheet_abcd, path_abcd)
+
 if (!is.null(prepare_abcd_rm_inactive_companies)) {
-  if (!length(prepare_abcd_rm_inactive_companies) == 1) {
-    stop("Argument prepare_abcd_rm_inactive_companies must be of length 1. Please check your input.")
-  }
-  if (!inherits(prepare_abcd_rm_inactive_companies, "logical")) {
-    stop("Argument prepare_abcd_rm_inactive_companies must be of class logical. Please check your input.")
-  }
+  stop_if_not_length(prepare_abcd_rm_inactive_companies, 1L)
+  stop_if_not_inherits(prepare_abcd_rm_inactive_companies, "logical")
 }
-if (!length(project_parameters_start_year) == 1) {
-  stop("Argument project_parameters_start_year must be of length 1. Please check your input.")
-}
-if (!inherits(project_parameters_start_year, "integer")) {
-  stop("Argument project_parameters_start_year must be of class integer Please check your input.")
-}
-if (!length(project_parameters_time_frame) == 1) {
-  stop("Argument project_parameters_time_frame must be of length 1. Please check your input.")
-}
-if (!inherits(project_parameters_time_frame, "integer")) {
-  stop("Argument project_parameters_time_frame must be of class integer Please check your input.")
-}
+
+stop_if_not_length(project_parameters_start_year, 1L)
+stop_if_not_inherits(project_parameters_start_year, "integer")
+
+stop_if_not_length(project_parameters_time_frame, 1L)
+stop_if_not_inherits(project_parameters_time_frame, "integer")
 
 
 # load data----
-if (!file.exists(path_abcd)) {
-  stop(glue::glue("No ABCD file found at path {path_abcd}. Please check your project setup!"))
-}
 
 abcd <- readxl::read_xlsx(
   path = file.path(path_abcd),
@@ -83,9 +67,8 @@ abcd <- readxl::read_xlsx(
     emission_factor = as.numeric(.data$emission_factor),
     emission_factor_unit = as.character(.data$emission_factor_unit)
   )
-if (!all(cols_abcd %in% names(abcd))) {
-  stop("Columns in abcd do not match expected input names. Please check your input.")
-}
+
+stop_if_not_expected_columns(abcd, cols_abcd, "ABCD")
 
 # optional: remove inactive companies----
 

@@ -5,6 +5,7 @@ library(readr)
 
 # source helpers----
 source("expected_columns.R")
+source("helper_functions.R")
 
 # load config----
 config_dir <- config::get("directories")
@@ -17,6 +18,10 @@ dir.create(dir_output, recursive = TRUE, showWarnings = FALSE)
 scenario_source_input <- config_project_parameters$scenario_source
 start_year <- config_project_parameters$start_year
 
+# validate config values----
+stop_if_not_length(dir_matched, 1L)
+stop_if_not_inherits(dir_matched, "character")
+stop_if_dir_not_found(dir_matched, desc = "Matched loanbooks")
 
 # load data ----
 ## read abcd data----

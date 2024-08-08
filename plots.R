@@ -5,9 +5,8 @@ plot_match_success_rate <- function(data,
                                     match_success_type = c("n", "outstanding", "credit_limit"),
                                     currency) {
   # validate inputs
-  if (!inherits(data, "data.frame")) {
-    stop("Argument data must be of class data.frame. Please check your inputs.")
-  }
+  stop_if_not_inherits(data, "data.frame")
+
   expected_cols <- c(
     "group_id",
     "sector",
@@ -24,12 +23,8 @@ plot_match_success_rate <- function(data,
       )
     )
   }
-  if (!length(currency) == 1) {
-    stop("Argument currency must be of length 1. Please check your inputs.")
-  }
-  if (!inherits(currency, "character")) {
-    stop("Argument currency must be of class character. Please check your inputs.")
-  }
+  stop_if_not_length(currency, 1L)
+  stop_if_not_inherits(currency, "character")
 
   # prepare data
   if (aggregate) {
