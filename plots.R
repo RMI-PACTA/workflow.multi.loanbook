@@ -16,12 +16,10 @@ plot_match_success_rate <- function(data,
     "metric_type"
   )
   if (!all(names(data) %in% expected_cols)) {
-    stop(
-      glue::glue(
-        "Input data does not contain all expected columns. The following columns
-        are missing: {paste(setdiff(expected_cols, data), collapse = ", ")}."
-      )
-    )
+    cli::cli_abort(c(
+      "x" = "Input data does not contain all expected columns.",
+      "i" = "The following columns are missing: {.var {setdiff(expected_cols, names(data))}}."
+    ))
   }
   stop_if_not_length(currency, 1L)
   stop_if_not_inherits(currency, "character")
