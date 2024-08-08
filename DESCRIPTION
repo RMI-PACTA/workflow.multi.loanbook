@@ -15,6 +15,7 @@ Description: This repo allows running PACTA analyses on multiple loan books in a
     exported to specified project paths.
 Encoding: UTF-8
 Imports:
+    cli (>= 3.2.0),
     config,
     dplyr,
     ggplot2,
