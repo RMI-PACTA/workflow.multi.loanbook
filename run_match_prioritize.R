@@ -94,7 +94,7 @@ if (apply_sector_split & sector_split_type_select == "equal_weights") {
 }
 
 # prioritize and save files----
-for (i in 1:length(matched_lbk_manual)) {
+for (i in seq_along(matched_lbk_manual)) {
   group_name <- unique(matched_lbk_manual[[i]]$group_id)
 
   ## prioritize matched loan book----

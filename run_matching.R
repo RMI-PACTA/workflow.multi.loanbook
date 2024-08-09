@@ -168,7 +168,7 @@ raw_lbk <- readr::read_csv(
   dplyr::group_split(.data$group_id)
 
 # match and save loan books----
-for (i in 1:length(raw_lbk)) {
+for (i in seq_along(raw_lbk)) {
   group_name <- unique(raw_lbk[[i]]$group_id)
 
   ## match data----
