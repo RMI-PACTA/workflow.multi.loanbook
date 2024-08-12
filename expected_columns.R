@@ -90,6 +90,7 @@ col_types_matched_prioritized <- readr::cols_only(
   borderline = "l"
 )
 col_select_matched_prioritized <- names(col_types_matched_prioritized[["cols"]])
+col_standard_matched_prioritized <- c(col_select_matched_prioritized[!col_select_matched_prioritized == "group_id"])
 
 # expected columns matched_all_groups file
 # col_types_matched_manual <- readr::cols_only(
