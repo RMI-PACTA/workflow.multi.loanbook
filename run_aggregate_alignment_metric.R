@@ -110,8 +110,7 @@ increasing_or_decreasing_aggregate_alignment <- r2dii.data::increasing_or_decrea
 # define if technologies should be treated as build out or phase down in the
 # aggregation
 technology_direction <- scenario_input_tms %>%
-  # TODO: to config
-  dplyr::filter(.data$year %in% c(2022, 2027)) %>%
+  dplyr::filter(.data$year %in% c(.env$start_year, .env$start_year + .env$time_frame)) %>%
   dplyr::distinct(.data$scenario_source, .data$scenario, .data$sector, .data$technology, .data$region) %>%
   dplyr::inner_join(r2dii.data::increasing_or_decreasing, by = c("sector", "technology")) %>%
   dplyr::mutate(
