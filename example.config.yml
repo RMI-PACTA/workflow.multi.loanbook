@@ -6,7 +6,6 @@ default:
     dir_matched: "path/to/matched_folder"
     dir_output: "path/to/output_folder"
   file_names:
-    filename_raw: "raw_loanbook_123.csv"
     filename_scenario_tms: "scenarios_2022_tms.csv"
     filename_scenario_sda: "scenarios_2022_sda.csv"
     filename_abcd: "abcd.xlsx"
