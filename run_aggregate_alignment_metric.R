@@ -3,9 +3,6 @@ library(dplyr)
 library(pacta.multi.loanbook.analysis)
 library(r2dii.analysis)
 library(r2dii.data)
-library(readxl)
-library(rlang)
-library(tidyr)
 
 # source helpers----
 source("expected_columns.R")
@@ -123,7 +120,7 @@ technology_direction <- scenario_input_tms %>%
 matched_prio_non_standard_cols <- names(matched_prioritized)[!names(matched_prioritized) %in% col_standard_matched_prioritized]
 
 ## prepare TMS company level P4B results for aggregation----
-tms_result_for_aggregation <- target_market_share(
+tms_result_for_aggregation <- r2dii.analysis::target_market_share(
   data = matched_prioritized %>%
     dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols)),
   abcd = abcd,
@@ -138,7 +135,7 @@ tms_result_for_aggregation <- target_market_share(
 # calculate aggregation for the loan book
 
 company_technology_deviation_tms <- tms_result_for_aggregation %>%
-  calculate_company_tech_deviation(
+  pacta.multi.loanbook.analysis::calculate_company_tech_deviation(
     technology_direction = technology_direction,
     scenario_source = scenario_source_input,
     scenario = scenario_select,
@@ -150,7 +147,7 @@ company_technology_deviation_tms %>%
   readr::write_csv(file.path(dir_output_aggregated, "company_technology_deviation_tms.csv"))
 
 company_alignment_net_tms <- company_technology_deviation_tms %>%
-  calculate_company_aggregate_alignment_tms(
+  pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_tms(
     scenario_source = scenario_source_input,
     scenario = scenario_select,
     level = "net"
@@ -160,7 +157,7 @@ company_alignment_net_tms %>%
   readr::write_csv(file.path(dir_output_aggregated, "company_alignment_net_tms.csv"))
 
 company_alignment_bo_po_tms <- company_technology_deviation_tms %>%
-  calculate_company_aggregate_alignment_tms(
+  pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_tms(
     scenario_source = scenario_source_input,
     scenario = scenario_select,
     level = "bo_po"
@@ -170,7 +167,7 @@ company_alignment_bo_po_tms %>%
   readr::write_csv(file.path(dir_output_aggregated, "company_alignment_bo_po_tms.csv"))
 
 ## prepare SDA company level P4B results for aggregation----
-sda_result_for_aggregation <- target_sda(
+sda_result_for_aggregation <- r2dii.analysis::target_sda(
   data = matched_prioritized %>%
     dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols)),
   abcd = abcd,
@@ -184,7 +181,7 @@ sda_result_for_aggregation <- sda_result_for_aggregation %>%
 
 ## aggregate SDA P4B results to company level alignment metric----
 company_alignment_net_sda <- sda_result_for_aggregation %>%
-  calculate_company_aggregate_alignment_sda(
+  pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_sda(
     scenario_source = scenario_source_input,
     scenario = scenario_select,
     time_frame = time_frame
@@ -227,7 +224,7 @@ write_alignment_metric_to_csv <- function(data,
 
 # net
 aggregated_alignment_net <- company_alignment_net %>%
-  aggregate_alignment_loanbook_exposure(
+  pacta.multi.loanbook.analysis::aggregate_alignment_loanbook_exposure(
     matched = matched_prioritized,
     level = "net",
     .by = by_group
@@ -242,7 +239,7 @@ write_alignment_metric_to_csv(
 
 # buildout / phaseout
 aggregated_alignment_bo_po <- company_alignment_bo_po_tms %>%
-  aggregate_alignment_loanbook_exposure(
+  pacta.multi.loanbook.analysis::aggregate_alignment_loanbook_exposure(
     matched = matched_prioritized,
     level = "bo_po",
     .by = by_group
