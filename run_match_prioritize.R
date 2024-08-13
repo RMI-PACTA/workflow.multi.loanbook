@@ -111,6 +111,12 @@ for (i in seq_along(matched_lbk_manual)) {
       )
   }
 
+  ## ensure that id_loan is unique across all loan books----
+  matched_prio_i <- matched_prio_i %>%
+    dplyr::mutate(
+      id_loan = paste(.data$id_loan, i, sep = "_")
+    )
+
   ## write matched prioritized loan book to file----
   matched_prio_i %>%
     readr::write_csv(

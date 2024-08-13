@@ -52,3 +52,5 @@ default:
     plot_height: 8
     plot_units: "in"
     plot_resolution: 300
+  aggregate_alignment_metric:
+    by_group: "group_id"
