@@ -118,10 +118,6 @@ technology_direction <- scenario_input_tms %>%
   ) %>%
   dplyr::select(-"increasing_or_decreasing")
 
-
-# add benchmark loan book for aggregation
-matched_total <- matched_prioritized
-
 # remove non standard columns from matched_prioritzed when calling r2dii.analysis
 # TODO: check if this needs to be adjusted to remove other by_group columns
 matched_prio_non_standard_cols <- names(matched_prioritized)[!names(matched_prioritized) %in% col_standard_matched_prioritized]
@@ -246,7 +242,7 @@ write_alignment_metric_to_csv <- function(data,
 # net
 aggregated_alignment_net <- company_alignment_net %>%
   aggregate_alignment_loanbook_exposure(
-    matched = matched_total,
+    matched = matched_prioritized,
     level = "net",
     .by = by_group
   )
