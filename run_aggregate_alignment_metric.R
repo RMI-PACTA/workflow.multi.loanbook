@@ -170,13 +170,8 @@ company_alignment_bo_po_tms %>%
   readr::write_csv(file.path(dir_output_aggregated, "company_alignment_bo_po_tms.csv"))
 
 ## prepare SDA company level P4B results for aggregation----
-# # TODO: clean up id_loan stuff
-# matched_prioritized_temp <- matched_prioritized %>%
-#   dplyr::mutate(id_loan = dplyr::row_number())
-
 sda_result_for_aggregation <- target_sda(
   data = matched_prioritized %>%
-  # data = matched_prioritized_temp %>%
     dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols)),
   abcd = abcd,
   co2_intensity_scenario = scenario_input_sda,
@@ -188,19 +183,10 @@ sda_result_for_aggregation <- sda_result_for_aggregation %>%
   dplyr::filter(.data$year >= .env$start_year)
 
 ## aggregate SDA P4B results to company level alignment metric----
-# calculate aggregation for the loan book
-# temporary fix for the scenario name issue in geco_2021, relates to https://github.com/RMI-PACTA/r2dii.analysis/issues/425
-# if (scenario_source_input == "geco_2021" & scenario_select == "1.5c") {
-#   scenario_select_sda <- "1.5c-unif"
-# } else {
-#   scenario_select_sda <- scenario_select
-# }
-
 company_alignment_net_sda <- sda_result_for_aggregation %>%
   calculate_company_aggregate_alignment_sda(
     scenario_source = scenario_source_input,
     scenario = scenario_select,
-    # scenario = scenario_select_sda,
     time_frame = time_frame
   )
 
