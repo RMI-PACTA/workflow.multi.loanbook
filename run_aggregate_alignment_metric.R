@@ -1,5 +1,6 @@
 # set up project and load packages----
 library(dplyr)
+library(glue)
 library(pacta.multi.loanbook.analysis)
 library(r2dii.analysis)
 library(r2dii.data)
@@ -46,9 +47,7 @@ if (length(by_group) >= 1) {
 }
 
 # load input data----
-region_isos_complete <- r2dii.data::region_isos
-
-region_isos_select <- region_isos_complete %>%
+region_isos_select <- r2dii.data::region_isos %>%
   dplyr::filter(
     .data$source == .env$scenario_source_input,
     .data$region %in% .env$region_select
@@ -108,10 +107,20 @@ increasing_or_decreasing_aggregate_alignment <- r2dii.data::increasing_or_decrea
 # aggregation
 technology_direction <- scenario_input_tms %>%
   dplyr::filter(.data$year %in% c(.env$start_year, .env$start_year + .env$time_frame)) %>%
-  dplyr::distinct(.data$scenario_source, .data$scenario, .data$sector, .data$technology, .data$region) %>%
+  dplyr::distinct(
+    .data$scenario_source,
+    .data$scenario,
+    .data$sector,
+    .data$technology,
+    .data$region
+  ) %>%
   dplyr::inner_join(r2dii.data::increasing_or_decreasing, by = c("sector", "technology")) %>%
   dplyr::mutate(
-    directional_dummy = dplyr::if_else(.data$increasing_or_decreasing == "increasing", 1, -1)
+    directional_dummy = dplyr::if_else(
+      .data$increasing_or_decreasing == "increasing",
+      1,
+      -1
+    )
   ) %>%
   dplyr::select(-"increasing_or_decreasing")
 
@@ -144,7 +153,10 @@ company_technology_deviation_tms <- tms_result_for_aggregation %>%
   )
 
 company_technology_deviation_tms %>%
-  readr::write_csv(file.path(dir_output_aggregated, "company_technology_deviation_tms.csv"))
+  readr::write_csv(
+    file.path(dir_output_aggregated, "company_technology_deviation_tms.csv"),
+    na = ""
+  )
 
 company_alignment_net_tms <- company_technology_deviation_tms %>%
   pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_tms(
@@ -154,7 +166,10 @@ company_alignment_net_tms <- company_technology_deviation_tms %>%
   )
 
 company_alignment_net_tms %>%
-  readr::write_csv(file.path(dir_output_aggregated, "company_alignment_net_tms.csv"))
+  readr::write_csv(
+    file.path(dir_output_aggregated, "company_alignment_net_tms.csv"),
+    na = ""
+  )
 
 company_alignment_bo_po_tms <- company_technology_deviation_tms %>%
   pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_tms(
@@ -164,7 +179,10 @@ company_alignment_bo_po_tms <- company_technology_deviation_tms %>%
   )
 
 company_alignment_bo_po_tms %>%
-  readr::write_csv(file.path(dir_output_aggregated, "company_alignment_bo_po_tms.csv"))
+  readr::write_csv(
+    file.path(dir_output_aggregated, "company_alignment_bo_po_tms.csv"),
+    na = ""
+  )
 
 ## prepare SDA company level P4B results for aggregation----
 sda_result_for_aggregation <- r2dii.analysis::target_sda(
@@ -188,14 +206,16 @@ company_alignment_net_sda <- sda_result_for_aggregation %>%
   )
 
 company_alignment_net_sda %>%
-  readr::write_csv(file.path(dir_output_aggregated, "company_alignment_net_sda.csv"))
+  readr::write_csv(
+    file.path(dir_output_aggregated, "company_alignment_net_sda.csv"),
+    na = ""
+  )
 
 ## calculate sector and loan book level aggregate alignment based on company exposures in loan book----
 
 # the company level aggregate alignment metrics are then joined with the matched
 # loan book to derive some high level summary statistics on the loan book level
-company_alignment_net <- company_alignment_net_tms %>%
-  dplyr::bind_rows(company_alignment_net_sda)
+company_alignment_net <- dplyr::bind_rows(company_alignment_net_tms, company_alignment_net_sda)
 
 # show exposures (n companies and loan size) by alignment with given scenario
 write_alignment_metric_to_csv <- function(data,
