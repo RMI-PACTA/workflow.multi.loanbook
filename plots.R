@@ -53,8 +53,8 @@ plot_match_success_rate <- function(data,
 
   theme_match_success <- ggplot2::theme(
     legend.position = "top",
-    legend.title = element_blank(),
-    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)
+    legend.title = ggplot2::element_blank(),
+    axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1)
   )
 
   # plot description
@@ -93,9 +93,9 @@ plot_match_success_rate <- function(data,
   plot <- data %>%
     ggplot2::ggplot(
       ggplot2::aes(
-        x = r2dii.plot::to_title(sector),
-        y = match_success_rate,
-        fill = matched
+        x = r2dii.plot::to_title(.data[["sector"]]),
+        y = .data[["match_success_rate"]],
+        fill = .data[["matched"]]
       )
     ) +
     ggplot2::geom_col(
@@ -182,7 +182,7 @@ generate_individual_outputs <- function(data,
         dplyr::between(.data$year, .env$start_year, .env$start_year + .env$time_horizon)
       ) %>%
       dplyr::mutate(
-        label = case_when(
+        label = dplyr::case_when(
           .data$metric == "projected" ~ "Portfolio",
           .data$metric == "corporate_economy" ~ "Corporate Economy",
           .data$metric == .env$target_scenario ~ glue::glue("{r2dii.plot::to_title(toupper(.env$scenario))} Scenario")
@@ -451,7 +451,7 @@ validate_input_data_generate_individual_outputs <- function(data,
                                                             matched_prioritized,
                                                             target_type) {
   if (target_type == "sda") {
-    validate_data_has_expected_cols(
+    pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
       data = data,
       expected_columns = c(
         "sector", "year", "region", "scenario_source", "emission_factor_metric",
@@ -459,7 +459,7 @@ validate_input_data_generate_individual_outputs <- function(data,
       )
     )
   } else if (target_type == "tms") {
-    validate_data_has_expected_cols(
+    pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
       data = data,
       expected_columns = c(
         "sector", "technology", "year", "region", "scenario_source", "metric",
@@ -469,7 +469,7 @@ validate_input_data_generate_individual_outputs <- function(data,
     )
   }
 
-  validate_data_has_expected_cols(
+  pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
     data = matched_prioritized,
     expected_columns = c(
       "group_id", "name_abcd", "sector", "sector_abcd", "loan_size_outstanding",

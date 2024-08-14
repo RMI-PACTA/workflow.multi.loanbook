@@ -20,13 +20,16 @@ Imports:
     dplyr,
     ggplot2,
     glue,
+    janitor,
     pacta.multi.loanbook.analysis,
     pacta.multi.loanbook.plot,
+    r2dii.analysis,
     r2dii.data,
     r2dii.match,
     r2dii.plot,
     readr (>= 2.0.0),
     readxl,
+    rlang,
     tidyr,
     withr
 Remotes:
