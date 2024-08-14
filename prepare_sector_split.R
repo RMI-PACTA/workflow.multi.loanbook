@@ -129,8 +129,8 @@ advanced_company_indicators <- advanced_company_indicators_raw %>%
   dplyr::select(
     -dplyr::all_of(
       c(
-        starts_with("direct_ownership_"),
-        starts_with("financial_control_")
+        dplyr::starts_with("direct_ownership_"),
+        dplyr::starts_with("financial_control_")
       )
     )
   ) %>%
@@ -238,7 +238,7 @@ sector_split_all_companies <- advanced_company_indicators %>%
 ### check that the sum of the sector split of each company is 1----
 check_sector_split_all_companies <- sector_split_all_companies %>%
   dplyr::summarise(
-    sum_share = sum(sector_split, na.rm = TRUE),
+    sum_share = sum(.data[["sector_split"]], na.rm = TRUE),
     .by = "company_id"
   )
 
@@ -319,7 +319,7 @@ sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
 ### check that the sum of the primary energy based sector split of each company is 1----
 check_sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
   dplyr::summarise(
-    sum_share = sum(sector_split, na.rm = TRUE),
+    sum_share = sum(.data[["sector_split"]], na.rm = TRUE),
     .by = "company_id"
   )
 
@@ -366,7 +366,7 @@ if (any(round(check_sector_split_all_companies_final$sum_share, 3) != 1)) {
 ## write output----
 sector_split_multi_energy_companies %>%
   dplyr::select(
-    all_of(
+    dplyr::all_of(
       c(
         "company_id",
         "name_company",
@@ -382,7 +382,7 @@ sector_split_multi_energy_companies %>%
 
 sector_split_all_companies %>%
   dplyr::select(
-    all_of(
+    dplyr::all_of(
       c(
         "company_id",
         "name_company",
@@ -398,7 +398,7 @@ sector_split_all_companies %>%
 
 sector_split_all_companies_final %>%
   dplyr::select(
-    all_of(
+    dplyr::all_of(
       c(
         "company_id",
         "name_company",

@@ -98,7 +98,7 @@ rm_inactive_companies <- function(data,
                                   time_frame) {
   comp_sec_no_prod_t5 <- data %>%
     dplyr::filter(
-      year %in% c(.env$start_year, .env$start_year + .env$time_frame)
+      .data[["year"]] %in% c(.env$start_year, .env$start_year + .env$time_frame)
     ) %>%
     dplyr::summarise(
       sum_production = sum(.data$production, na.rm = TRUE),
@@ -120,7 +120,7 @@ rm_inactive_companies <- function(data,
 
   comp_sec_no_prod_t0_to_t5 <- data %>%
     dplyr::filter(
-      year %in% c(.env$start_year, .env$start_year + .env$time_frame)
+      .data[["year"]] %in% c(.env$start_year, .env$start_year + .env$time_frame)
     ) %>%
     dplyr::summarise(
       sum_production = sum(.data$production, na.rm = TRUE),

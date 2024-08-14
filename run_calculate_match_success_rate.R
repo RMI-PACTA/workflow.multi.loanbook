@@ -248,14 +248,14 @@ lbk_match_success <- lbk_match_success %>%
 lbk_match_success_rate <- lbk_match_success %>%
   dplyr::mutate(
     total_n = dplyr::n(),
-    total_outstanding = sum(loan_size_outstanding, na.rm = TRUE),
-    total_credit_limit = sum(loan_size_credit_limit, na.rm = TRUE),
+    total_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
+    total_credit_limit = sum(.data[["loan_size_credit_limit"]], na.rm = TRUE),
     .by = c("group_id", "sector")
   ) %>%
   dplyr::summarise(
     match_n = dplyr::n(),
-    match_outstanding = sum(loan_size_outstanding, na.rm = TRUE),
-    match_credit_limit = sum(loan_size_credit_limit, na.rm = TRUE),
+    match_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
+    match_credit_limit = sum(.data[["loan_size_credit_limit"]], na.rm = TRUE),
     .by = c("group_id", "sector", "matched", "total_n", "total_outstanding", "total_credit_limit")
   ) %>%
   dplyr::mutate(
