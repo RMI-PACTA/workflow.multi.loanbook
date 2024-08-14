@@ -1,3 +1,10 @@
+#' plot_aggregate_loanbooks
+#'
+#' @return `NULL` (called for side effects)
+#'
+#' @importFrom dplyr %>%
+#' @importFrom rlang .data .env
+
 plot_aggregate_loanbooks <- function() {
   # load config----
   config <- config::get()
