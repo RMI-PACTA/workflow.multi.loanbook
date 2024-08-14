@@ -168,7 +168,11 @@ raw_lbk <- readr::read_csv(
   dplyr::group_split(.data$group_id)
 
 # match and save loan books----
-for (i in cli::cli_progress_along(raw_lbk, "Matching loanbooks")) {
+cli::cli_progress_bar(
+  total = length(raw_lbk),
+  format = "{cli::pb_spin} Matching loanbooks {cli::pb_current}/{cli::pb_total} | ETA: {cli::pb_eta}"
+)
+for (i in seq_along(raw_lbk)) {
   group_name <- unique(raw_lbk[[i]]$group_id)
 
   ## match data----
@@ -209,4 +213,6 @@ for (i in cli::cli_progress_along(raw_lbk, "Matching loanbooks")) {
       file = file.path(dir_matched, glue::glue("matched_lbk_{group_name}.csv")),
       na = ""
     )
+  cli::cli_progress_update()
 }
+cli::cli_progress_done()
