@@ -1,14 +1,4 @@
 run_aggregate_alignment_metric <- function() {
-  # set up project and load packages----
-  library(dplyr)
-  library(glue)
-  library(pacta.multi.loanbook.analysis)
-  library(r2dii.analysis)
-  library(r2dii.data)
-
-  # source helpers----
-  source("expected_columns.R")
-
   # load config----
   config_dir <- config::get("directories")
   config_files <- config::get("file_names")

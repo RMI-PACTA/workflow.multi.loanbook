@@ -1,18 +1,4 @@
 run_calculate_match_success_rate <- function() {
-  # set up project and load packages----
-  library(dplyr)
-  library(ggplot2)
-  library(r2dii.data)
-  library(r2dii.match)
-  library(r2dii.plot)
-  library(readr)
-  library(tidyr)
-  library(withr)
-
-  # source helpers----
-  source("expected_columns.R")
-  source("plots.R")
-
   # load config----
   config_dir <- config::get("directories")
 

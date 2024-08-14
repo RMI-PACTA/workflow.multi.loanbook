@@ -1,13 +1,4 @@
 run_match_prioritize <- function() {
-  # set up project and load packages----
-  library(dplyr, warn.conflicts = FALSE)
-  library(r2dii.match)
-  library(readr)
-
-  # source helpers----
-  source("expected_columns.R")
-  source("helper_functions.R")
-
   # load config----
   config_dir <- config::get("directories")
   config_files <- config::get("file_names")

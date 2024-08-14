@@ -1,12 +1,4 @@
 run_calculate_loanbook_coverage <- function() {
-  # load packages----
-  library(dplyr, warn.conflicts = FALSE)
-  library(r2dii.data)
-  library(readr)
-
-  # source helpers----
-  source("expected_columns.R")
-
   # load config----
   config_dir <- config::get("directories")
   config_project_parameters <- config::get("project_parameters")

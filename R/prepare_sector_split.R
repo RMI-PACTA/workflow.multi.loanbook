@@ -31,15 +31,6 @@
 # multiple sectors, for loan books where such loan allocation is ambiguous.
 
 prepare_sector_split <- function() {
-  # load packages----
-  library(dplyr, warn.conflicts = FALSE)
-  library(janitor)
-  library(readr)
-  library(readxl)
-
-  # source helpers----
-  source("expected_columns.R")
-
   # load config----
   config_dir <- config::get("directories")
   config_files <- config::get("file_names")

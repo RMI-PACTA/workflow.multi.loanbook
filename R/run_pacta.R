@@ -1,16 +1,4 @@
 run_pacta <- function() {
-  # load packages----
-  library(dplyr)
-  library(pacta.multi.loanbook.analysis)
-  library(r2dii.analysis)
-  library(r2dii.data)
-  library(r2dii.plot)
-
-
-  # source helpers----
-  source("expected_columns.R")
-  source("plots.R")
-
   # load config----
   config <- config::get()
 

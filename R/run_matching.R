@@ -1,15 +1,4 @@
 run_matching <- function() {
-  # set up project and load packages----
-  library(dplyr, warn.conflicts = FALSE)
-  library(r2dii.data)
-  library(r2dii.match)
-  library(readr)
-  library(readxl)
-  library(withr)
-
-  # source helpers----
-  source("expected_columns.R")
-
   # load config----
   # TODO: all params to function signature
   config_dir <- config::get("directories")

@@ -1,20 +1,4 @@
 plot_aggregate_loanbooks <- function() {
-  # load packages----
-  library(dplyr)
-  library(ggplot2)
-  library(glue)
-  library(htmlwidgets)
-  library(pacta.multi.loanbook.plot)
-  library(r2dii.analysis)
-  library(r2dii.data)
-  library(readr)
-  library(rlang)
-
-
-  source("expected_columns.R")
-  source("plots.R")
-
-
   # load config----
   config <- config::get()
 

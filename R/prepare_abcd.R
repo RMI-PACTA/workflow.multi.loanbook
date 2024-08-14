@@ -1,13 +1,4 @@
 prepare_abcd <- function() {
-  # set up project and load packages----
-  library(dplyr, warn.conflicts = FALSE)
-  library(readr)
-  library(readxl)
-  library(tidyr)
-
-  # source helpers----
-  source("expected_columns.R")
-
   # load config----
   config_dir <- config::get("directories")
   config_files <- config::get("file_names")
