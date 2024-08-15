@@ -22,57 +22,35 @@ run_calculate_match_success_rate <- function() {
   match_success_rate_plot_resolution <- config_match_success_rate$plot_resolution
 
   # validate config values----
-  if (!length(dir_raw) == 1) {
-    stop("Argument dir_raw must be of length 1. Please check your input.")
-  }
-  if (!inherits(dir_raw, "character")) {
-    stop("Argument dir_raw must be of class character. Please check your input.")
-  }
-  if (!length(dir_matched) == 1) {
-    stop("Argument dir_matched must be of length 1. Please check your input.")
-  }
-  if (!inherits(dir_matched, "character")) {
-    stop("Argument dir_matched must be of class character. Please check your input.")
-  }
-  if (!length(matching_use_own_sector_classification) == 1) {
-    stop("Argument matching_use_own_sector_classification must be of length 1. Please check your input.")
-  }
-  if (!inherits(matching_use_own_sector_classification, "logical")) {
-    stop("Argument matching_use_own_sector_classification must be of class logical. Please check your input.")
-  }
+  stop_if_not_length(dir_raw, 1L)
+  stop_if_not_inherits(dir_raw, "character")
+  stop_if_dir_not_found(dir_raw, desc = "Raw loanbook")
+
+  stop_if_not_length(dir_matched, 1L)
+  stop_if_not_inherits(dir_matched, "character")
+  stop_if_dir_not_found(dir_matched, desc = "Matched loanbook")
+
+  stop_if_not_length(matching_use_own_sector_classification, 1L)
+  stop_if_not_inherits(matching_use_own_sector_classification, "logical")
+
   # path to own sector classification only required if boolean TRUE
   if (matching_use_own_sector_classification) {
-    if (!length(path_own_sector_classification) == 1) {
-      stop("When matching_use_own_sector_classification == TRUE, argument path_own_sector_classification must be of length 1. Please check your input.")
-    }
-    if (!inherits(path_own_sector_classification, "character")) {
-      stop("When matching_use_own_sector_classification == TRUE, argument path_own_sector_classification must be of class character. Please check your input.")
-    }
+    stop_if_not_length(path_own_sector_classification, 1L)
+    stop_if_not_inherits(path_own_sector_classification, "character")
+    stop_if_file_not_found(path_own_sector_classification, desc = "Manual sector classification")
   }
-  if (!length(match_success_rate_plot_width) == 1) {
-    stop("Argument match_success_rate_plot_width must be of length 1. Please check your input.")
-  }
-  if (!inherits(match_success_rate_plot_width, "integer")) {
-    stop("Argument match_success_rate_plot_width must be of class integer Please check your input.")
-  }
-  if (!length(match_success_rate_plot_height) == 1) {
-    stop("Argument match_success_rate_plot_height must be of length 1. Please check your input.")
-  }
-  if (!inherits(match_success_rate_plot_height, "integer")) {
-    stop("Argument match_success_rate_plot_height must be of class integer Please check your input.")
-  }
-  if (!length(match_success_rate_plot_units) == 1) {
-    stop("Argument match_success_rate_plot_units must be of length 1. Please check your input.")
-  }
-  if (!inherits(match_success_rate_plot_units, "character")) {
-    stop("Argument match_success_rate_plot_units must be of class character. Please check your input.")
-  }
-  if (!length(match_success_rate_plot_resolution) == 1) {
-    stop("Argument match_success_rate_plot_resolution must be of length 1. Please check your input.")
-  }
-  if (!inherits(match_success_rate_plot_resolution, "integer")) {
-    stop("Argument match_success_rate_plot_resolution must be of class integer Please check your input.")
-  }
+
+  stop_if_not_length(match_success_rate_plot_width, 1L)
+  stop_if_not_inherits(match_success_rate_plot_width, "integer")
+
+  stop_if_not_length(match_success_rate_plot_height, 1L)
+  stop_if_not_inherits(match_success_rate_plot_height, "integer")
+
+  stop_if_not_length(match_success_rate_plot_units, 1L)
+  stop_if_not_inherits(match_success_rate_plot_units, "character")
+
+  stop_if_not_length(match_success_rate_plot_resolution, 1L)
+  stop_if_not_inherits(match_success_rate_plot_resolution, "integer")
 
   # load data----
 
@@ -108,10 +86,6 @@ run_calculate_match_success_rate <- function() {
 
   ## load classification system----
   if (matching_use_own_sector_classification) {
-    if (!file.exists(path_own_sector_classification)) {
-      stop(glue::glue("No sector classification file found at path {path_own_sector_classification}. Please check your project setup!"))
-    }
-
     sector_classification_system <- readr::read_csv(
       file = path_own_sector_classification,
       col_types = col_types_sector_classification,

@@ -10,6 +10,16 @@ run_calculate_loanbook_coverage <- function() {
   scenario_source_input <- config_project_parameters$scenario_source
   start_year <- config_project_parameters$start_year
 
+  # validate config values----
+  stop_if_not_length(dir_matched, 1L)
+  stop_if_not_inherits(dir_matched, "character")
+  stop_if_dir_not_found(dir_matched, desc = "Matched loanbooks")
+
+  stop_if_not_length(scenario_source_input, 1L)
+  stop_if_not_inherits(scenario_source_input, "character")
+
+  stop_if_not_length(start_year, 1L)
+  stop_if_not_inherits(start_year, "integer")
 
   # load data ----
   ## read abcd data----
