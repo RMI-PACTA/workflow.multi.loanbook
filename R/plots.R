@@ -5,9 +5,7 @@ plot_match_success_rate <- function(data,
                                     match_success_type = c("n", "outstanding", "credit_limit"),
                                     currency) {
   # validate inputs
-  if (!inherits(data, "data.frame")) {
-    stop("Argument data must be of class data.frame. Please check your inputs.")
-  }
+  stop_if_not_inherits(data, "data.frame")
   expected_cols <- c(
     "group_id",
     "sector",
@@ -16,20 +14,14 @@ plot_match_success_rate <- function(data,
     "match_success_rate",
     "metric_type"
   )
-  if (!all(names(data) %in% expected_cols)) {
-    stop(
-      glue::glue(
-        "Input data does not contain all expected columns. The following columns
-        are missing: {paste(setdiff(expected_cols, data), collapse = ", ")}."
-      )
-    )
-  }
-  if (!length(currency) == 1) {
-    stop("Argument currency must be of length 1. Please check your inputs.")
-  }
-  if (!inherits(currency, "character")) {
-    stop("Argument currency must be of class character. Please check your inputs.")
-  }
+  stop_if_not_expected_columns(data, expected_cols, desc = "Input")
+
+  stop_if_not_inherits(metric_type, "character")
+
+  stop_if_not_inherits(match_success_type, "character")
+
+  stop_if_not_length(currency, 1L)
+  stop_if_not_inherits(currency, "character")
 
   # prepare data
   if (aggregate) {
@@ -397,51 +389,28 @@ validate_input_args_generate_individual_outputs <- function(output_directory,
                                                             sector,
                                                             start_year,
                                                             time_horizon) {
-  if (!length(output_directory) == 1) {
-    stop("Argument output_directory must be of length 1. Please check your input.")
-  }
-  if (!inherits(output_directory, "character")) {
-    stop("Argument output_directory must be of class character. Please check your input.")
-  }
-  if (!length(group_id) == 1) {
-    stop("Argument group_id must be of length 1. Please check your input.")
-  }
-  if (!length(scenario_source) == 1) {
-    stop("Argument scenario_source must be of length 1. Please check your input.")
-  }
-  if (!inherits(scenario_source, "character")) {
-    stop("Argument scenario_source must be of class character. Please check your input.")
-  }
-  if (!length(target_scenario) == 1) {
-    stop("Argument target_scenario must be of length 1. Please check your input.")
-  }
-  if (!inherits(target_scenario, "character")) {
-    stop("Argument target_scenario must be of class character. Please check your input.")
-  }
-  if (!length(region) == 1) {
-    stop("Argument region must be of length 1. Please check your input.")
-  }
-  if (!inherits(region, "character")) {
-    stop("Argument region must be of class character. Please check your input.")
-  }
-  if (!length(sector) == 1) {
-    stop("Argument sector must be of length 1. Please check your input.")
-  }
-  if (!inherits(sector, "character")) {
-    stop("Argument sector must be of class character. Please check your input.")
-  }
-  if (!length(start_year) == 1) {
-    stop("Argument start_year must be of length 1. Please check your input.")
-  }
-  if (!inherits(start_year, "integer")) {
-    stop("Argument start_year must be of class integer. Please check your input.")
-  }
-  if (!length(time_horizon) == 1) {
-    stop("Argument time_horizon must be of length 1. Please check your input.")
-  }
-  if (!inherits(time_horizon, "integer")) {
-    stop("Argument time_horizon must be of class integer. Please check your input.")
-  }
+  stop_if_not_length(output_directory, 1L)
+  stop_if_not_inherits(output_directory, "character")
+
+  stop_if_not_length(group_id, 1L)
+
+  stop_if_not_length(scenario_source, 1L)
+  stop_if_not_inherits(scenario_source, "character")
+
+  stop_if_not_length(target_scenario, 1L)
+  stop_if_not_inherits(target_scenario, "character")
+
+  stop_if_not_length(region, 1L)
+  stop_if_not_inherits(region, "character")
+
+  stop_if_not_length(sector, 1L)
+  stop_if_not_inherits(sector, "character")
+
+  stop_if_not_length(start_year, 1L)
+  stop_if_not_inherits(start_year, "integer")
+
+  stop_if_not_length(time_horizon, 1L)
+  stop_if_not_inherits(time_horizon, "integer")
 
   invisible()
 }

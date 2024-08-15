@@ -26,85 +26,51 @@ run_matching <- function() {
   }
 
   # validate config values----
-  if (!length(dir_raw) == 1) {
-    stop("Argument dir_raw must be of length 1. Please check your input.")
-  }
-  if (!inherits(dir_raw, "character")) {
-    stop("Argument dir_raw must be of class character. Please check your input.")
-  }
-  if (!length(path_abcd) == 1) {
-    stop("Argument path_abcd must be of length 1. Please check your input.")
-  }
-  if (!inherits(path_abcd, "character")) {
-    stop("Argument path_abcd must be of class character. Please check your input.")
-  }
-  if (!length(dir_matched) == 1) {
-    stop("Argument dir_matched must be of length 1. Please check your input.")
-  }
-  if (!inherits(dir_matched, "character")) {
-    stop("Argument dir_matched must be of class character. Please check your input.")
-  }
-  if (!length(matching_by_sector) == 1) {
-    stop("Argument matching_by_sector must be of length 1. Please check your input.")
-  }
-  if (!inherits(matching_by_sector, "logical")) {
-    stop("Argument matching_by_sector must be of class logical. Please check your input.")
-  }
-  if (!length(matching_min_score) == 1) {
-    stop("Argument matching_min_score must be of length 1. Please check your input.")
-  }
-  if (!inherits(matching_min_score, "numeric")) {
-    stop("Argument matching_min_score must be of class numeric. Please check your input.")
-  }
-  if (!length(matching_method) == 1) {
-    stop("Argument matching_method must be of length 1. Please check your input.")
-  }
-  if (!inherits(matching_method, "character")) {
-    stop("Argument matching_method must be of class character Please check your input.")
-  }
-  if (!length(matching_p) == 1) {
-    stop("Argument matching_p must be of length 1. Please check your input.")
-  }
-  if (!inherits(matching_p, "numeric")) {
-    stop("Argument matching_p must be of class numeric. Please check your input.")
-  }
+  stop_if_not_length(dir_raw, 1L)
+  stop_if_not_inherits(dir_raw, "character")
+  stop_if_dir_not_found(dir_raw, desc = "Raw loanbook")
+
+  stop_if_not_length(path_abcd, 1L)
+  stop_if_not_inherits(path_abcd, "character")
+  stop_if_file_not_found(path_abcd, desc = "ABCD data")
+
+  stop_if_not_length(dir_matched, 1L)
+  stop_if_not_inherits(dir_matched, "character")
+  stop_if_dir_not_found(dir_matched, desc = "Matched loanbook")
+
+  stop_if_not_length(matching_by_sector, 1L)
+  stop_if_not_inherits(matching_by_sector, "logical")
+
+  stop_if_not_length(matching_min_score, 1L)
+  stop_if_not_inherits(matching_min_score, "numeric")
+
+  stop_if_not_length(matching_method, 1L)
+  stop_if_not_inherits(matching_method, "character")
+
+  stop_if_not_length(matching_p, 1L)
+  stop_if_not_inherits(matching_p, "numeric")
+
   # TODO: check for data.frame
-  # if (!length(matching_overwrite) == 1) {
-  #   stop("Argument matching_overwrite must be of length 1. Please check your input.")
-  # }
-  # if (!inherits(matching_overwrite, "numeric")) {
-  #   stop("Argument matching_overwrite must be of class numeric. Please check your input.")
-  # }
+  # stop_if_not_length(matching_overwrite, 1L)
+  # stop_if_not_inherits(matching_overwrite, "numeric")
+  #
   # TODO: check for join_object
-  # if (!length(matching_join_id) == 1) {
-  #   stop("Argument matching_join_id must be of length 1. Please check your input.")
-  # }
-  # if (!inherits(matching_join_id, "numeric")) {
-  #   stop("Argument matching_join_id must be of class numeric. Please check your input.")
-  # }
-  if (!length(matching_use_own_sector_classification) == 1) {
-    stop("Argument matching_use_own_sector_classification must be of length 1. Please check your input.")
-  }
-  if (!inherits(matching_use_own_sector_classification, "logical")) {
-    stop("Argument matching_use_own_sector_classification must be of class logical. Please check your input.")
-  }
+  # stop_if_not_length(matching_join_id, 1L)
+  # stop_if_not_inherits(matching_join_id, "numeric")
+
+  stop_if_not_length(matching_use_own_sector_classification, 1L)
+  stop_if_not_inherits(matching_use_own_sector_classification, "logical")
+
   # path to own sector classification only required if boolean TRUE
   if (matching_use_own_sector_classification) {
-    if (!length(path_own_sector_classification) == 1) {
-      stop("When matching_use_own_sector_classification == TRUE, argument path_own_sector_classification must be of length 1. Please check your input.")
-    }
-    if (!inherits(path_own_sector_classification, "character")) {
-      stop("When matching_use_own_sector_classification == TRUE, argument path_own_sector_classification must be of class character. Please check your input.")
-    }
+    stop_if_not_length(path_own_sector_classification, 1L)
+    stop_if_not_inherits(path_own_sector_classification, "character")
+    stop_if_file_not_found(path_own_sector_classification, desc = "Manual sector classification")
   }
 
   # load data----
 
   ## load abcd----
-  if (!file.exists(path_abcd)) {
-    stop(glue::glue("No ABCD file found at path {path_abcd}. Please check your project setup!"))
-  }
-
   abcd <- readxl::read_xlsx(
     path = file.path(path_abcd),
     sheet = sheet_abcd
@@ -125,16 +91,11 @@ run_matching <- function() {
       emission_factor = as.numeric(.data$emission_factor),
       emission_factor_unit = as.character(.data$emission_factor_unit)
     )
-  if (!all(cols_abcd %in% names(abcd))) {
-    stop("Columns in abcd do not match expected input names. Please check your input.")
-  }
+
+  stop_if_not_expected_columns(abcd, cols_abcd, desc = "ABCD")
 
   ## optionally load own classification system----
   if (matching_use_own_sector_classification) {
-    if (!file.exists(path_own_sector_classification)) {
-      stop(glue::glue("No sector classification file found at path {path_own_sector_classification}. Please check your project setup!"))
-    }
-
     sector_classification_system <- readr::read_csv(
       file = path_own_sector_classification,
       col_types = col_types_sector_classification,
