@@ -1,28 +1,21 @@
-run_matching <- function() {
-  # load config----
-  # TODO: all params to function signature
-  config_dir <- config::get("directories")
-  config_files <- config::get("file_names")
+run_matching <- function(config) {
+  config <- load_config(config)
 
-  dir_raw <- config_dir$dir_raw
-  path_abcd <- file.path(config_dir$dir_abcd, config_files$filename_abcd)
-  sheet_abcd <- config_files$sheet_abcd
-  dir_matched <- config_dir$dir_matched
+  dir_raw <- get_raw_dir(config)
+  path_abcd <- get_abcd_path(config)
+  sheet_abcd <- get_abcd_sheet(config)
+  dir_matched <- get_matched_dir(config)
 
-  config_matching <- config::get("matching")
+  matching_by_sector <- get_match_by_sector(config)
+  matching_min_score <- get_match_min_score(config)
+  matching_method <- get_match_method(config)
+  matching_p <- get_match_p(config)
+  matching_overwrite <- get_match_overwrite(config)
+  matching_join_id <- get_match_join_id(config)
 
-  matching_by_sector <- config_matching$params_match_name$by_sector
-  matching_min_score <- config_matching$params_match_name$min_score
-  matching_method <- config_matching$params_match_name$method
-  matching_p <- config_matching$params_match_name$p
-  matching_overwrite <- config_matching$params_match_name$overwrite
-  matching_join_id <- config_matching$params_match_name$join_id
-
-  matching_use_own_sector_classification <- config_matching$own_sector_classification$use_own_sector_classification
+  matching_use_own_sector_classification <- get_use_maunal_sector_classification(config)
   if (matching_use_own_sector_classification) {
-    dir_own_sector_classification <- config_matching$own_sector_classification$dir_own_sector_classification
-    filename_own_sector_classification <- config_matching$own_sector_classification$filename_own_sector_classification
-    path_own_sector_classification <- file.path(dir_own_sector_classification, filename_own_sector_classification)
+    path_own_sector_classification <- get_manual_sector_classification_path(config)
   }
 
   # validate config values----

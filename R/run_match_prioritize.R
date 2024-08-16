@@ -1,18 +1,14 @@
-run_match_prioritize <- function() {
-  # load config----
-  config_dir <- config::get("directories")
-  config_files <- config::get("file_names")
-  config_match_prio <- config::get("match_prioritize")
-  config_prepare_sector_split <- config::get("sector_split")
+run_match_prioritize <- function(config) {
+  config <- load_config(config)
 
-  dir_matched <- config_dir$dir_matched
-  path_abcd <- file.path(config_dir$dir_abcd, config_files$filename_abcd)
-  sheet_abcd <- config_files$sheet_abcd
+  dir_matched <- get_matched_dir(config)
+  path_abcd <- get_abcd_path(config)
+  sheet_abcd <- get_abcd_sheet(config)
 
-  match_prio_priority <- config_match_prio$priority
+  match_prio_priority <- get_match_priority(config)
 
-  apply_sector_split <- config_prepare_sector_split$apply_sector_split
-  sector_split_type_select <- config_prepare_sector_split$sector_split_type
+  apply_sector_split <- get_apply_sector_split(config)
+  sector_split_type_select <- get_sector_split_type(config)
 
   # validate config values----
   stop_if_not_length(dir_matched, 1L)

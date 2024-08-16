@@ -30,47 +30,37 @@
 # The intended use case is to provide a rule by which to allocate loans to
 # multiple sectors, for loan books where such loan allocation is ambiguous.
 
-prepare_sector_split <- function() {
-  # load config----
-  config_dir <- config::get("directories")
-  config_files <- config::get("file_names")
-  config_project_parameters <- config::get("project_parameters")
-  config_prepare_sector_split <- config::get("sector_split")
+prepare_sector_split <- function(config) {
+  config <- load_config(config)
 
-  dir_matched <- config_dir$dir_matched
+  dir_matched <- get_matched_dir(config)
+  abcd_dir <- get_abcd_dir(config)
 
-  path_sector_split <- file.path(
-    config_prepare_sector_split$dir_split_company_id,
-    config_prepare_sector_split$filename_split_company_id
-  )
+  sector_split_path <- get_sector_split_path(config)
+  advanced_company_indicators_path <- get_advanced_company_indicators_path(config)
+  sheet_advanced_company_indicators <- get_advanced_company_indicators_sheet(config)
 
-  path_advanced_company_indicators <- file.path(
-    config_prepare_sector_split$dir_advanced_company_indicators,
-    config_prepare_sector_split$filename_advanced_company_indicators
-  )
-
-  sheet_advanced_company_indicators <- config_prepare_sector_split$sheet_advanced_company_indicators
-
-  start_year <- config_project_parameters$start_year
-  time_frame <- config_project_parameters$time_frame
+  start_year <- get_start_year(config)
+  time_frame <- get_time_frame(config)
+  remove_inactive_companies <- get_remove_inactive_companies(config)
 
   ## load input data----
   advanced_company_indicators_raw <- readxl::read_xlsx(
-    path = path_advanced_company_indicators,
+    path = advanced_company_indicators_path,
     sheet = sheet_advanced_company_indicators
   )
 
   company_ids_primary_energy_split <- readr::read_csv(
-    path_sector_split,
+    sector_split_path,
     col_types = readr::cols_only(company_id = "d"),
     col_select = "company_id"
   ) %>%
     dplyr::pull(.data$company_id)
 
   # optional: remove inactive companies
-  if (config_project_parameters$remove_inactive_companies) {
+  if (remove_inactive_companies) {
     abcd_removed_inactive_companies <- readr::read_csv(
-      file.path(config_dir$dir_abcd, "abcd_removed_inactive_companies.csv"),
+      file.path(abcd_dir, "abcd_removed_inactive_companies.csv"),
       col_select = dplyr::all_of(cols_abcd),
       col_types = col_types_abcd_final
     )
@@ -174,7 +164,7 @@ prepare_sector_split <- function() {
     dplyr::filter(.data$year == .env$start_year)
 
   # optional: remove inactive companies
-  if (config_project_parameters$remove_inactive_companies) {
+  if (remove_inactive_companies) {
     advanced_company_indicators <- advanced_company_indicators %>%
       dplyr::anti_join(abcd_removed_inactive_companies, by = "company_id")
   }

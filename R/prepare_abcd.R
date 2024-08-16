@@ -1,19 +1,13 @@
-prepare_abcd <- function() {
-  # load config----
-  config_dir <- config::get("directories")
-  config_files <- config::get("file_names")
+prepare_abcd <- function(config) {
+  config <- load_config(config)
 
-  path_abcd <- file.path(config_dir$dir_abcd, config_files$filename_abcd)
-  sheet_abcd <- config_files$sheet_abcd
+  abcd_dir <- get_abcd_dir(config)
+  path_abcd <- get_abcd_path(config)
+  sheet_abcd <- get_abcd_sheet(config)
 
-  config_prepare_abcd <- config::get("prepare_abcd")
-
-  prepare_abcd_rm_inactive_companies <- config_prepare_abcd$remove_inactive_companies
-
-  config_project_parameters <- config::get("project_parameters")
-
-  project_parameters_start_year <- config_project_parameters$start_year
-  project_parameters_time_frame <- config_project_parameters$time_frame
+  remove_inactive_companies <- get_remove_inactive_companies(config)
+  start_year <- get_start_year(config)
+  time_frame <- get_time_frame(config)
 
   # validate config values----
   stop_if_not_length(path_abcd, 1L)
@@ -24,16 +18,16 @@ prepare_abcd <- function() {
   stop_if_not_inherits(sheet_abcd, "character")
   stop_if_sheet_not_found(sheet_abcd, path_abcd)
 
-  if (!is.null(prepare_abcd_rm_inactive_companies)) {
-    stop_if_not_length(prepare_abcd_rm_inactive_companies, 1L)
-    stop_if_not_inherits(prepare_abcd_rm_inactive_companies, "logical")
+  if (!is.null(remove_inactive_companies)) {
+    stop_if_not_length(remove_inactive_companies, 1L)
+    stop_if_not_inherits(remove_inactive_companies, "logical")
   }
 
-  stop_if_not_length(project_parameters_start_year, 1L)
-  stop_if_not_inherits(project_parameters_start_year, "integer")
+  stop_if_not_length(start_year, 1L)
+  stop_if_not_inherits(start_year, "integer")
 
-  stop_if_not_length(project_parameters_time_frame, 1L)
-  stop_if_not_inherits(project_parameters_time_frame, "integer")
+  stop_if_not_length(time_frame, 1L)
+  stop_if_not_inherits(time_frame, "integer")
 
 
   # load data----
@@ -120,11 +114,11 @@ prepare_abcd <- function() {
     return(data)
   }
 
-  if (prepare_abcd_rm_inactive_companies) {
+  if (remove_inactive_companies) {
     abcd_keep <- abcd %>%
       rm_inactive_companies(
-        start_year = project_parameters_start_year,
-        time_frame = project_parameters_time_frame
+        start_year = start_year,
+        time_frame = time_frame
       )
 
     abcd_removed <- abcd %>%
@@ -136,7 +130,7 @@ prepare_abcd <- function() {
     # write removed inactive companies to file for inspection
     abcd_removed %>%
       readr::write_csv(
-        file.path(config_dir$dir_abcd, "abcd_removed_inactive_companies.csv"),
+        file.path(abcd_dir, "abcd_removed_inactive_companies.csv"),
         na = ""
       )
 
@@ -148,7 +142,7 @@ prepare_abcd <- function() {
   # write final version of abcd to file for use PACTA analysis
   abcd %>%
     readr::write_csv(
-      file.path(config_dir$dir_abcd, "abcd_final.csv"),
+      file.path(abcd_dir, "abcd_final.csv"),
       na = ""
     )
 }

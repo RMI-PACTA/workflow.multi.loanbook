@@ -1,14 +1,13 @@
-run_calculate_loanbook_coverage <- function() {
-  # load config----
-  config_dir <- config::get("directories")
-  config_project_parameters <- config::get("project_parameters")
+run_calculate_loanbook_coverage <- function(config) {
+  config <- load_config(config)
 
-  dir_matched <- config_dir$dir_matched
+  abcd_dir <- get_abcd_dir(config)
+  dir_matched <- get_matched_dir(config)
   dir_output <- dir_matched
   dir.create(dir_output, recursive = TRUE, showWarnings = FALSE)
 
-  scenario_source_input <- config_project_parameters$scenario_source
-  start_year <- config_project_parameters$start_year
+  scenario_source_input <- get_scenario_source(config)
+  start_year <- get_start_year(config)
 
   # validate config values----
   stop_if_not_length(dir_matched, 1L)
@@ -24,7 +23,7 @@ run_calculate_loanbook_coverage <- function() {
   # load data ----
   ## read abcd data----
   abcd <- readr::read_csv(
-    file.path(config_dir$dir_abcd, "abcd_final.csv"),
+    file.path(abcd_dir, "abcd_final.csv"),
     col_select = dplyr::all_of(cols_abcd),
     col_types = col_types_abcd_final
   )
