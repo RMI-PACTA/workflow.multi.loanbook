@@ -1,5 +1,8 @@
 #' plot_aggregate_loanbooks
 #'
+#' @param config either a single string defining the path to a config YML file
+#'   or a list object that contains the appropriate config params
+#'
 #' @return `NULL` (called for side effects)
 #'
 #' @importFrom dplyr %>%
