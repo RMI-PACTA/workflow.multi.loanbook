@@ -41,6 +41,8 @@ Depends:
 License: MIT + file LICENSE
 RoxygenNote: 7.3.2
 Suggests: 
+    pkgdown,
     testthat (>= 3.0.0),
     writexl
 Config/testthat/edition: 3
+URL: https://rmi-pacta.github.io/workflow.multi.loanbook/
