@@ -7,7 +7,7 @@
 plot_aggregate_loanbooks()
 }
 \value{
-`NULL` (called for side effects)
+\code{NULL} (called for side effects)
 }
 \description{
 plot_aggregate_loanbooks
