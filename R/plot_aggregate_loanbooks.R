@@ -54,7 +54,8 @@ plot_aggregate_loanbooks <- function() {
       file = file.path(
         output_path_aggregated,
         glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv")
-      )
+      ),
+      show_col_types = FALSE
     )
 
   company_aggregated_alignment_bo_po <-
@@ -62,7 +63,8 @@ plot_aggregate_loanbooks <- function() {
       file = file.path(
         output_path_aggregated,
         glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
-      )
+      ),
+      show_col_types = FALSE
     )
 
   ## loanbook level results----
@@ -71,7 +73,8 @@ plot_aggregate_loanbooks <- function() {
       file = file.path(
         output_path_aggregated,
         glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
-      )
+      ),
+      show_col_types = FALSE
     )
 
   loanbook_exposure_aggregated_alignment_net <-
@@ -79,7 +82,8 @@ plot_aggregate_loanbooks <- function() {
       file = file.path(
         output_path_aggregated,
         glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv")
-      )
+      ),
+      show_col_types = FALSE
     )
 
 
