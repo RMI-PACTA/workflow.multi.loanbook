@@ -118,7 +118,7 @@ plot_aggregate_loanbooks <- function() {
       pacta.multi.loanbook.plot::plot_sankey(
         data_sankey_sector,
         group_var = by_group,
-        save_png_to = output_path_aggregated,
+        save_png_to = path.expand(output_path_aggregated),
         png_name = glue::glue("plot_{output_file_sankey_sector}.png"),
         nodes_order_from_data = TRUE
       )
@@ -159,7 +159,7 @@ plot_aggregate_loanbooks <- function() {
       pacta.multi.loanbook.plot::plot_sankey(
         data_sankey_company_sector,
         group_var = by_group,
-        save_png_to = output_path_aggregated,
+        save_png_to = path.expand(output_path_aggregated),
         png_name = glue::glue("plot_{output_file_sankey_company_sector}.png")
       )
     }
