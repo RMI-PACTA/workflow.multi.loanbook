@@ -113,7 +113,7 @@ prepare_sector_split <- function() {
   # calculate sector split----
   ## wrangle input data----
   advanced_company_indicators <- advanced_company_indicators_raw %>%
-    janitor::clean_names() %>%
+    dplyr::rename_with(.fn = ~ gsub(" ", "_", tolower(.x))) %>%
     # to compare primary energy units, we need power generation, not power capacity
     dplyr::filter(
       (.data$asset_sector == "Power" & .data$activity_unit == "MWh") | .data$asset_sector != "Power"

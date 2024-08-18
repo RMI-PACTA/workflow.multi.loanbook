@@ -20,7 +20,6 @@ Imports:
     dplyr,
     ggplot2,
     glue,
-    janitor,
     htmlwidgets,
     pacta.multi.loanbook.analysis,
     pacta.multi.loanbook.plot,
