@@ -25,9 +25,9 @@ Imports:
     pacta.multi.loanbook.analysis,
     pacta.multi.loanbook.plot,
     r2dii.analysis,
-    r2dii.data,
+    r2dii.data (>= 0.5.0),
     r2dii.match,
-    r2dii.plot,
+    r2dii.plot (>= 0.4.0),
     readr (>= 2.0.0),
     readxl,
     rlang,
@@ -41,7 +41,10 @@ Depends:
 License: MIT + file LICENSE
 RoxygenNote: 7.3.2
 Suggests: 
+    pkgdown,
     testthat (>= 3.0.0),
     writexl
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
+Config/Needs/website: rmi-pacta/pacta.pkgdown.rmitemplate
+URL: https://rmi-pacta.github.io/workflow.multi.loanbook/

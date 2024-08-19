@@ -3,3 +3,6 @@
 ^\.Rproj\.user$
 ^\.github$
 ^example\.config\.yml$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
