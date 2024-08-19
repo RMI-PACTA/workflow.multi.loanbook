@@ -46,9 +46,9 @@ run_match_prioritize <- function() {
 
   if (length(list_matched_manual) == 0) {
     cli::cli_abort(c(
-      "x" = "No manually matched loan book csvs found in:",
-      " " = "{.path {dir_matched}}",
-      "i" = "Check the {.val dir_matched} parameter set in your {.file config.yml}."
+      "x" = "No manually matched loan book csvs were found.",
+      "i" = "No files matching the pattern {.code ^matched_lbk_.*_manual[.]csv$} were found in {.path {dir_matched}}. Have you done the manual matching process and named the edited CSVs properly?",
+      "i" = "If {.path {dir_matched}} is not the correct directory, check the {.val dir_matched} parameter set in your {.file config.yml}."
     ))
   }
 
