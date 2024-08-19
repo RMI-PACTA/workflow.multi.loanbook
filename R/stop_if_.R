@@ -4,6 +4,8 @@
 #' @param cls a string defining the expected object class
 #'
 #' @return `NULL` invisibly or an error
+#'
+#' @noRd
 
 stop_if_not_inherits <- function(x, cls) {
   if (isFALSE(inherits(x, cls))) {
@@ -25,6 +27,8 @@ stop_if_not_inherits <- function(x, cls) {
 #' @param len an integer defining the expected length of the object
 #'
 #' @return `NULL` invisibly or an error
+#'
+#' @noRd
 
 stop_if_not_length <- function(x, len) {
   if (length(x) != len) {
@@ -47,6 +51,8 @@ stop_if_not_length <- function(x, len) {
 #'   error msg
 #'
 #' @return `NULL` invisibly or an error
+#'
+#' @noRd
 
 stop_if_dir_not_found <- function(path, desc = NULL) {
   if (isFALSE(dir.exists(path))) {
@@ -73,6 +79,8 @@ stop_if_dir_not_found <- function(path, desc = NULL) {
 #' @param desc a string describing the type of file to be added to the error msg
 #'
 #' @return `NULL` invisibly or an error
+#'
+#' @noRd
 
 stop_if_file_not_found <- function(path, desc = NULL) {
   if (isFALSE(file.exists(path))) {
@@ -99,6 +107,8 @@ stop_if_file_not_found <- function(path, desc = NULL) {
 #' @param path a string defining the path to a XLS/X file
 #'
 #' @return `NULL` invisibly or an error
+#'
+#' @noRd
 
 stop_if_sheet_not_found <- function(sheet, path) {
   if (isFALSE(sheet %in% readxl::excel_sheets(path))) {
@@ -121,6 +131,8 @@ stop_if_sheet_not_found <- function(sheet, path) {
 #' @param desc a string describing the type of data to be added to the error msg
 #'
 #' @return `NULL` invisibly or an error
+#'
+#' @noRd
 
 stop_if_not_expected_columns <- function(data, cols, desc = NULL) {
   if (isFALSE(all(cols %in% names(data)))) {
