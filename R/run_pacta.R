@@ -1,28 +1,27 @@
-run_pacta <- function() {
-  # load config----
-  config <- config::get()
+run_pacta <- function(config) {
+  config <- load_config(config)
 
-  input_path_scenario <- config$directories$dir_scenario
-  input_dir_abcd <- config$directories$dir_abcd
-  input_path_matched <- config$directories$dir_matched
+  input_path_scenario <- get_scenario_dir(config)
+  input_dir_abcd <- get_abcd_dir(config)
+  input_path_matched <- get_matched_dir(config)
 
-  input_path_scenario_tms <- file.path(input_path_scenario, config$file_names$filename_scenario_tms)
-  input_path_scenario_sda <- file.path(input_path_scenario, config$file_names$filename_scenario_sda)
+  input_path_scenario_tms <- get_scenario_tms_path(config)
+  input_path_scenario_sda <- get_scenario_sda_path(config)
 
   input_path_abcd <- file.path(input_dir_abcd, "abcd_final.csv")
 
-  output_path <- config$directories$dir_output
+  output_path <- get_output_dir(config)
   output_path_standard <- file.path(output_path, "standard")
 
-  scenario_source_input <- config$project_parameters$scenario_source
-  scenario_select <- config$project_parameters$scenario_select
-  region_select <- config$project_parameters$region_select
-  start_year <- config$project_parameters$start_year
-  time_frame_select <- config$project_parameters$time_frame
-  apply_sector_split <- config$sector_split$apply_sector_split
+  scenario_source_input <- get_scenario_source(config)
+  scenario_select <- get_scenario_select(config)
+  region_select <- get_region_select(config)
+  start_year <- get_start_year(config)
+  time_frame_select <- get_time_frame(config)
+  apply_sector_split <- get_apply_sector_split(config)
   if (is.null(apply_sector_split)) { apply_sector_split <- FALSE }
-  sector_split_type_select <- config$sector_split$sector_split_type
-  remove_inactive_companies <- config$prepare_abcd$remove_inactive_companies
+  sector_split_type_select <- get_sector_split_type(config)
+  remove_inactive_companies <- get_remove_inactive_companies(config)
   if (is.null(remove_inactive_companies)) { remove_inactive_companies <- FALSE }
 
   # if a sector split is applied, write results into a directory that states the type

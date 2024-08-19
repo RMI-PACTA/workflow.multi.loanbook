@@ -1,25 +1,18 @@
-run_calculate_match_success_rate <- function() {
-  # load config----
-  config_dir <- config::get("directories")
+run_calculate_match_success_rate <- function(config) {
+  config <- load_config(config)
 
-  dir_raw <- config_dir$dir_raw
-  dir_matched <- config_dir$dir_matched
+  dir_raw <- get_raw_dir(config)
+  dir_matched <- get_matched_dir(config)
 
-  config_matching <- config::get("matching")
-
-  matching_use_own_sector_classification <- config_matching$own_sector_classification$use_own_sector_classification
+  matching_use_own_sector_classification <- get_use_maunal_sector_classification(config)
   if (matching_use_own_sector_classification) {
-    dir_own_sector_classification <- config_matching$own_sector_classification$dir_own_sector_classification
-    filename_own_sector_classification <- config_matching$own_sector_classification$filename_own_sector_classification
-    path_own_sector_classification <- file.path(dir_own_sector_classification, filename_own_sector_classification)
+    path_own_sector_classification <- get_manual_sector_classification_path(config)
   }
 
-  config_match_success_rate <- config::get("match_success_rate")
-
-  match_success_rate_plot_width <- config_match_success_rate$plot_width
-  match_success_rate_plot_height <- config_match_success_rate$plot_height
-  match_success_rate_plot_units <- config_match_success_rate$plot_units
-  match_success_rate_plot_resolution <- config_match_success_rate$plot_resolution
+  match_success_rate_plot_width <- get_match_plot_width(config)
+  match_success_rate_plot_height <- get_match_plot_height(config)
+  match_success_rate_plot_units <- get_match_plot_units(config)
+  match_success_rate_plot_resolution <- get_match_plot_resolution(config)
 
   # validate config values----
   stop_if_not_length(dir_raw, 1L)

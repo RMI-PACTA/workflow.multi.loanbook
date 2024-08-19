@@ -1,29 +1,31 @@
 #' plot_aggregate_loanbooks
 #'
+#' @param config either a single string defining the path to a config YML file
+#'   or a list object that contains the appropriate config params
+#'
 #' @return `NULL` (called for side effects)
 #'
 #' @importFrom dplyr %>%
 #' @importFrom rlang .data .env
 
-plot_aggregate_loanbooks <- function() {
-  # load config----
-  config <- config::get()
+plot_aggregate_loanbooks <- function(config) {
+  config <- load_config(config)
 
   # paths
-  input_path_matched <- config$directories$dir_matched
-  output_path <- config$directories$dir_output
+  input_path_matched <- get_matched_dir(config)
+  output_path <- get_output_dir(config)
   output_path_aggregated <- file.path(output_path, "aggregated")
 
   # project parameters
-  scenario_source_input <- config$project_parameters$scenario_source
-  scenario_select <- config$project_parameters$scenario_select
-  region_select <- config$project_parameters$region_select
-  start_year <- config$project_parameters$start_year
-  time_frame_select <- config$project_parameters$time_frame
-  apply_sector_split <- config$sector_split$apply_sector_split
+  scenario_source_input <- get_scenario_source(config)
+  scenario_select <- get_scenario_select(config)
+  region_select <- get_region_select(config)
+  start_year <- get_start_year(config)
+  time_frame_select <- get_time_frame(config)
+  apply_sector_split <- get_apply_sector_split(config)
   if (is.null(apply_sector_split)) { apply_sector_split <- FALSE }
-  sector_split_type_select <- config$sector_split$sector_split_type
-  remove_inactive_companies <- config$prepare_abcd$remove_inactive_companies
+  sector_split_type_select <- get_sector_split_type(config)
+  remove_inactive_companies <- get_remove_inactive_companies(config)
   if (is.null(remove_inactive_companies)) { remove_inactive_companies <- FALSE }
 
   # if a sector split is applied, write results into a directory that states the type
@@ -31,7 +33,7 @@ plot_aggregate_loanbooks <- function() {
     output_path_aggregated <- file.path(output_path, sector_split_type_select, "aggregated")
   }
 
-  by_group <- config$aggregate_alignment_metric$by_group
+  by_group <- get_aggregate_alignment_metric_by_group(config)
   if (!is.null(by_group) && by_group == "NULL") { by_group <- NULL }
   if (length(by_group) >= 1) {
     by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))

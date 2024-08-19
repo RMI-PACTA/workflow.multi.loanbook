@@ -4,7 +4,11 @@
 \alias{plot_aggregate_loanbooks}
 \title{plot_aggregate_loanbooks}
 \usage{
-plot_aggregate_loanbooks()
+plot_aggregate_loanbooks(config)
+}
+\arguments{
+\item{config}{either a single string defining the path to a config YML file
+or a list object that contains the appropriate config params}
 }
 \value{
 \code{NULL} (called for side effects)

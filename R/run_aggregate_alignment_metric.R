@@ -1,37 +1,32 @@
-run_aggregate_alignment_metric <- function() {
-  # load config----
-  config_dir <- config::get("directories")
-  config_files <- config::get("file_names")
-  config_project_parameters <- config::get("project_parameters")
-  config_prepare_sector_split <- config::get("sector_split")
-  config_aggregate_alignment_metric <- config::get("aggregate_alignment_metric")
+run_aggregate_alignment_metric <- function(config) {
+  config <- load_config(config)
 
-  dir_abcd <- config_dir$dir_abcd
-  dir_matched <- config_dir$dir_matched
-  dir_output <- config_dir$dir_output
+  dir_abcd <- get_abcd_dir(config)
+  dir_matched <- get_matched_dir(config)
+  dir_output <- get_output_dir(config)
   dir_output_aggregated <- file.path(dir_output, "aggregated")
-  apply_sector_split <- config_prepare_sector_split$apply_sector_split
+  apply_sector_split <- get_apply_sector_split(config)
 
   if (apply_sector_split) {
     dir_output_aggregated <- file.path(
       dir_output,
-      config_prepare_sector_split$sector_split_type,
+      get_sector_split_type(config),
       "aggregated"
     )
   }
 
   dir.create(dir_output_aggregated, recursive = TRUE)
 
-  path_scenario_tms <- file.path(config_dir$dir_scenario, config_files$filename_scenario_tms)
-  path_scenario_sda <- file.path(config_dir$dir_scenario, config_files$filename_scenario_sda)
+  path_scenario_tms <- get_scenario_tms_path(config)
+  path_scenario_sda <- get_scenario_sda_path(config)
 
-  scenario_source_input <- config_project_parameters$scenario_source
-  scenario_select <- config_project_parameters$scenario_select
-  region_select <- config_project_parameters$region_select
-  start_year <- config_project_parameters$start_year
-  time_frame <- config_project_parameters$time_frame
+  scenario_source_input <- get_scenario_source(config)
+  scenario_select <- get_scenario_select(config)
+  region_select <- get_region_select(config)
+  start_year <- get_start_year(config)
+  time_frame <- get_time_frame(config)
 
-  by_group <- config_aggregate_alignment_metric$by_group
+  by_group <- get_aggregate_alignment_metric_by_group(config)
   if (by_group == "NULL") {by_group <- NULL}
   if (length(by_group) >= 1) {
     by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))
