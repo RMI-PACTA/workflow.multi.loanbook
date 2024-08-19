@@ -228,15 +228,7 @@ prepare_sector_split <- function() {
     )
 
   ### check that the sum of the sector split of each company is 1----
-  check_sector_split_all_companies <- sector_split_all_companies %>%
-    dplyr::summarise(
-      sum_share = sum(.data[["sector_split"]], na.rm = TRUE),
-      .by = "company_id"
-    )
-
-  if (any(round(check_sector_split_all_companies$sum_share, 3) != 1)) {
-    stop("sector_split_all_companies contains companies for which the sum of the sector split deviates from 1")
-  }
+  stop_if_sector_split_not_one(sector_split_all_companies)
 
   ## calculate primary energy-based sector split for energy sectors----
   # keep only companies that are active in multiple energy sectors
@@ -309,15 +301,7 @@ prepare_sector_split <- function() {
     dplyr::filter(.data$company_id %in% company_ids_primary_energy_split)
 
   ### check that the sum of the primary energy based sector split of each company is 1----
-  check_sector_split_multi_energy_companies <- sector_split_multi_energy_companies %>%
-    dplyr::summarise(
-      sum_share = sum(.data[["sector_split"]], na.rm = TRUE),
-      .by = "company_id"
-    )
-
-  if (any(round(check_sector_split_multi_energy_companies$sum_share, 3) != 1)) {
-    stop("sector_split_multi_energy_companies contains companies for which the sum of the sector split deviates from 1")
-  }
+  stop_if_sector_split_not_one(sector_split_multi_energy_companies)
 
   ## combine the sector splits----
   # we want to use the plain equal weights split for companies that do not operate in more than one energy sector
@@ -344,16 +328,7 @@ prepare_sector_split <- function() {
     )
 
   ### check that the sum of the combined sector split of each company is 1----
-  check_sector_split_all_companies_final <- sector_split_all_companies_final %>%
-    dplyr::summarise(
-      sum_share = sum(.data$sector_split, na.rm = TRUE),
-      .by = "company_id"
-    )
-
-  if (any(round(check_sector_split_all_companies_final$sum_share, 3) != 1)) {
-    stop("sector_split_all_companies_final contains companies for which the sum of the sector split deviates from 1")
-  }
-
+  stop_if_sector_split_not_one(sector_split_all_companies_final)
 
   ## write output----
   sector_split_multi_energy_companies %>%

@@ -166,3 +166,32 @@ stop_if_no_files_found <- function(files, dir, dir_param, desc) {
   }
 }
 
+
+#' stop_if_sector_split_not_one
+#'
+#' @param data a data frame to be checked
+#'
+#' @return `NULL` invisibly or an error
+#'
+#' @noRd
+
+stop_if_sector_split_not_one <- function(data) {
+  check_sector_split <-
+    dplyr::summarise(
+      data,
+      sum_share = sum(.data$sector_split, na.rm = TRUE),
+      .by = "company_id"
+    )
+
+  if (any(round(check_sector_split$sum_share, 3) != 1)) {
+    obj_name <- deparse(substitute(data))
+    msg <- "{.arg {obj_name}} contains companies for which the sum of the sector split deviates from 1"
+    cli::cli_abort(
+      message = c(
+        "x" = msg,
+        "i" = "Check the sector split set in your {.file config.yml}."
+      ),
+      call = rlang::caller_env()
+    )
+  }
+}
