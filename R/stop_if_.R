@@ -179,7 +179,7 @@ stop_if_sector_split_not_one <- function(data) {
   check_sector_split <-
     dplyr::summarise(
       data,
-      sum_share = sum(.data$sector_split, na.rm = TRUE),
+      sum_share = sum(.data[["sector_split"]], na.rm = TRUE),
       .by = "company_id"
     )
 
