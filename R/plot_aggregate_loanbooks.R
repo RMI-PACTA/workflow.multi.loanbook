@@ -49,12 +49,33 @@ plot_aggregate_loanbooks <- function() {
   }
 
   ## company level results----
+  # expected columns company_aggregated_alignment_* files
+  col_types_company_aggregated_alignment <- readr::cols(
+    name_abcd = "c",
+    sector = "c",
+    activity_unit = "c",
+    region = "c",
+    scenario_source = "c",
+    scenario = "c",
+    year = "i",
+    direction = "c",
+    total_deviation = "n",
+    alignment_metric = "n",
+    loan_size_outstanding_currency = "c",
+    loan_size_outstanding = "n",
+    exposure_weight = "n",
+    .default = "c"
+  )
+  col_select_company_aggregated_alignment <- c(by_group, names(col_types_company_aggregated_alignment[["cols"]]))
+
   company_aggregated_alignment_net  <-
     readr::read_csv(
       file = file.path(
         output_path_aggregated,
         glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv")
-      )
+      ),
+      col_types = col_types_company_aggregated_alignment,
+      col_select = dplyr::all_of(col_select_company_aggregated_alignment)
     )
 
   company_aggregated_alignment_bo_po <-
@@ -62,7 +83,9 @@ plot_aggregate_loanbooks <- function() {
       file = file.path(
         output_path_aggregated,
         glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
-      )
+      ),
+      col_types = col_types_company_aggregated_alignment,
+      col_select = dplyr::all_of(col_select_company_aggregated_alignment)
     )
 
   ## loanbook level results----
@@ -71,6 +94,18 @@ plot_aggregate_loanbooks <- function() {
       file = file.path(
         output_path_aggregated,
         glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
+      ),
+      col_types = readr::cols(
+        scenario = "c",
+        region = "c",
+        sector = "c",
+        year = "i",
+        direction = "c",
+        n_companies = "i",
+        n_companies_aligned = "i",
+        share_companies_aligned = "n",
+        exposure_weighted_net_alignment = "n",
+        .default = "c"
       )
     )
 
@@ -79,9 +114,23 @@ plot_aggregate_loanbooks <- function() {
       file = file.path(
         output_path_aggregated,
         glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv")
-      )
+      ),
+      col_types = readr::cols(
+        scenario = "c",
+        region = "c",
+        sector = "c",
+        year = "i",
+        direction = "c",
+        n_companies = "i",
+        n_companies_aligned = "i",
+        share_companies_aligned = "n",
+        exposure_weighted_net_alignment = "n",
+        sum_loan_size_outstanding = "n",
+        sum_exposure_companies_aligned = "n",
+        share_exposure_aligned = "n",
+        .default = "c"
     )
-
+  )
 
   # generate plots for system-wide analysis----
   ### sankey plot----
