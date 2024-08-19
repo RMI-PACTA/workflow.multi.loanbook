@@ -89,11 +89,11 @@ run_calculate_match_success_rate <- function() {
     sector_classifications_used <- unique(raw_lbk$sector_classification_system)
 
     if (length(sector_classifications_used) != 1) {
-      stop(
-        glue::glue(
-          "Number of sector classification systems across all loan books must be 1.
-          Your raw loan books use {length(sector_classifications_used)} different
-          types of sector classifications. Please choose one!"
+      cli::cli_abort(
+        message = c(
+          "x" = "Number of sector classification systems across all loan books is > 1.",
+          "i" = "You can only use one sector classification at the same time.",
+          "i" = "Your raw loan books use {length(sector_classifications_used)} different types of sector classifications."
         )
       )
     }
