@@ -56,10 +56,7 @@ run_calculate_match_success_rate <- function() {
 
   ## load raw loan books----
   list_raw <- list.files(dir_raw)[grepl("csv$", list.files(dir_raw))]
-
-  if (length(list_raw) == 0) {
-    stop(glue::glue("No raw loan book csvs found in {dir_raw}. Please check your project setup!"))
-  }
+  stop_if_no_files_found(list_raw, dir_raw, "dir_raw", "raw loan book CSVs")
 
   raw_lbk <- readr::read_csv(
     file = file.path(dir_raw, list_raw),
@@ -73,10 +70,7 @@ run_calculate_match_success_rate <- function() {
 
   ## load matched prioritized loan books----
   list_matched_prioritized <- list.files(dir_matched)[grepl("^matched_prio_.*csv$", list.files(dir_matched))]
-
-  if (length(list_matched_prioritized) == 0) {
-    stop(glue::glue("No matched prioritized loan book csvs found in {dir_matched}. Please check your project setup!"))
-  }
+  stop_if_no_files_found(list_matched_prioritized, dir_matched, "dir_matched", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
     file = file.path(dir_matched, list_matched_prioritized),

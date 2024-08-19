@@ -105,10 +105,7 @@ run_matching <- function() {
 
   ## load raw loan books----
   list_raw <- list.files(path = dir_raw, pattern = "[.]csv$")
-
-  if (length(list_raw) == 0) {
-    stop(glue::glue("No raw loan book csvs found in {dir_raw}. Please check your project setup!"))
-  }
+  stop_if_no_files_found(list_raw, dir_raw, "dir_raw", "raw loan book CSVs")
 
   raw_lbk <- readr::read_csv(
     file = file.path(dir_raw, list_raw),
