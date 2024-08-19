@@ -63,14 +63,13 @@ apply_sector_split_to_loans <- function(data,
     )
 
   if (nrow(unique_companies_pre_split) != nrow(unique_companies_post_split)) {
-    warning(
-      glue::glue(
-        "Applying the sector split has lead to changes in the number of unique
-        companies covered in the analysis. Prior to the split, there were
-        {nrow(unique_companies_pre_split)} unique companies. After the split,
-        there are {nrow(unique_companies_post_split)} unique companies."
-      )
-    )
+    n_pre <- nrow(unique_companies_pre_split)
+    n_post <- nrow(unique_companies_post_split)
+    cli::cli_warn(c(
+      "!" = "Applying the sector split has lead to changes in the number of unique companies covered in the analysis.",
+      "i" = "Prior to the split, there {?was/were} {.strong {n_pre}} unique compan{?y/ies}.",
+      "i" = "After the split, there {?is/are} {.strong {n_post}} unique compan{?y/ies}."
+    ))
   }
 
   data

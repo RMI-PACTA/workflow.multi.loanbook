@@ -151,3 +151,59 @@ stop_if_not_expected_columns <- function(data, cols, desc = NULL) {
     )
   }
 }
+
+
+#' stop_if_no_files_found
+#'
+#' @param files a vector of files found
+#' @param dir a dir where files were not found
+#' @param dir_param a string identifying the paramter name in the config that
+#'   defines the directory
+#' @param desc a string describing the type of files expected to be found
+#'
+#' @return `NULL` invisibly or an error
+#'
+#' @noRd
+
+stop_if_no_files_found <- function(files, dir, dir_param, desc) {
+  if (length(files) == 0) {
+    cli::cli_abort(
+      message = c(
+        "x" = "No {desc} found.",
+        "i" = "Directory searched: {.path {dir}}",
+        "i" = "Check the {.arg {dir_param}} parameter in your {.file config.yml}."
+      ),
+      call = rlang::caller_env()
+    )
+  }
+}
+
+
+#' stop_if_sector_split_not_one
+#'
+#' @param data a data frame to be checked
+#'
+#' @return `NULL` invisibly or an error
+#'
+#' @noRd
+
+stop_if_sector_split_not_one <- function(data) {
+  check_sector_split <-
+    dplyr::summarise(
+      data,
+      sum_share = sum(.data[["sector_split"]], na.rm = TRUE),
+      .by = "company_id"
+    )
+
+  if (any(round(check_sector_split$sum_share, 3) != 1)) {
+    obj_name <- deparse(substitute(data))
+    msg <- "{.arg {obj_name}} contains companies for which the sum of the sector split deviates from 1"
+    cli::cli_abort(
+      message = c(
+        "x" = msg,
+        "i" = "Check the sector split set in your {.file config.yml}."
+      ),
+      call = rlang::caller_env()
+    )
+  }
+}

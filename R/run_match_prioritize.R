@@ -25,13 +25,18 @@ run_match_prioritize <- function() {
       !inherits(match_prio_priority, "formula") &
       !inherits(match_prio_priority, "function")
     ) {
-      stop(
-        glue::glue(
-          "Argument match_prio_priority must be of one of: a character vector, a
-          function, or a quosure-style lambda function. Your input is of class
-          {class(match_prio_priority)}. Please check your input."
-        )
+      valid_types <- c(
+        "a character vector",
+        "a function",
+        "a quosure-style lambda function"
       )
+      cli::cli_abort(c(
+        "x" = paste0(
+          "Argument {.arg match_prio_priority} must be of one of: {.or {valid_types}}, ",
+          "not {.cls {class(match_prio_priority)}}."
+        ),
+        "i" = "Check the {.val match_prioritize:priority} parameter set in your {.file config.yml}."
+      ))
     }
   }
 
@@ -40,7 +45,11 @@ run_match_prioritize <- function() {
   list_matched_manual <- list.files(path = dir_matched, pattern = "^matched_lbk_.*_manual[.]csv$")
 
   if (length(list_matched_manual) == 0) {
-    stop(glue::glue("No manually matched loan book csvs found in {dir_matched}. Please check your project setup!"))
+    cli::cli_abort(c(
+      "x" = "No manually matched loan book csvs were found.",
+      "i" = "No files matching the pattern {.code ^matched_lbk_.*_manual[.]csv$} were found in {.path {dir_matched}}. Have you done the manual matching process and named the edited CSVs properly?",
+      "i" = "If {.path {dir_matched}} is not the correct directory, check the {.val dir_matched} parameter set in your {.file config.yml}."
+    ))
   }
 
   matched_lbk_manual <- readr::read_csv(

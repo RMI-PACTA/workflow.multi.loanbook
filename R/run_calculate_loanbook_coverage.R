@@ -36,10 +36,8 @@ run_calculate_loanbook_coverage <- function() {
 
   ## read matched prioritized loan books----
   list_matched_prioritized <- list.files(path = dir_matched, pattern = "^matched_prio_.*csv$")
+  stop_if_no_files_found(list_matched_prioritized, dir_matched, "dir_matched", "matched prioritized loan book CSVs")
 
-  if (length(list_matched_prioritized) == 0) {
-    stop(glue::glue("No matched prioritized loan book csvs found in {dir_matched}. Please check your project setup!"))
-  }
 
   matched_prioritized <- readr::read_csv(
     file = file.path(dir_matched, list_matched_prioritized),
