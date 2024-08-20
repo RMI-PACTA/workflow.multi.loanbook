@@ -3,7 +3,7 @@ run_pacta <- function(config) {
 
   input_path_scenario <- get_scenario_dir(config)
   input_dir_abcd <- get_abcd_dir(config)
-  input_path_matched <- get_matched_dir(config)
+  dir_matched <- get_matched_dir(config)
 
   input_path_scenario_tms <- get_scenario_tms_path(config)
   input_path_scenario_sda <- get_scenario_sda_path(config)
