@@ -57,20 +57,14 @@ run_aggregate_alignment_metric <- function(config) {
   )
 
   # read matched and prioritized loan book----
-  list_matched_prio <- list.files(dir_matched)[grepl("matched_prio_", list.files(dir_matched))]
+  list_matched_prioritized <- list.files(path = dir_matched, pattern = "^matched_prio_.*csv$")
+  stop_if_no_files_found(list_matched_prioritized, dir_matched, "dir_matched", "matched prioritized loan book CSVs")
 
-  matched_prioritized <- NULL
-
-  # combine all matched loan books into one object to loop over
-  for (i in list_matched_prio) {
-    matched_prioritized_i <- readr::read_csv(
-      file.path(dir_matched, i),
-      col_types = col_types_matched_prioritized
-    )
-
-    matched_prioritized <- matched_prioritized %>%
-      dplyr::bind_rows(matched_prioritized_i)
-  }
+  matched_prioritized <- readr::read_csv(
+    file = file.path(dir_matched, list_matched_prioritized),
+    col_types = col_types_matched_prioritized,
+    col_select = dplyr::all_of(col_select_matched_prioritized)
+  )
 
   # aggregate P4B alignment----
 
