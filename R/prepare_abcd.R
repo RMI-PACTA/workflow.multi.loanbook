@@ -31,27 +31,7 @@ prepare_abcd <- function(config) {
 
 
   # load data----
-  abcd <- readxl::read_xlsx(
-    path = file.path(path_abcd),
-    sheet = sheet_abcd
-  ) %>% dplyr::select(
-    dplyr::all_of(cols_abcd)
-  ) %>%
-    dplyr::mutate(
-      company_id = as.numeric(.data$company_id),
-      name_company = as.character(.data$name_company),
-      lei = as.character(.data$lei),
-      is_ultimate_owner = as.logical(.data$is_ultimate_owner),
-      sector = as.character(.data$sector),
-      technology = as.character(.data$technology),
-      plant_location = as.character(.data$plant_location),
-      year = as.integer(.data$year),
-      production = as.numeric(.data$production),
-      production_unit = as.character(.data$production_unit),
-      emission_factor = as.numeric(.data$emission_factor),
-      emission_factor_unit = as.character(.data$emission_factor_unit)
-    )
-
+  abcd <- read_abcd_raw(path_abcd, sheet_abcd)
   stop_if_not_expected_columns(abcd, cols_abcd, desc = "ABCD")
 
   # optional: remove inactive companies----
