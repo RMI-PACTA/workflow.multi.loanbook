@@ -29,7 +29,7 @@ run_pacta <- function(config) {
     output_path_standard <- file.path(output_path, sector_split_type_select, "standard")
   }
 
-  dir.create(output_path_standard, recursive = TRUE)
+  dir.create(output_path_standard, recursive = TRUE, showWarnings = FALSE)
 
   # TODO: add check if all files exist, resort to test files if not
 
