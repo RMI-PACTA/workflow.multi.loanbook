@@ -238,7 +238,8 @@ run_calculate_match_success_rate <- function(config) {
   # write to csv
   lbk_match_success_rate %>%
     readr::write_csv(
-      file = file.path(dir_matched, "lbk_match_success_rate.csv")
+      file = file.path(dir_matched, "lbk_match_success_rate.csv"),
+      na = ""
     )
 
   # prepare match success data for plotting----
