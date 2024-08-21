@@ -62,7 +62,7 @@ run_calculate_match_success_rate <- function(config) {
     )
 
   ## load matched prioritized loan books----
-  list_matched_prioritized <- list.files(dir_matched)[grepl("^matched_prio_.*csv$", list.files(dir_matched))]
+  list_matched_prioritized <- list.files(path = dir_matched, pattern = "^matched_prio_.*csv$")
   stop_if_no_files_found(list_matched_prioritized, dir_matched, "dir_matched", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
