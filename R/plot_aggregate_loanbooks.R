@@ -163,7 +163,8 @@ plot_aggregate_loanbooks <- function(config) {
           file = file.path(
             output_path_aggregated,
             glue::glue("data_{output_file_sankey_sector}.csv")
-          )
+          ),
+          na = ""
         )
 
       pacta.multi.loanbook.plot::plot_sankey(
@@ -204,7 +205,8 @@ plot_aggregate_loanbooks <- function(config) {
           file = file.path(
             output_path_aggregated,
             glue::glue("data_{output_file_sankey_company_sector}.csv")
-          )
+          ),
+          na = ""
         )
 
       pacta.multi.loanbook.plot::plot_sankey(
@@ -246,7 +248,8 @@ plot_aggregate_loanbooks <- function(config) {
           file = file.path(
             output_path_aggregated,
             glue::glue("data_{output_file_alignment_exposure}.csv")
-          )
+          ),
+          na = ""
         )
 
       plot_scatter_alignment_exposure <- data_scatter_alignment_exposure %>%
@@ -304,7 +307,8 @@ plot_aggregate_loanbooks <- function(config) {
           file = file.path(
             output_path_aggregated,
             glue::glue("data_{output_file_scatter_sector}.csv")
-          )
+          ),
+          na = ""
         )
 
       pacta.multi.loanbook.plot::plot_scatter(
@@ -357,7 +361,8 @@ plot_aggregate_loanbooks <- function(config) {
           file = file.path(
             output_path_aggregated,
             glue::glue("data_{output_file_scatter_sector}.csv")
-          )
+          ),
+          na = ""
         )
 
       pacta.multi.loanbook.plot::plot_scatter(
@@ -414,7 +419,8 @@ plot_aggregate_loanbooks <- function(config) {
           file = file.path(
             output_path_aggregated,
             glue::glue("data_{output_file_scatter_sector}_animated.csv")
-          )
+          ),
+          na = ""
         )
 
       plot_scatter_automotive_group_a <- pacta.multi.loanbook.plot::plot_scatter_animated(
@@ -468,7 +474,8 @@ plot_aggregate_loanbooks <- function(config) {
           file = file.path(
             output_path_aggregated,
             glue::glue("data_{output_file_scatter_sector}_animated.csv")
-          )
+          ),
+          na = ""
         )
 
       plot_scatter_power_group_a <- pacta.multi.loanbook.plot::plot_scatter_animated(
@@ -543,7 +550,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_bopo_automotive_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -596,7 +604,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_bopo_power_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -649,7 +658,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_net_automotive_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -702,7 +712,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_net_coal_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -755,7 +766,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_net_oil_and_gas_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -808,7 +820,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_net_power_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -861,7 +874,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_net_aviation_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -914,7 +928,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_net_cement_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -967,7 +982,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_timeline_net_steel_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_timeline(
@@ -1034,7 +1050,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_scatter_automotive_company_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_scatter(
@@ -1096,7 +1113,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_scatter_power_company_by_{by_group}_{i}.csv")
-            )
+            ),
+            na = ""
           )
 
         pacta.multi.loanbook.plot::plot_scatter(
@@ -1161,7 +1179,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_scatter_automotive_company_by_{by_group}_{i}_animated.csv")
-            )
+            ),
+            na = ""
           )
 
         plot_scatter_animated_i <- pacta.multi.loanbook.plot::plot_scatter_animated(
@@ -1223,7 +1242,8 @@ plot_aggregate_loanbooks <- function(config) {
               output_path_aggregated,
               i,
               glue::glue("data_scatter_power_company_by_{by_group}_{i}_animated.csv")
-            )
+            ),
+            na = ""
           )
 
         plot_scatter_animated_i <- pacta.multi.loanbook.plot::plot_scatter_animated(
