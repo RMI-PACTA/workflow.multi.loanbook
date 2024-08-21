@@ -101,12 +101,10 @@ run_match_prioritize <- function(config) {
 
   # optional: apply sector split----
   if (apply_sector_split & sector_split_type_select == "equal_weights") {
-    lost_companies_sector_split <- lost_companies_sector_split(
+    lost_companies_sector_split(
       abcd = abcd,
       companies_sector_split = companies_sector_split
-    )
-
-    lost_companies_sector_split %>%
+    ) %>%
       readr::write_csv(
         file = file.path(dir_matched, glue::glue("lost_companies_sector_split.csv.csv")),
         na = ""
