@@ -53,10 +53,13 @@ Depends:
 License: MIT + file LICENSE
 RoxygenNote: 7.3.2
 Suggests: 
+    knitr,
     pkgdown,
+    rmarkdown,
     testthat (>= 3.0.0),
     writexl
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
 Config/Needs/website: rmi-pacta/pacta.pkgdown.rmitemplate
 URL: https://rmi-pacta.github.io/workflow.multi.loanbook/
+VignetteBuilder: knitr
