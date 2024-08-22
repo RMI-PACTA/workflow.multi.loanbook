@@ -1,4 +1,5 @@
 ---
+title: documentation of options in config.yml
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{config_yml}
@@ -13,21 +14,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Documentation of the `config.yml` file
-
-## Intro
+# Intro
 
 Most of the functions in this package require a path to a `config.yml` file as input. This structure allows for an easily reviewed file that contains all relevant parameters that should be / were used for a given multi-loanbook analysis. Below is a full documentation of each option.
 
-## Preface
+# Preface
 
 The config file is separated into a few top-level "sections" that contain contextually similar options. The top-level sections will be documented as well below, but note that the top-level sections themselves never have a value directly associated with them.
 
 Also note that the config file must have the top-level section `default`. This is related to a feature of the `yaml` package which facilitates having and targeting different config sets for different purposes. Technically, one could leverage this for use with workflow.multi.loanbook, but it is not recommended.
 
-## Options
+# Options
 
-### directories:
+## directories:
 
 The `directories` section contains options to define locally accessible paths where input and output data should be found or saved. A full example `directories` section might look like:
 
@@ -38,7 +37,7 @@ The `directories` section contains options to define locally accessible paths wh
       dir_matched: "~/Desktop/test/matched"
       dir_output: "~/Desktop/test/output"
 
-#### dir_scenario:
+#### dir_scenario
 
 `dir_scenario` is a path to a directory that contains scenario data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
@@ -68,7 +67,7 @@ The `directories` section contains options to define locally accessible paths wh
 
     dir_output: "~/Desktop/test/output"
 
-### file_names:
+## file_names:
 
 The `file_names` section contains options to define the file names of locally accessible files found in the directories defined in the `directories` section. The directories and file names are defined separately to allow for flexibility in where and how your input and output files are stored. A full example `file_names` section might look like:
 
@@ -150,14 +149,14 @@ A full example `project_parameters` section might look like:
 
 #### benchmark_regions_select
 
-`benchmark_regions_select` is a path to a directory that contains ABCD data to be used. As an example:
+`benchmark_regions_select` . As an example:
 
     # regions must be available for the selected scenario
     benchmark_regions_select: "global,european union"
 
 #### remove_inactive_companies
 
-`remove_inactive_companies` is a path to a directory that contains ABCD data to be used. As an example:
+`remove_inactive_companies` . As an example:
 
     remove_inactive_companies: TRUE
 
@@ -177,44 +176,44 @@ A full example `sector_split` section might look like:
 
 #### apply_sector_split
 
-`apply_sector_split` is a path to a directory that contains ABCD data to be used. As an example:
+`apply_sector_split` . As an example:
 
     apply_sector_split: TRUE
 
 #### sector_split_type
 
-`sector_split_type` is a path to a directory that contains ABCD data to be used. As an example:
+`sector_split_type` . As an example:
 
     sector_split_type: "equal_weights"
     # sector_split_type: "worst_case"
 
 #### dir_split_company_id
 
-`dir_split_company_id` is a path to a directory that contains ABCD data to be used. As an example:
+`dir_split_company_id` . As an example:
 
     dir_split_company_id: "~/Desktop/test/split"
 
 #### filename_split_company_id
 
-`filename_split_company_id` is a path to a directory that contains ABCD data to be used. As an example:
+`filename_split_company_id` . As an example:
 
     filename_split_company_id: "split_company_ids.csv"
 
 #### dir_advanced_company_indicators
 
-`dir_advanced_company_indicators` is a path to a directory that contains ABCD data to be used. As an example:
+`dir_advanced_company_indicators` . As an example:
 
     dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
 
 #### filename_advanced_company_indicators
 
-`filename_advanced_company_indicators` is a path to a directory that contains ABCD data to be used. As an example:
+`filename_advanced_company_indicators` . As an example:
 
     filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
 
 #### sheet_advanced_company_indicators
 
-`sheet_advanced_company_indicators` is a path to a directory that contains ABCD data to be used. As an example:
+`sheet_advanced_company_indicators` . As an example:
 
     sheet_advanced_company_indicators: "Company Activities"
 
@@ -259,7 +258,7 @@ A full example `match_prioritize` section might look like:
 
 #### priority
 
-`priority` is a path to a directory that contains ABCD data to be used. As an example:
+`priority` . As an example:
 
     priority: NULL
 
@@ -272,7 +271,7 @@ A full example `prepare_abcd` section might look like:
 
 #### remove_inactive_companies
 
-`remove_inactive_companies` is a path to a directory that contains ABCD data to be used. As an example:
+`remove_inactive_companies` . As an example:
 
     remove_inactive_companies: TRUE
 
@@ -288,25 +287,25 @@ A full example `match_success_rate` section might look like:
 
 #### plot_width
 
-`plot_width` is a path to a directory that contains ABCD data to be used. As an example:
+`plot_width` . As an example:
 
     plot_width: 12
 
 #### plot_height
 
-`plot_height` is a path to a directory that contains ABCD data to be used. As an example:
+`plot_height` . As an example:
 
     plot_height: 8
 
 #### plot_units
 
-`plot_units` is a path to a directory that contains ABCD data to be used. As an example:
+`plot_units` . As an example:
 
     plot_units: "in"
 
 #### plot_resolution
 
-`plot_resolution` is a path to a directory that contains ABCD data to be used. As an example:
+`plot_resolution` . As an example:
 
     plot_resolution: 300
 
@@ -319,6 +318,6 @@ A full example `aggregate_alignment_metric` section might look like:
 
 #### by_group
 
-`by_group` is a path to a directory that contains ABCD data to be used. As an example:
+`by_group` . As an example:
 
     by_group: "group_id"
