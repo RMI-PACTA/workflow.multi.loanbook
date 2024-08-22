@@ -178,25 +178,25 @@ A full example `sector_split` section might look like:
 
 #### dir_split_company_id
 
-`dir_split_company_id` . As an example:
+`dir_split_company_id` is a path to a directory that contains the split company ID CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
     dir_split_company_id: "~/Desktop/test/split"
 
 #### filename_split_company_id
 
-`filename_split_company_id` . As an example:
+`filename_split_company_id` is the filename of the CSV file that contains the split company ID data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
     filename_split_company_id: "split_company_ids.csv"
 
 #### dir_advanced_company_indicators
 
-`dir_advanced_company_indicators` . As an example:
+`dir_advanced_company_indicators` is a path to a directory that contains the Advanced Company Indicators XLSX file. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
     dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
 
 #### filename_advanced_company_indicators
 
-`filename_advanced_company_indicators` . As an example:
+`filename_advanced_company_indicators` is the filename of the XLSX file that contains the Advanced Company Indicators. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
     filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
 
@@ -253,31 +253,31 @@ A full example `params_match_name` section might look like:
 
 #### min_score
 
- `min_score` As an example:
+`min_score` As an example:
  
     min_score: 0.9
 
 #### method
 
- `method` As an example:
+`method` As an example:
 
     method: "jw"
 
 #### p
 
- `p` As an example:
+`p` As an example:
 
     p: 0.1
 
 #### overwrite
 
- `overwrite` As an example:
+`overwrite` As an example:
 
     overwrite: NULL
 
 #### join_id
 
- `join_id` As an example:
+`join_id` As an example:
 
     join_id: NULL
 
@@ -298,13 +298,13 @@ A full example `own_sector_classification` section might look like:
 
 #### dir_own_sector_classification
 
- `dir_own_sector_classification` As an example:
+`dir_own_sector_classification` is a path to a directory that contains the manual sector classification CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
     dir_own_sector_classification: "path/to/own_sector_classification_folder"
 
 #### filename_own_sector_classification
 
- `filename_own_sector_classification` As an example:
+`filename_own_sector_classification` is the filename of the CSV that contains the manual sector classification data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
     filename_own_sector_classification: "own_sector_classification.csv"
 
