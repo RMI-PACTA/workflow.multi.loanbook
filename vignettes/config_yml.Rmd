@@ -109,41 +109,38 @@ A full example `project_parameters` section might look like:
       scenario_source: "weo_2022"
       scenario_select: "nze_2050"
       region_select: "global"
-      # normally the start year should correspond with year of the publication of
-      # the scenario in use
       start_year: 2022
       time_frame: 5
-      # regions must be available for the selected scenario
       benchmark_regions_select: "global,european union"
       remove_inactive_companies: TRUE
 
 #### scenario_source
 
-`scenario_source` is an identifier of the scenario source to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario source identifier contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like "weo_2023" or "geco_2022". As an example:
+`scenario_source` is an identifier of the scenario source to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario source identifier contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `"weo_2023"` or `"geco_2022"`. As an example:
 
     scenario_source: "weo_2022"
 
 #### scenario_select
 
-`scenario_select` is an identifier of the scenario to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario identifier contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like "nze_2050", "aps" or "steps". As an example:
+`scenario_select` is an identifier of the scenario to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario identifier contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `"nze_2050"`, `"aps"` or `"steps"`. As an example:
 
     scenario_select: "nze_2050"
 
 #### region_select
 
-`region_select` is an identifier of the region to be used. It must be a single string/character value, and it must refer to a valid, accessible, region identifier contained in the `r2dii.data::region_isos` datatset. Valid values typically look like "global" or "advanced economies". As an example:
+`region_select` is an identifier of the region to be used. It must be a single string/character value, and it must refer to a valid, accessible, region identifier contained in the `r2dii.data::region_isos` datatset. Valid values typically look like `"global"` or `"advanced economies"`. As an example:
 
     region_select: "global"
 
 #### start_year
 
-`start_year` is the start year of the analysis. Normally, the start year should correspond with year of the publication of the scenario in use. It must be a single numeric value, and it must refer to a valid, accessible, year contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `2022` or `2023`. As an example:
+`start_year` is the start year of the analysis. Normally, the start year should correspond with year of the publication of the scenario in use. It must be a single numeric value, and it must refer to a valid, accessible, year contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `2022` or `2023` (note that this value should *not* be wrapped in quotes). As an example:
 
     start_year: 2022
 
 #### time_frame
 
-`time_frame` is the number of years (starting from the `start_year`) that the analysis covers, defining the time frame. It must be a single numeric value, and it must define a valid, accessible, time frame  covered by the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `5` or `6`. As an example:
+`time_frame` is the number of years (starting from the `start_year`) that the analysis covers, defining the time frame. It must be a single numeric value, and it must define a valid, accessible, time frame  covered by the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `5` or `6` (note that this value should *not* be wrapped in quotes). As an example:
 
     time_frame: 5
 
@@ -167,7 +164,6 @@ A full example `sector_split` section might look like:
     sector_split:
       apply_sector_split: TRUE
       sector_split_type: "equal_weights"
-      # sector_split_type: "worst_case"
       dir_split_company_id: "~/Desktop/test/split"
       filename_split_company_id: "split_company_ids.csv"
       dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
@@ -176,7 +172,7 @@ A full example `sector_split` section might look like:
 
 #### apply_sector_split
 
-`apply_sector_split` . As an example:
+`apply_sector_split` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
 
     apply_sector_split: TRUE
 
@@ -235,8 +231,19 @@ A full example `matching` section might look like:
         dir_own_sector_classification: "path/to/own_sector_classification_folder"
         filename_own_sector_classification: "own_sector_classification.csv"
 
-    matching:
+
       prep_input_level: "direct_loantaker"
+
+#### prep_input_level
+
+`prep_input_level` As an example:
+
+    prep_input_level: "direct_loantaker"
+
+### params_match_name:
+
+A full example `params_match_name` section might look like:
+
       params_match_name:
         by_sector: TRUE
         min_score: 0.9
@@ -244,10 +251,69 @@ A full example `matching` section might look like:
         p: 0.1
         overwrite: NULL
         join_id: NULL
+
+#### by_sector
+
+`by_sector` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
+
+    by_sector: TRUE
+
+#### min_score
+
+ `min_score` As an example:
+ 
+    min_score: 0.9
+
+#### method
+
+ `method` As an example:
+
+    method: "jw"
+
+#### p
+
+ `p` As an example:
+
+    p: 0.1
+
+#### overwrite
+
+ `overwrite` As an example:
+
+    overwrite: NULL
+
+#### join_id
+
+ `join_id` As an example:
+
+    join_id: NULL
+
+### own_sector_classification:
+
+A full example `own_sector_classification` section might look like:
+
       own_sector_classification:
         use_own_sector_classification: FALSE
         dir_own_sector_classification: "path/to/own_sector_classification_folder"
         filename_own_sector_classification: "own_sector_classification.csv"
+
+#### use_own_sector_classification
+
+`use_own_sector_classification` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
+
+    use_own_sector_classification: FALSE
+
+#### dir_own_sector_classification
+
+ `dir_own_sector_classification` As an example:
+
+    dir_own_sector_classification: "path/to/own_sector_classification_folder"
+
+#### filename_own_sector_classification
+
+ `filename_own_sector_classification` As an example:
+
+    filename_own_sector_classification: "own_sector_classification.csv"
 
 ### match_prioritize:
 
@@ -271,7 +337,7 @@ A full example `prepare_abcd` section might look like:
 
 #### remove_inactive_companies
 
-`remove_inactive_companies` . As an example:
+`remove_inactive_companies` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
 
     remove_inactive_companies: TRUE
 
@@ -287,25 +353,25 @@ A full example `match_success_rate` section might look like:
 
 #### plot_width
 
-`plot_width` . As an example:
+`plot_width` is the desired width of the XXX output plot in units defined by `plot_units`. It must be a single numeric value. Valid values typically look like `10` or `12` (note that this value should *not* be wrapped in quotes). As an example:
 
     plot_width: 12
 
 #### plot_height
 
-`plot_height` . As an example:
+`plot_height` is the desired height of the XXX output plot in units defined by `plot_units`. It must be a single numeric value. Valid values typically look like `6` or `8` (note that this value should *not* be wrapped in quotes). As an example:
 
     plot_height: 8
 
 #### plot_units
 
-`plot_units` . As an example:
+`plot_units` is the desired units to express the dimensions of the XXX output plot in `plot_width` and `plot_height`. It must be a single string/character value, and it must refer to a valid unit identifier. Valid values typically look like `in` or `px`. As an example:
 
     plot_units: "in"
 
 #### plot_resolution
 
-`plot_resolution` . As an example:
+`plot_resolution` is the desired resolution of the XXX output plot in dpi. It must be a single numeric value. Valid values typically look like `72` or `300` (note that this value should *not* be wrapped in quotes). As an example:
 
     plot_resolution: 300
 
@@ -318,6 +384,6 @@ A full example `aggregate_alignment_metric` section might look like:
 
 #### by_group
 
-`by_group` . As an example:
+`by_group` It must be a single string/character value. As an example:
 
     by_group: "group_id"
