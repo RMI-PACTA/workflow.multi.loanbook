@@ -112,7 +112,6 @@ A full example `project_parameters` section might look like:
       start_year: 2022
       time_frame: 5
       benchmark_regions_select: "global,european union"
-      remove_inactive_companies: TRUE
 
 #### scenario_source
 
@@ -150,12 +149,6 @@ A full example `project_parameters` section might look like:
 
     # regions must be available for the selected scenario
     benchmark_regions_select: "global,european union"
-
-#### remove_inactive_companies
-
-`remove_inactive_companies` . As an example:
-
-    remove_inactive_companies: TRUE
 
 ### sector_split:
 
