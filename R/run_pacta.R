@@ -149,22 +149,25 @@ run_pacta <- function(config) {
 
   ## run automatic result generation ----------
 
-  sector_selects <-
-    c(
-      "automotive",
-      "coal",
-      "oil and gas",
-      "power",
-      "aviation",
-      "cement",
-      "steel"
+  sector_vals <-
+    list(
+      c(sector = "automotive", method = "tms"),
+      c(sector = "coal", method = "tms"),
+      c(sector = "oil and gas", method = "tms"),
+      c(sector = "power", method = "tms"),
+      c(sector = "aviation", method = "sda"),
+      c(sector = "cement", method = "sda"),
+      c(sector = "steel", method = "sda")
     )
 
-  for (sector_select in sector_selects) {
-    for (tms_i in unique_groups_tms) {
+  for (vals in sector_vals) {
+    sector_select <- vals[["sector"]]
+    groups <- get(paste0("unique_groups_", vals[["method"]]))
+
+    for (i in groups) {
       available_rows <- results_tms_total %>%
         dplyr::filter(
-          .data[["group_id"]] == .env[["tms_i"]],
+          .data[["group_id"]] == .env[["i"]],
           .data[["scenario_source"]] == .env[["scenario_source_input"]],
           grepl(.env[["scenario_select"]], .data$metric),
           .data[["region"]] == .env[["region_select"]],
@@ -177,7 +180,7 @@ run_pacta <- function(config) {
           matched_prioritized = matched_prioritized,
           output_directory = output_path_standard,
           target_type = "tms",
-          group_id = tms_i,
+          group_id = i,
           scenario_source = scenario_source_input,
           scenario = scenario_select,
           region = region_select,
