@@ -244,37 +244,37 @@ A full example `params_match_name` section might look like:
 
 #### by_sector
 
-`by_sector` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
+`by_sector` It must be a single logical value (either `TRUE` or `FALSE`). Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
 
     by_sector: TRUE
 
 #### min_score
 
-`min_score` As an example:
+`min_score` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
  
     min_score: 0.9
 
 #### method
 
-`method` As an example:
+`method` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
 
     method: "jw"
 
 #### p
 
-`p` This argument is passed on to `r2dii.match::match_name()`. As an example:
+`p` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
 
     p: 0.1
 
 #### overwrite
 
-`overwrite` As an example:
+`overwrite` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
 
     overwrite: NULL
 
 #### join_id
 
-`join_id` As an example:
+`join_id` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
 
     join_id: NULL
 
