@@ -1,6 +1,6 @@
 # Data dictionary for the output table company_technology_deviation_tms
 dd_company_technology_deviation_tms <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "company_technology_deviation_tms", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
   "company_technology_deviation_tms", "technology", "character", "The technology", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
   "company_technology_deviation_tms", "year", "integer", "The year of the data", "A year between the 'start_year' of the analyis and the 'start_year' plus the 'time_frame'",
@@ -15,7 +15,7 @@ dd_company_technology_deviation_tms <- dplyr::tribble(
 )
 
 dd_company_alignment_net_tms <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "company_alignment_net_tms", "name_abcd", "character", "The name of the company", "The name of the company",
   "company_alignment_net_tms", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
   "company_alignment_net_tms", "activity_unit", "character", "The unit the activity is measured in for a given sector", "The unit corresponding to the sector. For example 'MW' of capacity for power",
@@ -29,7 +29,7 @@ dd_company_alignment_net_tms <- dplyr::tribble(
 )
 
 dd_company_alignment_bo_po_tms <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "company_alignment_bo_po_tms", "name_abcd", "character", "The name of the company", "The name of the company",
   "company_alignment_bo_po_tms", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
   "company_alignment_bo_po_tms", "activity_unit", "character", "The unit the activity is measured in for a given sector", "The unit corresponding to the sector. For example 'MW' of capacity for power",
@@ -43,7 +43,7 @@ dd_company_alignment_bo_po_tms <- dplyr::tribble(
 )
 
 dd_company_alignment_net_sda <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "company_alignment_net_sda", "name_abcd", "character", "The name of the company", "The name of the company",
   "company_alignment_net_sda", "sector", "character", "The sector of the technology", "One of the following: 'aviation', 'cement', 'steel'",
   "company_alignment_net_sda", "activity_unit", "character", "The unit the physical emission intensity is measured in for a given sector", "The unit corresponding to the sector. For example 'tCO2 / t cement'",
@@ -57,7 +57,7 @@ dd_company_alignment_net_sda <- dplyr::tribble(
 )
 
 dd_company_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "company_exposure_bo_po_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value",
   "company_exposure_bo_po_aggregate_alignment", "name_abcd", "character", "The name of the company", "The name of the company",
   "company_exposure_bo_po_aggregate_alignment", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
@@ -75,7 +75,7 @@ dd_company_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
 )
 
 dd_company_exposure_net_aggregate_alignment <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "company_exposure_net_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value",
   "company_exposure_net_aggregate_alignment", "name_abcd", "character", "The name of the company", "The name of the company",
   "company_exposure_net_aggregate_alignment", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
@@ -93,7 +93,7 @@ dd_company_exposure_net_aggregate_alignment <- dplyr::tribble(
 )
 
 dd_loanbook_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "loanbook_exposure_bo_po_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value",
   "loanbook_exposure_bo_po_aggregate_alignment", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
   "loanbook_exposure_bo_po_aggregate_alignment", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
@@ -107,7 +107,7 @@ dd_loanbook_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
 )
 
 dd_loanbook_exposure_net_aggregate_alignment <- dplyr::tribble(
-  ~dataset,  ~column,     ~typeof, ~definition, ~value,
+  ~dataset, ~column, ~typeof, ~definition, ~value,
   "loanbook_exposure_net_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value",
   "loanbook_exposure_net_aggregate_alignment", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
   "loanbook_exposure_net_aggregate_alignment", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
