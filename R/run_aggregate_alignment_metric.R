@@ -63,7 +63,7 @@ run_aggregate_alignment_metric <- function(config) {
   matched_prioritized <- readr::read_csv(
     file = file.path(dir_matched, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
-    col_select = dplyr::all_of(col_select_matched_prioritized)
+    col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
 
   # aggregate P4B alignment----
