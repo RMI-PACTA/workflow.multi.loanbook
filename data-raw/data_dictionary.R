@@ -197,11 +197,89 @@ dd_data_timeline_bo_po <- dplyr::tribble(
   "data_timeline_bo_po", "exposure_weighted_net_alignment", "double", "Net aggregate alignment value aggregated to the banking book-by-sector level, disaggregated into 'buildout' and 'phaseout' components. Individual company alignment metrics are allocated based on financial exposure, using the 'exposure_weight'", "Numerical value. Can be negative or positive"
 )
 
-# TODO: tms_results_all_groups
-# TODO: sda_results_all_groups
-# TODO: data_tech_mix_<sector>_<...>
-# TODO: data_trajectory_<sector>_<technology>_<...>
-# TODO: data_emission_intensity_<sector>_<...>
+# TODO: extend variable grouping to standard PACTA and update
+dd_tms_results_all_groups <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "tms_results_all_groups", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "tms_results_all_groups", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "tms_results_all_groups", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
+  "tms_results_all_groups", "technology", "character", "The technology", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
+  "tms_results_all_groups", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
+  "tms_results_all_groups", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
+  "tms_results_all_groups", "scenario_source", "character", "The publication the scenario data is based on", "Must be available in the input scenario data. Usually, available sources are: 'weo', 'geco', 'isf'. Usually follows the pattern '<source>_<publication_year>'",
+  "tms_results_all_groups", "metric", "character", "Indicates if the production related values refer to the projected activities of the underlying counterparty, to the economy wide benchmark, or to allocated levels of activity based on the scenarios", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>'",
+  "tms_results_all_groups", "production", "double", "The production level of the given 'metric'", "Numerical value greater or equal to 0",
+  "tms_results_all_groups", "technology_share", "double", "The share of the 'production' the given 'technology' relative to all technologies of the corresponding 'sector' for the gien combination of 'group_id', 'region', 'year' and 'metric'", "Numerical value between 0 and 1",
+  "tms_results_all_groups", "scope", "character", "Indicates if the targets for the given technology have been calculated based on the TMSR (technology) or the SMSP (sector). High-carbon technologies that need to decrease have their targets calculated on the technology level, whereas low-carbon technologies that need to increase have them calculated on the sector level", "Must be one of: 'technology' or 'sector'",
+  "tms_results_all_groups", "percentage_of_initial_production_by_scope", "double", "Relative change compared to the start value (by scope). Used for displaying the change in activity over time on a common scale", "Numerical value. Can be negative or positive"
+)
+
+# TODO: extend variable grouping to standard PACTA and update
+dd_sda_results_all_groups <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "sda_results_all_groups", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "sda_results_all_groups", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "sda_results_all_groups", "sector", "character", "The sector of the technology", "One of the following: 'aviation', 'cement', 'steel'",
+  "sda_results_all_groups", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
+  "sda_results_all_groups", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
+  "sda_results_all_groups", "scenario_source", "character", "The publication the scenario data is based on", "Must be available in the input scenario data. Usually, available sources are: 'weo', 'geco', 'isf'. Usually follows the pattern '<source>_<publication_year>'",
+  "sda_results_all_groups", "emission_factor_metric", "character", "Indicates if the emission intensity related values refer to the projected activities of the underlying counterparty, to the economy wide benchmark, or to allocated levels of activity based on the scenarios", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>'",
+  "sda_results_all_groups", "emission_factor_value", "double", "The physical emission intensity level of the given 'emission_factor_metric'", "Numerical value greater or equal to 0"
+)
+
+# TODO: extend variable grouping to standard PACTA and update
+dd_data_tech_mix <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "data_tech_mix", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "data_tech_mix", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_tech_mix", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
+  "data_tech_mix", "technology", "character", "The technology", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
+  "data_tech_mix", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
+  "data_tech_mix", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
+  "data_tech_mix", "scenario_source", "character", "The publication the scenario data is based on", "Must be available in the input scenario data. Usually, available sources are: 'weo', 'geco', 'isf'. Usually follows the pattern '<source>_<publication_year>'",
+  "data_tech_mix", "metric", "character", "Indicates if the production related values refer to the projected activities of the underlying counterparty, to the economy wide benchmark, or to allocated levels of activity based on the scenarios", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>'",
+  "data_tech_mix", "production", "double", "The production level of the given 'metric'", "Numerical value greater or equal to 0",
+  "data_tech_mix", "technology_share", "double", "The share of the 'production' the given 'technology' relative to all technologies of the corresponding 'sector' for the gien combination of 'group_id', 'region', 'year' and 'metric'", "Numerical value between 0 and 1",
+  "data_tech_mix", "scope", "character", "Indicates if the targets for the given technology have been calculated based on the TMSR (technology) or the SMSP (sector). High-carbon technologies that need to decrease have their targets calculated on the technology level, whereas low-carbon technologies that need to increase have them calculated on the sector level", "Must be one of: 'technology' or 'sector'",
+  "data_tech_mix", "percentage_of_initial_production_by_scope", "double", "Relative change compared to the start value (by scope). Used for displaying the change in activity over time on a common scale", "Numerical value. Can be negative or positive",
+  "data_tech_mix", "label", "character", "Same as 'metric', formatted for display in plot", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>', but formatted for display",
+  "data_tech_mix", "label_tech", "character", "Same as 'technology', formatted for display in plot", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
+  "data_tech_mix", "value", "double", "Same as 'technology_share', for display in plot", "Numerical value between 0 and 1"
+)
+
+# TODO: extend variable grouping to standard PACTA and update
+dd_data_trajectory <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "data_trajectory", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "data_trajectory", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_trajectory", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
+  "data_trajectory", "technology", "character", "The technology", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
+  "data_trajectory", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
+  "data_trajectory", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
+  "data_trajectory", "scenario_source", "character", "The publication the scenario data is based on", "Must be available in the input scenario data. Usually, available sources are: 'weo', 'geco', 'isf'. Usually follows the pattern '<source>_<publication_year>'",
+  "data_trajectory", "metric", "character", "Indicates if the production related values refer to the projected activities of the underlying counterparty, to the economy wide benchmark, or to allocated levels of activity based on the scenarios", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>'",
+  "data_trajectory", "production", "double", "The production level of the given 'metric'", "Numerical value greater or equal to 0",
+  "data_trajectory", "technology_share", "double", "The share of the 'production' the given 'technology' relative to all technologies of the corresponding 'sector' for the gien combination of 'group_id', 'region', 'year' and 'metric'", "Numerical value between 0 and 1",
+  "data_trajectory", "scope", "character", "Indicates if the targets for the given technology have been calculated based on the TMSR (technology) or the SMSP (sector). High-carbon technologies that need to decrease have their targets calculated on the technology level, whereas low-carbon technologies that need to increase have them calculated on the sector level", "Must be one of: 'technology' or 'sector'",
+  "data_trajectory", "percentage_of_initial_production_by_scope", "double", "Relative change compared to the start value (by scope). Used for displaying the change in activity over time on a common scale", "Numerical value. Can be negative or positive",
+  "data_trajectory", "label", "character", "Same as 'metric', formatted for display in plot", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>', but formatted for display",
+  "data_trajectory", "value", "double", "Same as 'percentage_of_initial_production_by_scope', for display in plot", "Numerical value. Can be negative or positive"
+)
+
+# TODO: extend variable grouping to standard PACTA and update
+dd_data_emission_intensity <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "data_emission_intensity", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "data_emission_intensity", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_emission_intensity", "sector", "character", "The sector of the technology", "One of the following: 'aviation', 'cement', 'steel'",
+  "data_emission_intensity", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
+  "data_emission_intensity", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
+  "data_emission_intensity", "scenario_source", "character", "The publication the scenario data is based on", "Must be available in the input scenario data. Usually, available sources are: 'weo', 'geco', 'isf'. Usually follows the pattern '<source>_<publication_year>'",
+  "data_emission_intensity", "emission_factor_metric", "character", "Indicates if the emission intensity related values refer to the projected activities of the underlying counterparty, to the economy wide benchmark, or to allocated levels of activity based on the scenarios", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>'",
+  "data_emission_intensity", "emission_factor_value", "double", "The physical emission intensity level of the given 'emission_factor_metric'", "Numerical value greater or equal to 0",
+  "data_emission_intensity", "label", "character", "Same as 'emission_factor_metric', formatted for display in plot", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>', but formatted for display"
+)
+
 # TODO: companies_included_<sector>_<...>
 
 # TODO: summary_statistics_loanbook_coverage
@@ -223,7 +301,12 @@ data_dictionary <- dplyr::bind_rows(
   dd_data_scatter_sector,
   dd_data_scatter_sector_animated,
   dd_data_timeline_net,
-  dd_data_timeline_bo_po
+  dd_data_timeline_bo_po,
+  dd_tms_results_all_groups,
+  dd_sda_results_all_groups,
+  dd_data_tech_mix,
+  dd_data_trajectory,
+  dd_data_emission_intensity
 )
 
 usethis::use_data(data_dictionary, overwrite = TRUE)
