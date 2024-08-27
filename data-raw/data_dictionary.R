@@ -123,6 +123,26 @@ dd_loanbook_exposure_net_aggregate_alignment <- dplyr::tribble(
   "loanbook_exposure_net_aggregate_alignment", "share_exposure_aligned", "double", "Share of 'sum_exposure_companies_aligned' relative to 'sum_loan_size_outstanding'", "Numerical value. Must be between 0 and 1"
 )
 
+# TODO: data_sankey_<...>
+# TODO: data_sankey_company_<...>
+# TODO: data_scatter_alignment_exposure_<...>
+# TODO: data_scatter_<sector>_<...>
+# TODO: data_scatter_<sector>_company_<...>
+# TODO: data_timeline_net_<sector>_<...>
+# TODO: data_timeline_bo_po_<sector>_<...>
+
+# TODO: tms_results_all_groups
+# TODO: sda_results_all_groups
+# TODO: data_tech_mix_<sector>_<...>
+# TODO: data_trajectory_<sector>_<technology>_<...>
+# TODO: data_emission_intensity_<sector>_<...>
+# TODO: companies_included_<sector>_<...>
+
+# TODO: summary_statistics_loanbook_coverage
+
+# TODO: add tabular output for match_success_rate
+
+
 data_dictionary <- dplyr::bind_rows(
   dd_company_technology_deviation_tms,
   dd_company_alignment_net_tms,
