@@ -48,7 +48,7 @@ get_time_frame <- function(params) {
 }
 
 get_remove_inactive_companies <- function(params) {
-  params[["project_parameters"]][["remove_inactive_companies"]]
+  params[["prepare_abcd"]][["remove_inactive_companies"]]
 }
 
 get_scenario_source <- function(params) {

@@ -20,7 +20,6 @@ default:
     time_frame: 5
     # regions must be available for the selected scenario
     benchmark_regions_select: "global,european union"
-    remove_inactive_companies: TRUE
   sector_split:
     apply_sector_split: TRUE
     sector_split_type: "equal_weights"

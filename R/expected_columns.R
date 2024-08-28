@@ -64,7 +64,7 @@ col_types_abcd_final <- c(
 )
 
 # expected columns matched_prioritized_all_groups file
-col_types_matched_prioritized <- readr::cols_only(
+col_types_matched_prioritized <- readr::cols(
   group_id = "c",
   id_loan = "c",
   id_direct_loantaker = "c",
@@ -87,7 +87,8 @@ col_types_matched_prioritized <- readr::cols_only(
   name_abcd = "c",
   score = "n",
   source = "c",
-  borderline = "l"
+  borderline = "l",
+  .default = "c"
 )
 col_select_matched_prioritized <- names(col_types_matched_prioritized[["cols"]])
 col_standard_matched_prioritized <- c(col_select_matched_prioritized[!col_select_matched_prioritized == "group_id"])
