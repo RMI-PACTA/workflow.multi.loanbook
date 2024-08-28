@@ -117,7 +117,7 @@ The `file_names`{.yaml} section contains options to define the file names of loc
 
 #### sheet_abcd
 
-`sheet_abcd`{.yaml} is the name of the sheet that contains asset based company production data in the file defined by `filename_abcd`{.yaml} and stored in the directory defined by `dir_abcd`{.yaml}. It must be a single string/character value, and it must refer to a valid, accessible, sheet name in the appropriate file. As an example:
+`sheet_abcd`{.yaml} is the name of the sheet that contains asset based company data in the file defined by `filename_abcd`{.yaml} and stored in the directory defined by `dir_abcd`{.yaml}. It must be a single string/character value, and it must refer to a valid, accessible, sheet name in the appropriate file. As an example:
 
 ```yaml
     sheet_abcd: "Company Indicators - PACTA Comp"
