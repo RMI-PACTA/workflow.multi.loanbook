@@ -122,7 +122,8 @@ run_calculate_match_success_rate <- function(config) {
   # financial sector from the raw loan book to match the production sector.
   # this simulates matching with the option by_sector = TRUE
   matched_prioritized <- matched_prioritized %>%
-    dplyr::select(-"sector")
+    dplyr::select(-"sector") %>%
+    dplyr::rename(id_loan_matched = "id_loan")
 
   lbk_match_success <- raw_lbk_with_sectors %>%
     dplyr::left_join(
@@ -140,12 +141,19 @@ run_calculate_match_success_rate <- function(config) {
         "sector_classification_direct_loantaker",
         "lei_direct_loantaker",
         "isin_direct_loantaker",
-        "id_loan",
+        # "id_loan",
         "group_id",
         "sector" = "sector_abcd",
         "borderline"
       )
     ) %>%
+    # dplyr::mutate(
+    #   id_loan_matched = dplyr::if_else(
+    #     grepl(paste(.data$id_loan, collapse="|"), .data$id_loan_matched),
+    #     .data$id_loan,
+    #     NA_character_
+    #   )
+    # ) %>%
     dplyr::mutate(
       matched = dplyr::case_when(
         .data$score == 1 ~ "Matched",
