@@ -215,7 +215,6 @@ A full example `sector_split`{.yaml} section might look like:
 
 ```yaml
     sector_split_type: "equal_weights"
-    # sector_split_type: "worst_case"
 ```
 
 #### dir_split_company_id
