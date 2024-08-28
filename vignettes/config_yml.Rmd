@@ -147,7 +147,7 @@ A full example `project_parameters`{.yaml} section might look like:
 
 #### scenario_select
 
-`scenario_select`{.yaml} is an identifier of the scenario to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario identifier contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `"nze_2050"`{.yaml}, `"aps"`{.yaml} or `"steps"`{.yaml}. As an example:
+`scenario_select`{.yaml} is an identifier of the scenario to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario identifier corresponding to the `scenario_source` and contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `"nze_2050"`{.yaml}, `"aps"`{.yaml} or `"steps"`{.yaml}. As an example:
 
 ```yaml
     scenario_select: "nze_2050"
