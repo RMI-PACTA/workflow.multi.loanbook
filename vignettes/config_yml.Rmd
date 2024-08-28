@@ -28,352 +28,452 @@ Also note that the config file must have the top-level section `default`. This i
 
 ## directories:
 
-The `directories` section contains options to define locally accessible paths where input and output data should be found or saved. A full example `directories` section might look like:
+The `directories`{.yaml} section contains options to define locally accessible paths where input and output data should be found or saved. A full example `directories`{.yaml} section might look like:
 
-    directories:
-      dir_scenario: "~/Desktop/test/scenario"
-      dir_abcd: "~/Desktop/test/abcd"
-      dir_raw: "~/Desktop/test/raw"
-      dir_matched: "~/Desktop/test/matched"
-      dir_output: "~/Desktop/test/output"
+```yaml
+  directories:
+    dir_scenario: "~/Desktop/test/scenario"
+    dir_abcd: "~/Desktop/test/abcd"
+    dir_raw: "~/Desktop/test/raw"
+    dir_matched: "~/Desktop/test/matched"
+    dir_output: "~/Desktop/test/output"
+```
 
 #### dir_scenario
 
-`dir_scenario` is a path to a directory that contains scenario data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_scenario`{.yaml} is a path to a directory that contains scenario data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
+```yaml
     dir_scenario: "~/Desktop/test/scenario"
+```
 
 #### dir_abcd
 
-`dir_abcd` is a path to a directory that contains asset based company production data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_abcd`{.yaml} is a path to a directory that contains asset based company production data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
+```yaml
     dir_abcd: "~/Desktop/test/abcd"
+```
 
 #### dir_raw
 
-`dir_raw` is a path to a directory that contains raw loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_raw`{.yaml} is a path to a directory that contains raw loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
+```yaml
     dir_raw: "~/Desktop/test/raw"
+```
 
 #### dir_matched
 
-`dir_matched` is a path to a directory that contains matched loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_matched`{.yaml} is a path to a directory that contains matched loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
+```yaml
     dir_matched: "~/Desktop/test/matched"
+```
 
 #### dir_output
 
-`dir_output` is a path to a directory where the outputs should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_output`{.yaml} is a path to a directory where the outputs should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
+```yaml
     dir_output: "~/Desktop/test/output"
+```
 
 ## file_names:
 
-The `file_names` section contains options to define the file names of locally accessible files found in the directories defined in the `directories` section. The directories and file names are defined separately to allow for flexibility in where and how your input and output files are stored. A full example `file_names` section might look like:
+The `file_names`{.yaml} section contains options to define the file names of locally accessible files found in the directories defined in the `directories`{.yaml} section. The directories and file names are defined separately to allow for flexibility in where and how your input and output files are stored. A full example `file_names`{.yaml} section might look like:
 
-    file_names:
-      filename_scenario_tms: "scenarios_2022_p4b.csv"
-      filename_scenario_sda: "scenarios_2022_ei_p4b.csv"
-      filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
-      sheet_abcd: "Company Indicators - PACTA Comp"
+```yaml
+  file_names:
+    filename_scenario_tms: "scenarios_2022_p4b.csv"
+    filename_scenario_sda: "scenarios_2022_ei_p4b.csv"
+    filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
+    sheet_abcd: "Company Indicators - PACTA Comp"
+```
 
 #### filename_scenario_tms
 
-`filename_scenario_tms` is the filename of the file that contains production based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_scenario_tms`{.yaml} is the filename of the file that contains production based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
+```yaml
     filename_scenario_tms: "scenarios_2022_p4b.csv
+```
 
 #### filename_scenario_sda
 
-`filename_scenario_sda` is the filename of the file that contains emission intensity based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_scenario_sda`{.yaml} is the filename of the file that contains emission intensity based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
+```yaml
     filename_scenario_sda: "scenarios_2022_ei_p4b.csv"
+```
 
 #### filename_abcd
 
-`filename_abcd` is the filename of the file that contains asset based company production data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_abcd`{.yaml} is the filename of the file that contains asset based company production data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
+```yaml
     filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
+```
 
 #### sheet_abcd
 
-`sheet_abcd` is the name of the sheet that contains asset based company production data in the file defined by `filename_abcd` and stored in the directory defined by `dir_abcd`. It must be a single string/character value, and it must refer to a valid, accessible, sheet name in the appropriate file. As an example:
+`sheet_abcd`{.yaml} is the name of the sheet that contains asset based company production data in the file defined by `filename_abcd`{.yaml} and stored in the directory defined by `dir_abcd`{.yaml}. It must be a single string/character value, and it must refer to a valid, accessible, sheet name in the appropriate file. As an example:
 
+```yaml
     sheet_abcd: "Company Indicators - PACTA Comp"
-    
+```
+
 ### project_parameters:
 
-A full example `project_parameters` section might look like:
+A full example `project_parameters`{.yaml} section might look like:
 
-    project_parameters:
-      scenario_source: "weo_2022"
-      scenario_select: "nze_2050"
-      region_select: "global"
-      start_year: 2022
-      time_frame: 5
-      benchmark_regions_select: "global,european union"
+```yaml
+  project_parameters:
+    scenario_source: "weo_2022"
+    scenario_select: "nze_2050"
+    region_select: "global"
+    start_year: 2022
+    time_frame: 5
+    benchmark_regions_select: "global,european union"
+```
 
 #### scenario_source
 
-`scenario_source` is an identifier of the scenario source to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario source identifier contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `"weo_2023"` or `"geco_2022"`. As an example:
+`scenario_source`{.yaml} is an identifier of the scenario source to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario source identifier contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `"weo_2023"`{.yaml} or `"geco_2022"`{.yaml}. As an example:
 
+```yaml
     scenario_source: "weo_2022"
+```
 
 #### scenario_select
 
-`scenario_select` is an identifier of the scenario to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario identifier contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `"nze_2050"`, `"aps"` or `"steps"`. As an example:
+`scenario_select`{.yaml} is an identifier of the scenario to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario identifier contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `"nze_2050"`{.yaml}, `"aps"`{.yaml} or `"steps"`{.yaml}. As an example:
 
+```yaml
     scenario_select: "nze_2050"
+```
 
 #### region_select
 
-`region_select` is an identifier of the region to be used. It must be a single string/character value, and it must refer to a valid, accessible, region identifier contained in the `r2dii.data::region_isos` datatset. Valid values typically look like `"global"` or `"advanced economies"`. As an example:
+`region_select`{.yaml} is an identifier of the region to be used. It must be a single string/character value, and it must refer to a valid, accessible, region identifier contained in the [`r2dii.data::region_isos`{.r}](https://rmi-pacta.github.io/r2dii.data/reference/region_isos_demo.html) datatset. Valid values typically look like `"global"`{.yaml} or `"advanced economies"`{.yaml}. As an example:
 
+```yaml
     region_select: "global"
+```
 
 #### start_year
 
-`start_year` is the start year of the analysis. Normally, the start year should correspond with year of the publication of the scenario in use. It must be a single numeric value, and it must refer to a valid, accessible, year contained in the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `2022` or `2023` (note that this value should *not* be wrapped in quotes). As an example:
+`start_year`{.yaml} is the start year of the analysis. Normally, the start year should correspond with year of the publication of the scenario in use. It must be a single numeric value, and it must refer to a valid, accessible, year contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `2022`{.yaml} or `2023`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
+```yaml
     start_year: 2022
+```
 
 #### time_frame
 
-`time_frame` is the number of years (starting from the `start_year`) that the analysis covers, defining the time frame. It must be a single numeric value, and it must define a valid, accessible, time frame  covered by the scenario data file/s defined by `filename_scenario_tms` and `filename_scenario_sda`. Valid values typically look like `5` or `6` (note that this value should *not* be wrapped in quotes). As an example:
+`time_frame`{.yaml} is the number of years (starting from the `start_year`{.yaml}) that the analysis covers, defining the time frame. It must be a single numeric value, and it must define a valid, accessible, time frame  covered by the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `5`{.yaml} or `6`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
+```yaml
     time_frame: 5
+```
 
 #### benchmark_regions_select
 
-`benchmark_regions_select` . As an example:
+`benchmark_regions_select`{.yaml}. As an example:
 
+```yaml
     # regions must be available for the selected scenario
     benchmark_regions_select: "global,european union"
+```
 
 ### sector_split:
 
-A full example `sector_split` section might look like:
+A full example `sector_split`{.yaml} section might look like:
 
-    sector_split:
-      apply_sector_split: TRUE
-      sector_split_type: "equal_weights"
-      dir_split_company_id: "~/Desktop/test/split"
-      filename_split_company_id: "split_company_ids.csv"
-      dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
-      filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
-      sheet_advanced_company_indicators: "Company Activities"
+```yaml
+  sector_split:
+    apply_sector_split: TRUE
+    sector_split_type: "equal_weights"
+    dir_split_company_id: "~/Desktop/test/split"
+    filename_split_company_id: "split_company_ids.csv"
+    dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
+    filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
+    sheet_advanced_company_indicators: "Company Activities"
+```
 
 #### apply_sector_split
 
-`apply_sector_split` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
+`apply_sector_split`{.yaml} It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
 
+```yaml
     apply_sector_split: TRUE
+```
 
 #### sector_split_type
 
-`sector_split_type` . As an example:
+`sector_split_type`{.yaml}. As an example:
 
+```yaml
     sector_split_type: "equal_weights"
     # sector_split_type: "worst_case"
+```
 
 #### dir_split_company_id
 
-`dir_split_company_id` is a path to a directory that contains the split company ID CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_split_company_id`{.yaml} is a path to a directory that contains the split company ID CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
+```yaml
     dir_split_company_id: "~/Desktop/test/split"
+```
 
 #### filename_split_company_id
 
-`filename_split_company_id` is the filename of the CSV file that contains the split company ID data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_split_company_id`{.yaml} is the filename of the CSV file that contains the split company ID data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
+```yaml
     filename_split_company_id: "split_company_ids.csv"
+```
 
 #### dir_advanced_company_indicators
 
-`dir_advanced_company_indicators` is a path to a directory that contains the Advanced Company Indicators XLSX file. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_advanced_company_indicators`{.yaml} is a path to a directory that contains the Advanced Company Indicators XLSX file. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
+```yaml
     dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
+```
 
 #### filename_advanced_company_indicators
 
-`filename_advanced_company_indicators` is the filename of the XLSX file that contains the Advanced Company Indicators. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_advanced_company_indicators`{.yaml} is the filename of the XLSX file that contains the Advanced Company Indicators. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
+```yaml
     filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
+```
 
 #### sheet_advanced_company_indicators
 
-`sheet_advanced_company_indicators` . As an example:
+`sheet_advanced_company_indicators`{.yaml}. As an example:
 
+```yaml
     sheet_advanced_company_indicators: "Company Activities"
+```
 
 ### matching:
 
-A full example `matching` section might look like:
+A full example `matching`{.yaml} section might look like:
 
-    matching:
-      prep_input_level: "direct_loantaker"
-      params_match_name:
-        by_sector: TRUE
-        min_score: 0.9
-        method: "jw"
-        p: 0.1
-        overwrite: NULL
-        join_id: NULL
-      own_sector_classification:
-        use_own_sector_classification: FALSE
-        dir_own_sector_classification: "path/to/own_sector_classification_folder"
-        filename_own_sector_classification: "own_sector_classification.csv"
+```yaml
+  matching:
+    prep_input_level: "direct_loantaker"
+    params_match_name:
+      by_sector: TRUE
+      min_score: 0.9
+      method: "jw"
+      p: 0.1
+      overwrite: NULL
+      join_id: NULL
+    own_sector_classification:
+      use_own_sector_classification: FALSE
+      dir_own_sector_classification: "path/to/own_sector_classification_folder"
+      filename_own_sector_classification: "own_sector_classification.csv"
+```
 
 #### prep_input_level
 
-`prep_input_level` As an example:
+`prep_input_level`{.yaml}. As an example:
 
+```yaml
     prep_input_level: "direct_loantaker"
+```
 
 ### params_match_name:
 
-A full example `params_match_name` section might look like:
+A full example `params_match_name`{.yaml} section might look like:
 
-      params_match_name:
-        by_sector: TRUE
-        min_score: 0.9
-        method: "jw"
-        p: 0.1
-        overwrite: NULL
-        join_id: NULL
+```yaml
+    params_match_name:
+      by_sector: TRUE
+      min_score: 0.9
+      method: "jw"
+      p: 0.1
+      overwrite: NULL
+      join_id: NULL
+```
 
 #### by_sector
 
-`by_sector` It must be a single logical value (either `TRUE` or `FALSE`). Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
+`by_sector`{.yaml}. It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
 
-    by_sector: TRUE
+```yaml
+      by_sector: TRUE
+```
 
 #### min_score
 
-`min_score` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
+`min_score`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
  
-    min_score: 0.9
+```yaml
+      min_score: 0.9
+```
 
 #### method
 
-`method` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
+`method`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
 
-    method: "jw"
+```yaml
+      method: "jw"
+```
 
 #### p
 
-`p` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
+`p`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
 
-    p: 0.1
+```yaml
+      p: 0.1
+```
 
 #### overwrite
 
-`overwrite` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
+`overwrite`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
 
-    overwrite: NULL
+```yaml
+      overwrite: NULL
+```
 
 #### join_id
 
-`join_id` Further explanation of this argument can be found in the documentation for `r2dii.match::match_name()`. As an example:
+`join_id`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
 
-    join_id: NULL
+```yaml
+      join_id: NULL
+```
 
 ### own_sector_classification:
 
-A full example `own_sector_classification` section might look like:
+A full example `own_sector_classification`{.yaml} section might look like:
 
-      own_sector_classification:
-        use_own_sector_classification: FALSE
-        dir_own_sector_classification: "path/to/own_sector_classification_folder"
-        filename_own_sector_classification: "own_sector_classification.csv"
+```yaml
+    own_sector_classification:
+      use_own_sector_classification: FALSE
+      dir_own_sector_classification: "path/to/own_sector_classification_folder"
+      filename_own_sector_classification: "own_sector_classification.csv"
+```
 
 #### use_own_sector_classification
 
-`use_own_sector_classification` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
+`use_own_sector_classification`{.yaml}. It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
 
-    use_own_sector_classification: FALSE
+```yaml
+      use_own_sector_classification: FALSE
+```
 
 #### dir_own_sector_classification
 
-`dir_own_sector_classification` is a path to a directory that contains the manual sector classification CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_own_sector_classification`{.yaml} is a path to a directory that contains the manual sector classification CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
-    dir_own_sector_classification: "path/to/own_sector_classification_folder"
+```yaml
+      dir_own_sector_classification: "path/to/own_sector_classification_folder"
+```
 
 #### filename_own_sector_classification
 
-`filename_own_sector_classification` is the filename of the CSV that contains the manual sector classification data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_own_sector_classification`{.yaml} is the filename of the CSV that contains the manual sector classification data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
-    filename_own_sector_classification: "own_sector_classification.csv"
+```yaml
+      filename_own_sector_classification: "own_sector_classification.csv"
+```
 
 ### match_prioritize:
 
-A full example `match_prioritize` section might look like:
+A full example `match_prioritize`{.yaml} section might look like:
 
-    match_prioritize:
-      priority: NULL
+```yaml
+  match_prioritize:
+    priority: NULL
+```
 
 #### priority
 
-`priority` . As an example:
+`priority`{.yaml}. As an example:
 
+```yaml
     priority: NULL
+```
 
 ### prepare_abcd:
 
-A full example `prepare_abcd` section might look like:
+A full example `prepare_abcd`{.yaml} section might look like:
 
-    prepare_abcd:
-      remove_inactive_companies: TRUE
+```yaml
+  prepare_abcd:
+    remove_inactive_companies: TRUE
+```
 
 #### remove_inactive_companies
 
-`remove_inactive_companies` It must be a single logical value (either `TRUE` or `FALSE`). As an example:
+`remove_inactive_companies`{.yaml} It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
 
+```yaml
     remove_inactive_companies: TRUE
+```
 
 ### match_success_rate:
 
-A full example `match_success_rate` section might look like:
+A full example `match_success_rate`{.yaml} section might look like:
 
-    match_success_rate:
-      plot_width: 12
-      plot_height: 8
-      plot_units: "in"
-      plot_resolution: 300
+```yaml
+  match_success_rate:
+    plot_width: 12
+    plot_height: 8
+    plot_units: "in"
+    plot_resolution: 300
+```
 
 #### plot_width
 
-`plot_width` is the desired width of the XXX output plot in units defined by `plot_units`. It must be a single numeric value. Valid values typically look like `10` or `12` (note that this value should *not* be wrapped in quotes). As an example:
+`plot_width`{.yaml} is the desired width of the XXX output plot in units defined by `plot_units`{.yaml}. It must be a single numeric value. Valid values typically look like `10`{.yaml} or `12`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
+```yaml
     plot_width: 12
+```
 
 #### plot_height
 
-`plot_height` is the desired height of the XXX output plot in units defined by `plot_units`. It must be a single numeric value. Valid values typically look like `6` or `8` (note that this value should *not* be wrapped in quotes). As an example:
+`plot_height`{.yaml} is the desired height of the XXX output plot in units defined by `plot_units`{.yaml}. It must be a single numeric value. Valid values typically look like `6`{.yaml} or `8`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
+```yaml
     plot_height: 8
+```
 
 #### plot_units
 
-`plot_units` is the desired units to express the dimensions of the XXX output plot in `plot_width` and `plot_height`. It must be a single string/character value, and it must refer to a valid unit identifier. Valid values typically look like `in` or `px`. As an example:
+`plot_units`{.yaml} is the desired units to express the dimensions of the XXX output plot in `plot_width`{.yaml} and `plot_height`{.yaml}. It must be a single string/character value, and it must refer to a valid unit identifier. Valid values typically look like `"in"`{.yaml} or `"px"`{.yaml}. As an example:
 
+```yaml
     plot_units: "in"
+```
 
 #### plot_resolution
 
-`plot_resolution` is the desired resolution of the XXX output plot in dpi. It must be a single numeric value. Valid values typically look like `72` or `300` (note that this value should *not* be wrapped in quotes). As an example:
+`plot_resolution`{.yaml} is the desired resolution of the XXX output plot in dpi. It must be a single numeric value. Valid values typically look like `72`{.yaml} or `300`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
+```yaml
     plot_resolution: 300
+```
 
 ### aggregate_alignment_metric:
 
-A full example `aggregate_alignment_metric` section might look like:
+A full example `aggregate_alignment_metric`{.yaml} section might look like:
 
-    aggregate_alignment_metric:
-      by_group: "group_id"
+```yaml
+  aggregate_alignment_metric:
+    by_group: "group_id"
+```
 
 #### by_group
 
-`by_group` It must be a single string/character value. As an example:
+`by_group`{.yaml}. It must be a single string/character value. As an example:
 
+```yaml
     by_group: "group_id"
+```
