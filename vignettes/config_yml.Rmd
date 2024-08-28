@@ -134,7 +134,6 @@ A full example `project_parameters`{.yaml} section might look like:
     region_select: "global"
     start_year: 2022
     time_frame: 5
-    benchmark_regions_select: "global,european union"
 ```
 
 #### scenario_source
@@ -175,15 +174,6 @@ A full example `project_parameters`{.yaml} section might look like:
 
 ```yaml
     time_frame: 5
-```
-
-#### benchmark_regions_select
-
-`benchmark_regions_select`{.yaml}. As an example:
-
-```yaml
-    # regions must be available for the selected scenario
-    benchmark_regions_select: "global,european union"
 ```
 
 ### sector_split:
