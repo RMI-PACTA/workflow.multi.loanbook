@@ -155,7 +155,7 @@ A full example `project_parameters`{.yaml} section might look like:
 
 #### region_select
 
-`region_select`{.yaml} is an identifier of the region to be used. It must be a single string/character value, and it must refer to a valid, accessible, region identifier contained in the [`r2dii.data::region_isos`{.r}](https://rmi-pacta.github.io/r2dii.data/reference/region_isos_demo.html) datatset. Valid values typically look like `"global"`{.yaml} or `"advanced economies"`{.yaml}. As an example:
+`region_select`{.yaml} is an identifier of the region to be used. It must be a single string/character value, and it must refer to a valid, accessible, region identifier contained in the [`r2dii.data::region_isos`{.r}](https://rmi-pacta.github.io/r2dii.data/reference/region_isos_demo.html) dataset where it must be listed as a region available for the `scenario_source`. Valid values typically look like `"global"`{.yaml} or `"advanced economies"`{.yaml}. As an example:
 
 ```yaml
     region_select: "global"
