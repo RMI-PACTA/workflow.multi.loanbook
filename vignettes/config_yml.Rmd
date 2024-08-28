@@ -252,7 +252,7 @@ A full example `sector_split`{.yaml} section might look like:
 
 #### sheet_advanced_company_indicators
 
-`sheet_advanced_company_indicators`{.yaml}. As an example:
+`sheet_advanced_company_indicators`{.yaml} is the name of the sheet that contains asset based company production data in the file defined by `filename_advanced_company_indicators`{.yaml} and stored in the directory defined by `dir_advanced_company_indicators`{.yaml}. It must be a single string/character value, and it must refer to a valid, accessible, sheet name in the appropriate file. As an example:
 
 ```yaml
     sheet_advanced_company_indicators: "Company Activities"
@@ -310,7 +310,7 @@ A full example `params_match_name`{.yaml} section might look like:
 
 #### min_score
 
-`min_score`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+`min_score`{.yaml} is a number between 0-1, to set the minimum score threshold. A score of 1 is a perfect match. It must be a single numeric value. Valid values typically look like `0.7`{.yaml} or `0.9`{.yaml} (note that this value should *not* be wrapped in quotes). Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
  
 ```yaml
       min_score: 0.9
@@ -318,7 +318,7 @@ A full example `params_match_name`{.yaml} section might look like:
 
 #### method
 
-`method`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+`method`{.yaml} is the method for distance calculation. It must be a single string/character value, and it must refer to a valid method identifier, one of `"osa"`{.yaml}, `"lv"`{.yaml}, `"dl"`{.yaml}, `"hamming"`{.yaml}, `"lcs"`{.yaml}, `"qgram"`{.yaml}, `"cosine"`{.yaml}, `"jaccard"`{.yaml}, `"jw"`{.yaml}, `"soundex"`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html) and [`stringdist::stringdist-metrics`{.R}](https://rdrr.io/cran/stringdist/man/stringdist-metrics.html). As an example:
 
 ```yaml
       method: "jw"
@@ -326,7 +326,7 @@ A full example `params_match_name`{.yaml} section might look like:
 
 #### p
 
-`p`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+`p`{.yaml} is the prefix factor for Jaro-Winkler distance. The valid range for p is 0 <= p <= 0.25. If p=0 (default), the Jaro-distance is returned. Applies only to method='jw'. It must be a single numeric value. Valid values typically look like `0.1`{.yaml} or `0.2`{.yaml} (note that this value should *not* be wrapped in quotes). Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
 
 ```yaml
       p: 0.1
