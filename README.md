@@ -5,8 +5,7 @@
 [![R-CMD-check](https://github.com/RMI-PACTA/workflow.multi.loanbook/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RMI-PACTA/workflow.multi.loanbook/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/workflow.multi.loanbook)](https://CRAN.R-project.org/package=workflow.multi.loanbook)
-[![workflow.multi.loanbook status
-badge](https://rmi-pacta.r-universe.dev/badges/workflow.multi.loanbook)](https://rmi-pacta.r-universe.dev/ui#workflow.multi.loanbook)
+[![workflow.multi.loanbook status badge](https://rmi-pacta.r-universe.dev/badges/workflow.multi.loanbook)](https://rmi-pacta.r-universe.dev/workflow.multi.loanbook)
 <!-- badges: end -->
 
 The goal of `workflow.multi.loanbook` is to provide an easy-to-use
