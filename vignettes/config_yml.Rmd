@@ -1,0 +1,468 @@
+---
+title: documentation of options in config.yml
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{config_yml}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Intro
+
+Most of the functions in this package require a path to a `config.yml` file as input. This structure allows for an easily reviewed file that contains all relevant parameters that should be / were used for a given multi-loanbook analysis. Below is a full documentation of each option.
+
+# Preface
+
+The config file is separated into a few top-level "sections" that contain contextually similar options. The top-level sections will be documented as well below, but note that the top-level sections themselves never have a value directly associated with them.
+
+Also note that the config file must have the top-level section `default`. This is related to a feature of the `yaml` package which facilitates having and targeting different config sets for different purposes. Technically, one could leverage this for use with workflow.multi.loanbook, but it is not recommended.
+
+# Options
+
+## directories:
+
+The `directories`{.yaml} section contains options to define locally accessible paths where input and output data should be found or saved. A full example `directories`{.yaml} section might look like:
+
+```yaml
+  directories:
+    dir_scenario: "~/Desktop/test/scenario"
+    dir_abcd: "~/Desktop/test/abcd"
+    dir_raw: "~/Desktop/test/raw"
+    dir_matched: "~/Desktop/test/matched"
+    dir_output: "~/Desktop/test/output"
+```
+
+#### dir_scenario
+
+`dir_scenario`{.yaml} is a path to a directory that contains scenario data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_scenario: "~/Desktop/test/scenario"
+```
+
+#### dir_abcd
+
+`dir_abcd`{.yaml} is a path to a directory that contains asset based company production data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_abcd: "~/Desktop/test/abcd"
+```
+
+#### dir_raw
+
+`dir_raw`{.yaml} is a path to a directory that contains raw loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_raw: "~/Desktop/test/raw"
+```
+
+#### dir_matched
+
+`dir_matched`{.yaml} is a path to a directory that contains matched loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_matched: "~/Desktop/test/matched"
+```
+
+#### dir_output
+
+`dir_output`{.yaml} is a path to a directory where the outputs should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_output: "~/Desktop/test/output"
+```
+
+## file_names:
+
+The `file_names`{.yaml} section contains options to define the file names of locally accessible files found in the directories defined in the `directories`{.yaml} section. The directories and file names are defined separately to allow for flexibility in where and how your input and output files are stored. A full example `file_names`{.yaml} section might look like:
+
+```yaml
+  file_names:
+    filename_scenario_tms: "scenarios_2022_p4b.csv"
+    filename_scenario_sda: "scenarios_2022_ei_p4b.csv"
+    filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
+    sheet_abcd: "Company Indicators - PACTA Comp"
+```
+
+#### filename_scenario_tms
+
+`filename_scenario_tms`{.yaml} is the filename of the file that contains production based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+
+```yaml
+    filename_scenario_tms: "scenarios_2022_p4b.csv
+```
+
+#### filename_scenario_sda
+
+`filename_scenario_sda`{.yaml} is the filename of the file that contains emission intensity based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+
+```yaml
+    filename_scenario_sda: "scenarios_2022_ei_p4b.csv"
+```
+
+#### filename_abcd
+
+`filename_abcd`{.yaml} is the filename of the file that contains asset based company data, including production values and physical emission intensity values. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+
+```yaml
+    filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
+```
+
+#### sheet_abcd
+
+`sheet_abcd`{.yaml} is the name of the sheet that contains asset based company data in the file defined by `filename_abcd`{.yaml} and stored in the directory defined by `dir_abcd`{.yaml}. It must be a single string/character value, and it must refer to a valid, accessible, sheet name in the appropriate file. As an example:
+
+```yaml
+    sheet_abcd: "Company Indicators - PACTA Comp"
+```
+
+### project_parameters:
+
+A full example `project_parameters`{.yaml} section might look like:
+
+```yaml
+  project_parameters:
+    scenario_source: "weo_2022"
+    scenario_select: "nze_2050"
+    region_select: "global"
+    start_year: 2022
+    time_frame: 5
+```
+
+#### scenario_source
+
+`scenario_source`{.yaml} is an identifier of the scenario source to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario source identifier contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `"weo_2023"`{.yaml} or `"geco_2022"`{.yaml}. As an example:
+
+```yaml
+    scenario_source: "weo_2022"
+```
+
+#### scenario_select
+
+`scenario_select`{.yaml} is an identifier of the scenario to be used. It must be a single string/character value, and it must refer to a valid, accessible, scenario identifier corresponding to the `scenario_source` and contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `"nze_2050"`{.yaml}, `"aps"`{.yaml} or `"steps"`{.yaml}. As an example:
+
+```yaml
+    scenario_select: "nze_2050"
+```
+
+#### region_select
+
+`region_select`{.yaml} is an identifier of the region to be used. It must be a single string/character value, and it must refer to a valid, accessible, region identifier contained in the [`r2dii.data::region_isos`{.r}](https://rmi-pacta.github.io/r2dii.data/reference/region_isos_demo.html) dataset where it must be listed as a region available for the `scenario_source`. Valid values typically look like `"global"`{.yaml} or `"advanced economies"`{.yaml}. As an example:
+
+```yaml
+    region_select: "global"
+```
+
+#### start_year
+
+`start_year`{.yaml} is the start year of the analysis. Normally, the start year should correspond with year of the publication of the scenario in use. It must be a single numeric value, and it must refer to a valid, accessible, year contained in the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `2022`{.yaml} or `2023`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
+
+```yaml
+    start_year: 2022
+```
+
+#### time_frame
+
+`time_frame`{.yaml} is the number of years (starting from the `start_year`{.yaml}) that the analysis covers, defining the time frame. It must be a single numeric value, and it must define a valid, accessible, time frame  covered by the scenario data file/s defined by `filename_scenario_tms`{.yaml} and `filename_scenario_sda`{.yaml}. Valid values typically look like `5`{.yaml} or `6`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
+
+```yaml
+    time_frame: 5
+```
+
+### sector_split:
+
+A full example `sector_split`{.yaml} section might look like:
+
+```yaml
+  sector_split:
+    apply_sector_split: TRUE
+    sector_split_type: "equal_weights"
+    dir_split_company_id: "~/Desktop/test/split"
+    filename_split_company_id: "split_company_ids.csv"
+    dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
+    filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
+    sheet_advanced_company_indicators: "Company Activities"
+```
+
+#### apply_sector_split
+
+`apply_sector_split`{.yaml} It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
+
+```yaml
+    apply_sector_split: TRUE
+```
+
+#### sector_split_type
+
+`sector_split_type`{.yaml}. As an example:
+
+```yaml
+    sector_split_type: "equal_weights"
+```
+
+#### dir_split_company_id
+
+`dir_split_company_id`{.yaml} is a path to a directory that contains the split company ID CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_split_company_id: "~/Desktop/test/split"
+```
+
+#### filename_split_company_id
+
+`filename_split_company_id`{.yaml} is the filename of the CSV file that contains the split company ID data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+
+```yaml
+    filename_split_company_id: "split_company_ids.csv"
+```
+
+#### dir_advanced_company_indicators
+
+`dir_advanced_company_indicators`{.yaml} is a path to a directory that contains the Advanced Company Indicators XLSX file. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
+```
+
+#### filename_advanced_company_indicators
+
+`filename_advanced_company_indicators`{.yaml} is the filename of the XLSX file that contains the Advanced Company Indicators. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+
+```yaml
+    filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
+```
+
+#### sheet_advanced_company_indicators
+
+`sheet_advanced_company_indicators`{.yaml} is the name of the sheet that contains asset based company production data in the file defined by `filename_advanced_company_indicators`{.yaml} and stored in the directory defined by `dir_advanced_company_indicators`{.yaml}. It must be a single string/character value, and it must refer to a valid, accessible, sheet name in the appropriate file. As an example:
+
+```yaml
+    sheet_advanced_company_indicators: "Company Activities"
+```
+
+### matching:
+
+A full example `matching`{.yaml} section might look like:
+
+```yaml
+  matching:
+    prep_input_level: "direct_loantaker"
+    params_match_name:
+      by_sector: TRUE
+      min_score: 0.9
+      method: "jw"
+      p: 0.1
+      overwrite: NULL
+      join_id: NULL
+    own_sector_classification:
+      use_own_sector_classification: FALSE
+      dir_own_sector_classification: "path/to/own_sector_classification_folder"
+      filename_own_sector_classification: "own_sector_classification.csv"
+```
+
+#### prep_input_level
+
+`prep_input_level`{.yaml}. As an example:
+
+```yaml
+    prep_input_level: "direct_loantaker"
+```
+
+### params_match_name:
+
+A full example `params_match_name`{.yaml} section might look like:
+
+```yaml
+    params_match_name:
+      by_sector: TRUE
+      min_score: 0.9
+      method: "jw"
+      p: 0.1
+      overwrite: NULL
+      join_id: NULL
+```
+
+#### by_sector
+
+`by_sector`{.yaml}. It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+
+```yaml
+      by_sector: TRUE
+```
+
+#### min_score
+
+`min_score`{.yaml} is a number between 0-1, to set the minimum score threshold. A score of 1 is a perfect match. It must be a single numeric value. Valid values typically look like `0.7`{.yaml} or `0.9`{.yaml} (note that this value should *not* be wrapped in quotes). Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+ 
+```yaml
+      min_score: 0.9
+```
+
+#### method
+
+`method`{.yaml} is the method for distance calculation. It must be a single string/character value, and it must refer to a valid method identifier, one of `"osa"`{.yaml}, `"lv"`{.yaml}, `"dl"`{.yaml}, `"hamming"`{.yaml}, `"lcs"`{.yaml}, `"qgram"`{.yaml}, `"cosine"`{.yaml}, `"jaccard"`{.yaml}, `"jw"`{.yaml}, `"soundex"`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html) and [`stringdist::stringdist-metrics`{.R}](https://rdrr.io/cran/stringdist/man/stringdist-metrics.html). As an example:
+
+```yaml
+      method: "jw"
+```
+
+#### p
+
+`p`{.yaml} is the prefix factor for Jaro-Winkler distance. The valid range for p is 0 <= p <= 0.25. If p=0 (default), the Jaro-distance is returned. Applies only to method='jw'. It must be a single numeric value. Valid values typically look like `0.1`{.yaml} or `0.2`{.yaml} (note that this value should *not* be wrapped in quotes). Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+
+```yaml
+      p: 0.1
+```
+
+#### overwrite
+
+`overwrite`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+
+```yaml
+      overwrite: NULL
+```
+
+#### join_id
+
+`join_id`{.yaml}. Further explanation of this argument can be found in the documentation for [`r2dii.match::match_name()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). As an example:
+
+```yaml
+      join_id: NULL
+```
+
+### own_sector_classification:
+
+A full example `own_sector_classification`{.yaml} section might look like:
+
+```yaml
+    own_sector_classification:
+      use_own_sector_classification: FALSE
+      dir_own_sector_classification: "path/to/own_sector_classification_folder"
+      filename_own_sector_classification: "own_sector_classification.csv"
+```
+
+#### use_own_sector_classification
+
+`use_own_sector_classification`{.yaml}. It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
+
+```yaml
+      use_own_sector_classification: FALSE
+```
+
+#### dir_own_sector_classification
+
+`dir_own_sector_classification`{.yaml} is a path to a directory that contains the manual sector classification CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+      dir_own_sector_classification: "path/to/own_sector_classification_folder"
+```
+
+#### filename_own_sector_classification
+
+`filename_own_sector_classification`{.yaml} is the filename of the CSV that contains the manual sector classification data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+
+```yaml
+      filename_own_sector_classification: "own_sector_classification.csv"
+```
+
+### match_prioritize:
+
+A full example `match_prioritize`{.yaml} section might look like:
+
+```yaml
+  match_prioritize:
+    priority: NULL
+```
+
+#### priority
+
+`priority`{.yaml}. As an example:
+
+```yaml
+    priority: NULL
+```
+
+### prepare_abcd:
+
+A full example `prepare_abcd`{.yaml} section might look like:
+
+```yaml
+  prepare_abcd:
+    remove_inactive_companies: TRUE
+```
+
+#### remove_inactive_companies
+
+`remove_inactive_companies`{.yaml} It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
+
+```yaml
+    remove_inactive_companies: TRUE
+```
+
+### match_success_rate:
+
+A full example `match_success_rate`{.yaml} section might look like:
+
+```yaml
+  match_success_rate:
+    plot_width: 12
+    plot_height: 8
+    plot_units: "in"
+    plot_resolution: 300
+```
+
+#### plot_width
+
+`plot_width`{.yaml} is the desired width of the XXX output plot in units defined by `plot_units`{.yaml}. It must be a single numeric value. Valid values typically look like `10`{.yaml} or `12`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
+
+```yaml
+    plot_width: 12
+```
+
+#### plot_height
+
+`plot_height`{.yaml} is the desired height of the XXX output plot in units defined by `plot_units`{.yaml}. It must be a single numeric value. Valid values typically look like `6`{.yaml} or `8`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
+
+```yaml
+    plot_height: 8
+```
+
+#### plot_units
+
+`plot_units`{.yaml} is the desired units to express the dimensions of the XXX output plot in `plot_width`{.yaml} and `plot_height`{.yaml}. It must be a single string/character value, and it must refer to a valid unit identifier. Valid values typically look like `"in"`{.yaml} or `"px"`{.yaml}. As an example:
+
+```yaml
+    plot_units: "in"
+```
+
+#### plot_resolution
+
+`plot_resolution`{.yaml} is the desired resolution of the XXX output plot in dpi. It must be a single numeric value. Valid values typically look like `72`{.yaml} or `300`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
+
+```yaml
+    plot_resolution: 300
+```
+
+### aggregate_alignment_metric:
+
+A full example `aggregate_alignment_metric`{.yaml} section might look like:
+
+```yaml
+  aggregate_alignment_metric:
+    by_group: "group_id"
+```
+
+#### by_group
+
+`by_group`{.yaml}. It must be a single string/character value. As an example:
+
+```yaml
+    by_group: "group_id"
+```
