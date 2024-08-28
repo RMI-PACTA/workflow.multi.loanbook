@@ -109,7 +109,7 @@ The `file_names`{.yaml} section contains options to define the file names of loc
 
 #### filename_abcd
 
-`filename_abcd`{.yaml} is the filename of the file that contains asset based company production data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_abcd`{.yaml} is the filename of the file that contains asset based company data, including production values and physical emission intensity values. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
     filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
