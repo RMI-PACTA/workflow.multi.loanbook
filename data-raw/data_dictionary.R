@@ -280,11 +280,54 @@ dd_data_emission_intensity <- dplyr::tribble(
   "data_emission_intensity", "label", "character", "Same as 'emission_factor_metric', formatted for display in plot", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>', but formatted for display"
 )
 
-# TODO: companies_included_<sector>_<...>
+# TODO: extend variable grouping to standard PACTA and update
+# TODO: possibly deprecate this output
+dd_companies_included <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "companies_included", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "companies_included", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "companies_included", "name_abcd", "character", "The name of the company", "The name of the company",
+  "companies_included", "sector_abcd", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
+  "companies_included", "loan_size_outstanding", "double", "Remaining outstanding loan value to the given counterparty", "Numerical value greater or equal to 0",
+  "companies_included", "loan_size_outstanding_currency", "character", "Denomination of the outstanding loans listed in the given banking book", "Three letter currency code following the ISO 4217 standard. Only one currency allowed per banking book",
+  "companies_included", "loan_size_credit_limit", "double", "Maximum value provided to the a counterparty under the given credit line", "Numerical value greater or equal to 0",
+  "companies_included", "loan_size_credit_limit_currency", "character", "Denomination of the credit lines of loans listed in the given banking book", "Three letter currency code following the ISO 4217 standard. Only one currency allowed per banking book"
+)
 
-# TODO: summary_statistics_loanbook_coverage
+# TODO: extend variable grouping to standard PACTA and update
+dd_summary_statistics_loanbook_coverage <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "summary_statistics_loanbook_coverage", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "summary_statistics_loanbook_coverage", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "summary_statistics_loanbook_coverage", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
+  "summary_statistics_loanbook_coverage", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
+  "summary_statistics_loanbook_coverage", "total_exposure", "double", "Remaining outstanding loan value to the all companies in the sector that have some operations within the given region", "Numerical value greater or equal to 0",
+  "summary_statistics_loanbook_coverage", "n_companies_matched", "integer", "Number of companies identified for analysis in the given region and sector. Any matched company is counted regardless of size of exposure", "Integer value greater or equal to 0",
+  "summary_statistics_loanbook_coverage", "n_companies_total", "integer", "Total number of companies in the reference dataset in the given region and sector", "Integer value greater or equal to 0",
+  "summary_statistics_loanbook_coverage", "share_companies_matched", "double", "Share of companies identified for analysis relative to total number of companies in the reference dataset. This is a proxy for which part of the economy of a region is covered by the analysis", "Numerical value between 0 and 1",
+  "summary_statistics_loanbook_coverage", "production_financed", "double", "Sum of production in a sector and region by all companies identfied for analysis. The amount of production is not weighted by exposure", "Numerical value greater or equal to 0",
+  "summary_statistics_loanbook_coverage", "production_total", "double", "Sum of production in a sector and region by all companies in the reference dataset", "Numerical value greater or equal to 0",
+  "summary_statistics_loanbook_coverage", "share_production_financed", "double", "Share of production of companies identified for analysis relative to production by all companies in the reference dataset. This is a proxy for how much of the output of a region is covered by the analysis", "Numerical value between 0 and 1"
+)
 
-# TODO: add tabular output for match_success_rate
+# TODO: extend variable grouping to standard PACTA and update
+# TODO: probably better to export data_lbk_match_success_rate, which is actual format used in plots
+dd_lbk_match_success_rate <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "lbk_match_success_rate", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
+  # "lbk_match_success_rate", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "lbk_match_success_rate", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
+  "lbk_match_success_rate", "matched", "character", "to be deprecated", "to be deprecated",
+  "lbk_match_success_rate", "match_n", "double", "Remaining outstanding loan value to the all companies in the sector that have some operations within the given region", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "total_n", "integer", "Number of companies identified for analysis in the given region and sector. Any matched company is counted regardless of size of exposure", "Integer value greater or equal to 0",
+  "lbk_match_success_rate", "match_success_rate_rel", "integer", "Total number of companies in the reference dataset in the given region and sector", "Integer value greater or equal to 0",
+  "lbk_match_success_rate", "match_outstanding", "double", "Share of companies identified for analysis relative to total number of companies in the reference dataset. This is a proxy for which part of the economy of a region is covered by the analysis", "Numerical value between 0 and 1",
+  "lbk_match_success_rate", "total_outstanding", "double", "Sum of production in a sector and region by all companies identfied for analysis. The amount of production is not weighted by exposure", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "match_success_outstanding_rel", "double", "Sum of production in a sector and region by all companies in the reference dataset", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "match_credit_limit", "double", "Share of production of companies identified for analysis relative to production by all companies in the reference dataset. This is a proxy for how much of the output of a region is covered by the analysis", "Numerical value between 0 and 1",
+  "lbk_match_success_rate", "total_credit_limit", "double", "Sum of production in a sector and region by all companies in the reference dataset", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "match_success_credit_limit_rel", "double", "Share of production of companies identified for analysis relative to production by all companies in the reference dataset. This is a proxy for how much of the output of a region is covered by the analysis", "Numerical value between 0 and 1"
+)
 
 
 data_dictionary <- dplyr::bind_rows(
@@ -306,7 +349,10 @@ data_dictionary <- dplyr::bind_rows(
   dd_sda_results_all_groups,
   dd_data_tech_mix,
   dd_data_trajectory,
-  dd_data_emission_intensity
+  dd_data_emission_intensity,
+  dd_companies_included,
+  dd_summary_statistics_loanbook_coverage,
+  dd_lbk_match_success_rate
 )
 
 usethis::use_data(data_dictionary, overwrite = TRUE)
