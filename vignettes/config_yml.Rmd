@@ -123,7 +123,7 @@ The `file_names`{.yaml} section contains options to define the file names of loc
     sheet_abcd: "Company Indicators - PACTA Comp"
 ```
 
-### project_parameters:
+## project_parameters:
 
 A full example `project_parameters`{.yaml} section might look like:
 
@@ -176,7 +176,7 @@ A full example `project_parameters`{.yaml} section might look like:
     time_frame: 5
 ```
 
-### sector_split:
+## sector_split:
 
 A full example `sector_split`{.yaml} section might look like:
 
@@ -247,7 +247,7 @@ A full example `sector_split`{.yaml} section might look like:
     sheet_advanced_company_indicators: "Company Activities"
 ```
 
-### matching:
+## matching:
 
 A full example `matching`{.yaml} section might look like:
 
@@ -372,7 +372,7 @@ A full example `own_sector_classification`{.yaml} section might look like:
       filename_own_sector_classification: "own_sector_classification.csv"
 ```
 
-### match_prioritize:
+## match_prioritize:
 
 A full example `match_prioritize`{.yaml} section might look like:
 
@@ -389,7 +389,7 @@ A full example `match_prioritize`{.yaml} section might look like:
     priority: NULL
 ```
 
-### prepare_abcd:
+## prepare_abcd:
 
 A full example `prepare_abcd`{.yaml} section might look like:
 
@@ -406,7 +406,7 @@ A full example `prepare_abcd`{.yaml} section might look like:
     remove_inactive_companies: TRUE
 ```
 
-### match_success_rate:
+## match_success_rate:
 
 A full example `match_success_rate`{.yaml} section might look like:
 
@@ -450,7 +450,7 @@ A full example `match_success_rate`{.yaml} section might look like:
     plot_resolution: 300
 ```
 
-### aggregate_alignment_metric:
+## aggregate_alignment_metric:
 
 A full example `aggregate_alignment_metric`{.yaml} section might look like:
 
