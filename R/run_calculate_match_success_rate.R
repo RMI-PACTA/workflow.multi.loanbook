@@ -351,60 +351,10 @@ calculate_match_success_rate <- function(raw_lbk,
     sector_classification_system = sector_classification_system
   )
 
-  # join raw and matched loan books, matching on all common columns, but using the
-  # financial sector from the raw loan book to match the production sector.
-  # this simulates matching with the option by_sector = TRUE
-  all_sectors <- unique(r2dii.data::sector_classifications$sector)
-
-  # recreate initial id_loan format for joining
-  matched_prioritized <- matched_prioritized %>%
-    dplyr::select(-"sector") %>%
-    dplyr::mutate(
-      id_loan_matched = gsub(paste0("_", .data[["group_id"]], collapse = "|"), "", .data[["id_loan"]])
-    ) %>%
-    dplyr::mutate(
-      id_loan_matched = gsub(paste0("_", .env$all_sectors, collapse="|"), "", .data[["id_loan_matched"]])
-    )
-
-  # use left_join so that unmatched loans are properly accounted for
-  lbk_match_success <- dplyr::left_join(
-    x = raw_lbk_with_sectors,
-    y = matched_prioritized,
-    by = c(
-      "id_direct_loantaker",
-      "name_direct_loantaker",
-      "id_ultimate_parent",
-      "name_ultimate_parent",
-      "loan_size_outstanding",
-      "loan_size_outstanding_currency",
-      "loan_size_credit_limit",
-      "loan_size_credit_limit_currency",
-      "sector_classification_system",
-      "sector_classification_direct_loantaker",
-      "lei_direct_loantaker",
-      "isin_direct_loantaker",
-      "id_loan" = "id_loan_matched",
-      "group_id",
-      "sector" = "sector_abcd",
-      "borderline"
-    )
+  lbk_match_success <- combine_raw_and_matched_loan_books(
+    raw_lbk_with_sectors = raw_lbk_with_sectors,
+    matched_prioritized = matched_prioritized
   )
-
-  lbk_match_success <- lbk_match_success %>%
-    dplyr::mutate(
-      matched = dplyr::case_when(
-        .data[["score"]] == 1 ~ "Matched",
-        is.na(.data[["score"]]) ~ "Not matched",
-        TRUE ~ "Not matched"
-      ),
-      # unmatched borderline loans are considered not in scope, as they would
-      # otherwise increase the potential exposure wrongly and artificially without
-      # there being a realistic way to match that exposure
-      sector = dplyr::case_when(
-        .data[["borderline"]] & .data[["matched"]] == "Not matched" ~ "not in scope",
-        TRUE ~ .data[["sector"]]
-      )
-    )
 
   ## remove misclassified loans----
   # optional: manually exclude loans from the match success calculation
@@ -457,6 +407,64 @@ add_sectors_to_raw_lbk <- function(raw_lbk, sector_classification_system) {
         is.na(.data[["sector"]]),
         FALSE,
         .data[["borderline"]]
+      )
+    )
+}
+
+combine_raw_and_matched_loan_books <- function(raw_lbk_with_sectors,
+                                               matched_prioritized) {
+  # join raw and matched loan books, matching on all common columns, but using the
+  # financial sector from the raw loan book to match the production sector.
+  # this simulates matching with the option by_sector = TRUE
+  all_sectors <- unique(r2dii.data::sector_classifications$sector)
+
+  # recreate initial id_loan format for joining
+  matched_prioritized <- matched_prioritized %>%
+    dplyr::select(-"sector") %>%
+    dplyr::mutate(
+      id_loan_matched = gsub(paste0("_", .data[["group_id"]], collapse = "|"), "", .data[["id_loan"]])
+    ) %>%
+    dplyr::mutate(
+      id_loan_matched = gsub(paste0("_", .env$all_sectors, collapse="|"), "", .data[["id_loan_matched"]])
+    )
+
+  # use left_join so that unmatched loans are properly accounted for
+  lbk_match_success <- dplyr::left_join(
+    x = raw_lbk_with_sectors,
+    y = matched_prioritized,
+    by = c(
+      "id_direct_loantaker",
+      "name_direct_loantaker",
+      "id_ultimate_parent",
+      "name_ultimate_parent",
+      "loan_size_outstanding",
+      "loan_size_outstanding_currency",
+      "loan_size_credit_limit",
+      "loan_size_credit_limit_currency",
+      "sector_classification_system",
+      "sector_classification_direct_loantaker",
+      "lei_direct_loantaker",
+      "isin_direct_loantaker",
+      "id_loan" = "id_loan_matched",
+      "group_id",
+      "sector" = "sector_abcd",
+      "borderline"
+    )
+  )
+
+  lbk_match_success <- lbk_match_success %>%
+    dplyr::mutate(
+      matched = dplyr::case_when(
+        .data[["score"]] == 1 ~ "Matched",
+        is.na(.data[["score"]]) ~ "Not matched",
+        TRUE ~ "Not matched"
+      ),
+      # unmatched borderline loans are considered not in scope, as they would
+      # otherwise increase the potential exposure wrongly and artificially without
+      # there being a realistic way to match that exposure
+      sector = dplyr::case_when(
+        .data[["borderline"]] & .data[["matched"]] == "Not matched" ~ "not in scope",
+        TRUE ~ .data[["sector"]]
       )
     )
 }
