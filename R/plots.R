@@ -40,7 +40,7 @@ plot_match_success_rate <- function(data,
   # plot design
   fill_scale <- c(
     "Matched" = "#00c082",
-    "Not Matched" = "#a63d57"
+    "Not matched" = "#a63d57"
   )
 
   theme_match_success <- ggplot2::theme(

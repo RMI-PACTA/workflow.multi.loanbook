@@ -88,7 +88,7 @@ run_match_prioritize <- function(config) {
     ## ensure that id_loan is unique across all loan books----
     matched_prio_i <- matched_prio_i %>%
       dplyr::mutate(
-        id_loan = paste(.data$id_loan, i, sep = "_")
+        id_loan = paste(.data$id_loan, .data$group_id, sep = "_")
       )
 
     ## write matched prioritized loan book to file----
