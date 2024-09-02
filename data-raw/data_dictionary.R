@@ -317,16 +317,16 @@ dd_lbk_match_success_rate <- dplyr::tribble(
   "lbk_match_success_rate", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
   # "lbk_match_success_rate", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "lbk_match_success_rate", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
-  "lbk_match_success_rate", "matched", "character", "to be deprecated", "to be deprecated",
-  "lbk_match_success_rate", "match_n", "double", "Remaining outstanding loan value to the all companies in the sector that have some operations within the given region", "Numerical value greater or equal to 0",
-  "lbk_match_success_rate", "total_n", "integer", "Number of companies identified for analysis in the given region and sector. Any matched company is counted regardless of size of exposure", "Integer value greater or equal to 0",
-  "lbk_match_success_rate", "match_success_rate_rel", "integer", "Total number of companies in the reference dataset in the given region and sector", "Integer value greater or equal to 0",
-  "lbk_match_success_rate", "match_outstanding", "double", "Share of companies identified for analysis relative to total number of companies in the reference dataset. This is a proxy for which part of the economy of a region is covered by the analysis", "Numerical value between 0 and 1",
-  "lbk_match_success_rate", "total_outstanding", "double", "Sum of production in a sector and region by all companies identfied for analysis. The amount of production is not weighted by exposure", "Numerical value greater or equal to 0",
-  "lbk_match_success_rate", "match_success_outstanding_rel", "double", "Sum of production in a sector and region by all companies in the reference dataset", "Numerical value greater or equal to 0",
-  "lbk_match_success_rate", "match_credit_limit", "double", "Share of production of companies identified for analysis relative to production by all companies in the reference dataset. This is a proxy for how much of the output of a region is covered by the analysis", "Numerical value between 0 and 1",
-  "lbk_match_success_rate", "total_credit_limit", "double", "Sum of production in a sector and region by all companies in the reference dataset", "Numerical value greater or equal to 0",
-  "lbk_match_success_rate", "match_success_credit_limit_rel", "double", "Share of production of companies identified for analysis relative to production by all companies in the reference dataset. This is a proxy for how much of the output of a region is covered by the analysis", "Numerical value between 0 and 1"
+  "lbk_match_success_rate", "matched", "character", "Indicates if the matching values are shown for matched or unmatched loans", "Must be one of the following: 'Matched' or 'Not matched'",
+  "lbk_match_success_rate", "match_n", "integer", "Number of loans identified for analysis in a given sector in the given banking book that were successfully matched with companies in the production data", "Integer value greater or equal to 0",
+  "lbk_match_success_rate", "total_n", "integer", "Total number of loans in the banking book for a given sector", "Integer value greater or equal to 0",
+  "lbk_match_success_rate", "match_success_rate_rel", "double", "Share of matched loans in a secftor relative to total number of loans in the sector in the raw input banking book", "Numerical value between 0 and 1",
+  "lbk_match_success_rate", "match_outstanding", "double", "Remaining outstanding loan value in the banking book to the all matched companies in the sector", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "total_outstanding", "double", "Total outstanding loan value in the banking book in a given sector for matched and unmatched loans", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "match_success_outstanding_rel", "double", "Share of the matched outstanding loan amount in a sector relative to the total outstanding loan amount in that sector", "Numerical value between 0 and 1",
+  "lbk_match_success_rate", "match_credit_limit", "double", "Sum value of the credit limit of all matched loans within a sector", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "total_credit_limit", "double", "Total value of the credit limit of all loans matched or unmatched within a sector", "Numerical value greater or equal to 0",
+  "lbk_match_success_rate", "match_success_credit_limit_rel", "double", "Share of the matched amount of credit limit in a sector relative to the total credit limit in that sector", "Numerical value between 0 and 1"
 )
 
 
