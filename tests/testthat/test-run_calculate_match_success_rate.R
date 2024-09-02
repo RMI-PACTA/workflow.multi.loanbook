@@ -46,7 +46,7 @@ test_that("combine_raw_and_matched_loan_books identifies correct matched and unm
   testthat::expect_equal(not_matched, non_matches_direct[1, ])
 })
 
-test_that("combine_raw_and_matched_loan_books removes group_id from id_loan where needed", {
+test_that("combine_raw_and_matched_loan_books removes group_id from id_loan where needed (GH #90)", {
   test_raw <- r2dii.data::loanbook_demo %>%
     dplyr::mutate(group_id = "test")
 
@@ -75,7 +75,7 @@ test_that("combine_raw_and_matched_loan_books removes group_id from id_loan wher
   )
 })
 
-test_that("combine_raw_and_matched_loan_books removes sector_abcd from id_loan where needed", {
+test_that("combine_raw_and_matched_loan_books removes sector_abcd from id_loan where needed (GH #90)", {
   test_raw <- r2dii.data::loanbook_demo %>%
     dplyr::mutate(group_id = "test")
 
