@@ -422,10 +422,10 @@ combine_raw_and_matched_loan_books <- function(raw_lbk_with_sectors,
   matched_prioritized <- matched_prioritized %>%
     dplyr::select(-"sector") %>%
     dplyr::mutate(
-      id_loan_matched = gsub(paste0("_", .data[["group_id"]], collapse = "|"), "", .data[["id_loan"]])
+      id_loan = gsub(paste0("_", .data[["group_id"]], collapse = "|"), "", .data[["id_loan"]])
     ) %>%
     dplyr::mutate(
-      id_loan_matched = gsub(paste0("_", .env$all_sectors, collapse="|"), "", .data[["id_loan_matched"]])
+      id_loan = gsub(paste0("_", .env$all_sectors, collapse="|"), "", .data[["id_loan"]])
     )
 
   # use left_join so that unmatched loans are properly accounted for
@@ -445,7 +445,7 @@ combine_raw_and_matched_loan_books <- function(raw_lbk_with_sectors,
       "sector_classification_direct_loantaker",
       "lei_direct_loantaker",
       "isin_direct_loantaker",
-      "id_loan" = "id_loan_matched",
+      "id_loan",
       "group_id",
       "sector" = "sector_abcd",
       "borderline"
