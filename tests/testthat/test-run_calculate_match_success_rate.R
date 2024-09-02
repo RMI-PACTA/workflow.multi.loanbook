@@ -69,7 +69,10 @@ test_that("combine_raw_and_matched_loan_books removes group_id from id_loan wher
 
   testthat::expect_equal(test_raw$id_loan, unique(test_lbk_match_success$id_loan))
 
-  testthat::expect_contains(test_raw$id_loan, gsub("_test", "", test_matched_prio$id_loan))
+  testthat::expect_in(
+    gsub("_test", "", test_matched_prio$id_loan),
+    test_raw$id_loan
+  )
 })
 
 test_that("combine_raw_and_matched_loan_books removes sector_abcd from id_loan where needed", {
@@ -93,7 +96,13 @@ test_that("combine_raw_and_matched_loan_books removes sector_abcd from id_loan w
     matched_prioritized = test_matched_prio
   )
 
-  testthat::expect_equal(test_raw$id_loan, unique(test_lbk_match_success$id_loan))
+  testthat::expect_equal(
+    test_raw$id_loan,
+    unique(test_lbk_match_success$id_loan)
+  )
 
-  testthat::expect_contains(unique(r2dii.data::sector_classifications$sector), gsub(paste0(test_raw$id_loan, "_", collapse = "|"), "", test_matched_prio$id_loan))
+  testthat::expect_in(
+    gsub(paste0(test_raw$id_loan, "_", collapse = "|"), "", test_matched_prio$id_loan),
+    unique(r2dii.data::sector_classifications$sector)
+  )
 })
