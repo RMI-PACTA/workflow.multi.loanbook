@@ -355,4 +355,7 @@ data_dictionary <- dplyr::bind_rows(
   dd_lbk_match_success_rate
 )
 
-usethis::use_data(data_dictionary, overwrite = TRUE)
+usethis::use_data(
+  data_dictionary,
+  overwrite = TRUE
+)
