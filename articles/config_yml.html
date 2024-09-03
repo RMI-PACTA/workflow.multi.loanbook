@@ -317,8 +317,15 @@ example:</p>
 <div class="section level5">
 <h5 id="sector_split_type">sector_split_type<a class="anchor" aria-label="anchor" href="#sector_split_type"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">sector_split_type</span></code>.
-As an example:</p>
+<p><code class="sourceCode yaml"><span class="at">sector_split_type</span></code>
+describes the method by which to apply a sector split to the loans in
+the loan book. It is only used if <code class="sourceCode yaml"><span class="at">apply_sector_split</span></code>
+is set to to <code class="sourceCode yaml"><span class="ch">TRUE</span></code>. It must be
+a single string/character value, and it must define a valid sector split
+method that can be processed by the package. Currently, the only method
+that is supported is <code class="sourceCode yaml"><span class="st">"equal_weights"</span></code>,
+although other options are imaginable (for example splits based on
+market shares within each sector). As an example:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="at">    </span><span class="fu">sector_split_type</span><span class="kw">:</span><span class="at"> </span><span class="st">"equal_weights"</span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -467,11 +474,21 @@ As an example:</p>
 <div class="section level5">
 <h5 id="join_id">join_id<a class="anchor" aria-label="anchor" href="#join_id"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">join_id</span></code>.
-Further explanation of this argument can be found in the documentation
-for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>.
+<p><code class="sourceCode yaml"><span class="at">join_id</span></code>
+is an optional parameter that allows defining by which variable to match
+the loans to the the companies in the <code>abcd</code>. Its intended
+use case is join based on unambiguous identifiers, such as the
+<code>lei</code>, where such data is available. It can be <code class="sourceCode yaml"><span class="ch">NULL</span></code> to use
+standard name matching when no common identifiers are given. Must be a
+join specification which is internally passed to
+<code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">dplyr::inner_join</a></code>. If it is an unnamed character/string
+vector, the values are assumed to refer to identically named join
+columns. If it is a named character vector, the names are used as the
+join columns in the <code>loanbook</code> and the values are used as the
+join columns in the <code>abcd</code>. Further explanation of this
+argument can be found in the documentation for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>.
 As an example:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> c(lei_direct_loantaker = "lei")</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
@@ -486,8 +503,19 @@ section might look like:</p>
 <div class="section level5">
 <h5 id="use_own_sector_classification">use_own_sector_classification<a class="anchor" aria-label="anchor" href="#use_own_sector_classification"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">use_own_sector_classification</span></code>.
-It must be a single logical value (either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). As an
+<p><code class="sourceCode yaml"><span class="at">use_own_sector_classification</span></code>
+determines if the matching should use an internally provided sector
+classification system or if it should use one provided by the user
+instead. Internal sector classification systems are given in
+<code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code> - see also additional <a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">documentation
+in <code>r2dii.data</code></a>. The function will automatically attempt
+to use one of the sector classification systems, based on the inputs in
+the raw loan book files. If an externally prepared sector classification
+system is to be used, for example because the loans are classified using
+a system that is not provided in r2dii.data out of the box, the data
+must be prepared following the same structure as found in
+<code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code>. It must be a single
+logical value (either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). As an
 example:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
 </div>
@@ -521,8 +549,13 @@ section might look like:</p>
 <div class="section level5">
 <h5 id="priority">priority<a class="anchor" aria-label="anchor" href="#priority"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">priority</span></code>. As an
-example:</p>
+<p><code class="sourceCode yaml"><span class="at">priority</span></code>
+indicates the level of matching that should be prioritized when a loan
+can be matched at multiple levels. It must be a single string/character
+value or <code class="sourceCode yaml"><span class="ch">NULL</span></code>, and it must
+refer to a valid, accessible, local file. Further explanation of this
+argument can be found in the documentation for <a href="https://rmi-pacta.github.io/r2dii.match/reference/prioritize.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">priortize</span>()</code></a>.
+As an example:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="at">    </span><span class="fu">priority</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
 </div>
 </div>
@@ -537,7 +570,13 @@ section might look like:</p>
 <h5 id="remove_inactive_companies">remove_inactive_companies<a class="anchor" aria-label="anchor" href="#remove_inactive_companies"></a>
 </h5>
 <p><code class="sourceCode yaml"><span class="at">remove_inactive_companies</span></code>
-It must be a single logical value (either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). As an
+determines if inactive companies should be removed from the abcd dataset
+or not. “Companies” here refers to company-sector combinations and
+“inactive” characterizes such company-sector combinations that are
+inactive at the end of the time frame analysed. When focusing forward
+looking analysis on exposures in the end year, such inactive companies
+may not produce meaningful results. It must be a single logical value
+(either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). As an
 example:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="at">    </span><span class="fu">remove_inactive_companies</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span></code></pre></div>
 </div>
@@ -602,8 +641,23 @@ section might look like:</p>
 <div class="section level5">
 <h5 id="by_group">by_group<a class="anchor" aria-label="anchor" href="#by_group"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">by_group</span></code>. It must
-be a single string/character value. As an example:</p>
+<p><code class="sourceCode yaml"><span class="at">by_group</span></code>
+allows specifying the level of disaggregation to be used in the
+analysis. It determines the variable(s) along which the loan books are
+grouped and thus the dimension by which to compare the PACTA
+calculations. For example, one may want to calculate system-wide results
+without disaggregation, using <code class="sourceCode yaml"><span class="ch">NULL</span></code> or one may
+want to analyse alignment along bank specific traits, such as <code class="sourceCode yaml"><span class="st">"group_id"</span></code>
+or <code class="sourceCode yaml"><span class="st">"bank_type"</span></code>.
+It can be <code class="sourceCode yaml"><span class="ch">NULL</span></code>, a single
+string/character value, or a character vector. If it is not <code class="sourceCode yaml"><span class="ch">NULL</span></code>, the
+indicated name must be a variable that is provided in the input loan
+books and it must be complete (<code>"group_id"</code> is automatically
+created when reading in the loan books, so the user does not have to add
+it to the raw loan books). If more than value is provided, the analysis
+will create all combinations of groups between the variables. However,
+not all plots support more than one level of disaggregation. As an
+example:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="at">    </span><span class="fu">by_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"group_id"</span></span></code></pre></div>
 </div>
 </div>
