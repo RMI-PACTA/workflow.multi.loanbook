@@ -253,7 +253,6 @@ A full example `matching`{.yaml} section might look like:
 
 ```yaml
   matching:
-    prep_input_level: "direct_loantaker"
     params_match_name:
       by_sector: TRUE
       min_score: 0.9
@@ -265,14 +264,6 @@ A full example `matching`{.yaml} section might look like:
       use_own_sector_classification: FALSE
       dir_own_sector_classification: "path/to/own_sector_classification_folder"
       filename_own_sector_classification: "own_sector_classification.csv"
-```
-
-#### prep_input_level
-
-`prep_input_level`{.yaml}. As an example:
-
-```yaml
-    prep_input_level: "direct_loantaker"
 ```
 
 ### params_match_name:

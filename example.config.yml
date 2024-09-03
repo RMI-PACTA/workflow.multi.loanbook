@@ -30,7 +30,6 @@ default:
     filename_advanced_company_indicators: "advanced_company_indicators.xlsx"
     sheet_advanced_company_indicators: "Company Activities"
   matching:
-    prep_input_level: "direct_loantaker"
     params_match_name:
       by_sector: TRUE
       min_score: 0.9
