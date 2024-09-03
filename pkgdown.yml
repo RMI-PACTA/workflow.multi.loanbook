@@ -3,7 +3,7 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   config_yml: config_yml.html
-last_built: 2024-08-29T16:54Z
+last_built: 2024-09-03T10:34Z
 urls:
   reference: https://rmi-pacta.github.io/workflow.multi.loanbook/reference
   article: https://rmi-pacta.github.io/workflow.multi.loanbook/articles

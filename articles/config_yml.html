@@ -376,37 +376,29 @@ example:</p>
 <p>A full example <code class="sourceCode yaml"><span class="at">matching</span></code> section
 might look like:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="at">  </span><span class="fu">matching</span><span class="kw">:</span></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="at">    </span><span class="fu">prep_input_level</span><span class="kw">:</span><span class="at"> </span><span class="st">"direct_loantaker"</span></span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="at">    </span><span class="fu">params_match_name</span><span class="kw">:</span></span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="at">      </span><span class="fu">by_sector</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="at">      </span><span class="fu">min_score</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.9</span></span>
-<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="at">      </span><span class="fu">method</span><span class="kw">:</span><span class="at"> </span><span class="st">"jw"</span></span>
-<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="at">      </span><span class="fu">p</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
-<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="at">      </span><span class="fu">overwrite</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
-<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
-<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="at">    </span><span class="fu">own_sector_classification</span><span class="kw">:</span></span>
-<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
-<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span>
-<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
-<div class="section level5">
-<h5 id="prep_input_level">prep_input_level<a class="anchor" aria-label="anchor" href="#prep_input_level"></a>
-</h5>
-<p><code class="sourceCode yaml"><span class="at">prep_input_level</span></code>.
-As an example:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="at">    </span><span class="fu">prep_input_level</span><span class="kw">:</span><span class="at"> </span><span class="st">"direct_loantaker"</span></span></code></pre></div>
-</div>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="at">    </span><span class="fu">params_match_name</span><span class="kw">:</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="at">      </span><span class="fu">by_sector</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="at">      </span><span class="fu">min_score</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.9</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="at">      </span><span class="fu">method</span><span class="kw">:</span><span class="at"> </span><span class="st">"jw"</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="at">      </span><span class="fu">p</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="at">      </span><span class="fu">overwrite</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="at">    </span><span class="fu">own_sector_classification</span><span class="kw">:</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="params_match_name">params_match_name:<a class="anchor" aria-label="anchor" href="#params_match_name"></a>
 </h4>
 <p>A full example <code class="sourceCode yaml"><span class="at">params_match_name</span></code>
 section might look like:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="at">    </span><span class="fu">params_match_name</span><span class="kw">:</span></span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="at">      </span><span class="fu">by_sector</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="at">      </span><span class="fu">min_score</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.9</span></span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="at">      </span><span class="fu">method</span><span class="kw">:</span><span class="at"> </span><span class="st">"jw"</span></span>
-<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="at">      </span><span class="fu">p</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
-<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="at">      </span><span class="fu">overwrite</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
-<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="at">    </span><span class="fu">params_match_name</span><span class="kw">:</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="at">      </span><span class="fu">by_sector</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="at">      </span><span class="fu">min_score</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.9</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="at">      </span><span class="fu">method</span><span class="kw">:</span><span class="at"> </span><span class="st">"jw"</span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a><span class="at">      </span><span class="fu">p</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="at">      </span><span class="fu">overwrite</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="by_sector">by_sector<a class="anchor" aria-label="anchor" href="#by_sector"></a>
 </h5>
@@ -414,7 +406,7 @@ section might look like:</p>
 must be a single logical value (either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). Further
 explanation of this argument can be found in the documentation for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>.
 As an example:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="at">      </span><span class="fu">by_sector</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="at">      </span><span class="fu">by_sector</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="min_score">min_score<a class="anchor" aria-label="anchor" href="#min_score"></a>
@@ -426,7 +418,7 @@ typically look like <code class="sourceCode yaml"><span class="fl">0.7</span></c
 this value should <em>not</em> be wrapped in quotes). Further
 explanation of this argument can be found in the documentation for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>.
 As an example:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="at">      </span><span class="fu">min_score</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.9</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="at">      </span><span class="fu">min_score</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.9</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="method">method<a class="anchor" aria-label="anchor" href="#method"></a>
@@ -448,7 +440,7 @@ Further explanation of this argument can be found in the documentation
 for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>
 and <a href="https://rdrr.io/cran/stringdist/man/stringdist-metrics.html" class="external-link"><code class="sourceCode r">stringdist<span class="sc">::</span>stringdist<span class="sc">-</span>metrics</code></a>.
 As an example:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="at">      </span><span class="fu">method</span><span class="kw">:</span><span class="at"> </span><span class="st">"jw"</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="at">      </span><span class="fu">method</span><span class="kw">:</span><span class="at"> </span><span class="st">"jw"</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="p">p<a class="anchor" aria-label="anchor" href="#p"></a>
@@ -461,7 +453,7 @@ values typically look like <code class="sourceCode yaml"><span class="fl">0.1</s
 this value should <em>not</em> be wrapped in quotes). Further
 explanation of this argument can be found in the documentation for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>.
 As an example:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="at">      </span><span class="fu">p</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="at">      </span><span class="fu">p</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="overwrite">overwrite<a class="anchor" aria-label="anchor" href="#overwrite"></a>
@@ -470,7 +462,7 @@ As an example:</p>
 Further explanation of this argument can be found in the documentation
 for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>.
 As an example:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="at">      </span><span class="fu">overwrite</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="at">      </span><span class="fu">overwrite</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="join_id">join_id<a class="anchor" aria-label="anchor" href="#join_id"></a>
@@ -479,7 +471,7 @@ As an example:</p>
 Further explanation of this argument can be found in the documentation
 for <a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link"><code class="sourceCode r">r2dii.match<span class="sc">::</span><span class="fu">match_name</span>()</code></a>.
 As an example:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
@@ -487,17 +479,17 @@ As an example:</p>
 </h4>
 <p>A full example <code class="sourceCode yaml"><span class="at">own_sector_classification</span></code>
 section might look like:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="at">    </span><span class="fu">own_sector_classification</span><span class="kw">:</span></span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span>
-<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="at">    </span><span class="fu">own_sector_classification</span><span class="kw">:</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="use_own_sector_classification">use_own_sector_classification<a class="anchor" aria-label="anchor" href="#use_own_sector_classification"></a>
 </h5>
 <p><code class="sourceCode yaml"><span class="at">use_own_sector_classification</span></code>.
 It must be a single logical value (either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). As an
 example:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="dir_own_sector_classification">dir_own_sector_classification<a class="anchor" aria-label="anchor" href="#dir_own_sector_classification"></a>
@@ -506,7 +498,7 @@ example:</p>
 is a path to a directory that contains the manual sector classification
 CSV. It must be a single string/character value, and it must refer to a
 valid, accessible, local directory. As an example:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="filename_own_sector_classification">filename_own_sector_classification<a class="anchor" aria-label="anchor" href="#filename_own_sector_classification"></a>
@@ -515,7 +507,7 @@ valid, accessible, local directory. As an example:</p>
 is the filename of the CSV that contains the manual sector
 classification data. It must be a single string/character value, and it
 must refer to a valid, accessible, local file. As an example:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -524,14 +516,14 @@ must refer to a valid, accessible, local file. As an example:</p>
 </h3>
 <p>A full example <code class="sourceCode yaml"><span class="at">match_prioritize</span></code>
 section might look like:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="at">  </span><span class="fu">match_prioritize</span><span class="kw">:</span></span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="at">    </span><span class="fu">priority</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="at">  </span><span class="fu">match_prioritize</span><span class="kw">:</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="at">    </span><span class="fu">priority</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="priority">priority<a class="anchor" aria-label="anchor" href="#priority"></a>
 </h5>
 <p><code class="sourceCode yaml"><span class="at">priority</span></code>. As an
 example:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="at">    </span><span class="fu">priority</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="at">    </span><span class="fu">priority</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -539,15 +531,15 @@ example:</p>
 </h3>
 <p>A full example <code class="sourceCode yaml"><span class="at">prepare_abcd</span></code>
 section might look like:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="at">  </span><span class="fu">prepare_abcd</span><span class="kw">:</span></span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="at">    </span><span class="fu">remove_inactive_companies</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="at">  </span><span class="fu">prepare_abcd</span><span class="kw">:</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="at">    </span><span class="fu">remove_inactive_companies</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="remove_inactive_companies">remove_inactive_companies<a class="anchor" aria-label="anchor" href="#remove_inactive_companies"></a>
 </h5>
 <p><code class="sourceCode yaml"><span class="at">remove_inactive_companies</span></code>
 It must be a single logical value (either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). As an
 example:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="at">    </span><span class="fu">remove_inactive_companies</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="at">    </span><span class="fu">remove_inactive_companies</span><span class="kw">:</span><span class="at"> </span><span class="ch">TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -555,11 +547,11 @@ example:</p>
 </h3>
 <p>A full example <code class="sourceCode yaml"><span class="at">match_success_rate</span></code>
 section might look like:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="at">  </span><span class="fu">match_success_rate</span><span class="kw">:</span></span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_width</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span>
-<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_height</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span>
-<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_units</span><span class="kw">:</span><span class="at"> </span><span class="st">"in"</span></span>
-<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_resolution</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="at">  </span><span class="fu">match_success_rate</span><span class="kw">:</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_width</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_height</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_units</span><span class="kw">:</span><span class="at"> </span><span class="st">"in"</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_resolution</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="plot_width">plot_width<a class="anchor" aria-label="anchor" href="#plot_width"></a>
 </h5>
@@ -567,7 +559,7 @@ section might look like:</p>
 desired width of the XXX output plot in units defined by <code class="sourceCode yaml"><span class="at">plot_units</span></code>. It
 must be a single numeric value. Valid values typically look like <code class="sourceCode yaml"><span class="dv">10</span></code> or <code class="sourceCode yaml"><span class="dv">12</span></code> (note that
 this value should <em>not</em> be wrapped in quotes). As an example:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_width</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_width</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="plot_height">plot_height<a class="anchor" aria-label="anchor" href="#plot_height"></a>
@@ -576,7 +568,7 @@ this value should <em>not</em> be wrapped in quotes). As an example:</p>
 the desired height of the XXX output plot in units defined by <code class="sourceCode yaml"><span class="at">plot_units</span></code>. It
 must be a single numeric value. Valid values typically look like <code class="sourceCode yaml"><span class="dv">6</span></code> or <code class="sourceCode yaml"><span class="dv">8</span></code> (note that this
 value should <em>not</em> be wrapped in quotes). As an example:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_height</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_height</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="plot_units">plot_units<a class="anchor" aria-label="anchor" href="#plot_units"></a>
@@ -588,7 +580,7 @@ must be a single string/character value, and it must refer to a valid
 unit identifier. Valid values typically look like <code class="sourceCode yaml"><span class="st">"in"</span></code> or
 <code class="sourceCode yaml"><span class="st">"px"</span></code>.
 As an example:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_units</span><span class="kw">:</span><span class="at"> </span><span class="st">"in"</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_units</span><span class="kw">:</span><span class="at"> </span><span class="st">"in"</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="plot_resolution">plot_resolution<a class="anchor" aria-label="anchor" href="#plot_resolution"></a>
@@ -597,7 +589,7 @@ As an example:</p>
 is the desired resolution of the XXX output plot in dpi. It must be a
 single numeric value. Valid values typically look like <code class="sourceCode yaml"><span class="dv">72</span></code> or <code class="sourceCode yaml"><span class="dv">300</span></code> (note that
 this value should <em>not</em> be wrapped in quotes). As an example:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_resolution</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="at">    </span><span class="fu">plot_resolution</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -605,14 +597,14 @@ this value should <em>not</em> be wrapped in quotes). As an example:</p>
 </h3>
 <p>A full example <code class="sourceCode yaml"><span class="at">aggregate_alignment_metric</span></code>
 section might look like:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="at">  </span><span class="fu">aggregate_alignment_metric</span><span class="kw">:</span></span>
-<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a><span class="at">    </span><span class="fu">by_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"group_id"</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="at">  </span><span class="fu">aggregate_alignment_metric</span><span class="kw">:</span></span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="at">    </span><span class="fu">by_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"group_id"</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="by_group">by_group<a class="anchor" aria-label="anchor" href="#by_group"></a>
 </h5>
 <p><code class="sourceCode yaml"><span class="at">by_group</span></code>. It must
 be a single string/character value. As an example:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="at">    </span><span class="fu">by_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"group_id"</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="at">    </span><span class="fu">by_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"group_id"</span></span></code></pre></div>
 </div>
 </div>
 </div>
