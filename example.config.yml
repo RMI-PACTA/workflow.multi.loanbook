@@ -18,8 +18,6 @@ default:
     # the scenario in use
     start_year: 2022
     time_frame: 5
-    # regions must be available for the selected scenario
-    benchmark_regions_select: "global,european union"
   sector_split:
     apply_sector_split: TRUE
     sector_split_type: "equal_weights"
