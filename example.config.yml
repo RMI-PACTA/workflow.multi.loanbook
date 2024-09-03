@@ -21,7 +21,6 @@ default:
   sector_split:
     apply_sector_split: TRUE
     sector_split_type: "equal_weights"
-    # sector_split_type: "worst_case"
     dir_split_company_id: "path/to/split_folder"
     filename_split_company_id: "split_company_ids.csv"
     dir_advanced_company_indicators: "path/to/advanced_company_indicators_folder"
