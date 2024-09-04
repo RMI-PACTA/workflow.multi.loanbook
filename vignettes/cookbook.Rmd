@@ -66,7 +66,7 @@ run_pacta(config_path)
 
 # PACTA metrics and plots
 
-Once the PACTA analysis has been run on your loanbooks, you may want to calculate metrics and export some plots, which can be done with the `run_aggregate_alignment_metric()` and `plot_aggregate_loanbooks()` functions.
+Once the PACTA analysis has been run on your loanbooks, you may want to calculate aggregate alignment metrics and export some plots, which can be done with the `run_aggregate_alignment_metric()` and `plot_aggregate_loanbooks()` functions.
 
 ```r
 run_aggregate_alignment_metric(config_path)
