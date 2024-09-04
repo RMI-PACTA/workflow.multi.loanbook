@@ -123,17 +123,145 @@ DT::datatable(dd_companies_included)
 
 ## Aggregated PACTA metrics
 
-dd_company_technology_deviation_tms,
-  dd_company_alignment_net_tms,
-  dd_company_alignment_bo_po_tms,
-  dd_company_alignment_net_sda,
-  dd_company_exposure_bo_po_aggregate_alignment,
-  dd_company_exposure_net_aggregate_alignment,
-  dd_loanbook_exposure_bo_po_aggregate_alignment,
-  dd_loanbook_exposure_net_aggregate_alignment,
-  dd_data_sankey,
-  dd_data_scatter_alignment_exposure,
-  dd_data_scatter_sector,
-  dd_data_scatter_sector_animated,
-  dd_data_timeline_net,
-  dd_data_timeline_bo_po
+The aggregated PACTA metrics are also run across all input banking books. The calculations produce the net aggregate alignment metric, which is defined in `pacta.multi.loanbook.analysis` and allows producing the corresponding plots using `pacta.multi.loanbook.plot`. Results are grouped at the level defined by the `by_group` parameter.
+
+### Company technology deviation
+
+For each company in the analyzed banking books, shows the deviation of the technology build-out in the final year of the analysis from the corresponding allocated scenario value. This is an intermediate result that is further processed in the calculation of the net aggregate alignment metric. Only available for sectors, which have technology level calculations using the target market share, namely `automotive, coal, oil and gas, power`.
+
+```{r dd_company_technology_deviation_tms}
+dd_company_technology_deviation_tms <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_technology_deviation_tms")
+DT::datatable(dd_company_technology_deviation_tms)
+
+```
+
+### Company net alignment metric for TMS sectors
+
+For each company in the analyzed banking books, shows the net aggregate alignment metric for sectors, which have technology level calculations using the target market share, namely `automotive, coal, oil and gas, power`. See the [`pacta.multi.loanbook.analysis` wensite](https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html) for methodological documentation.
+
+```{r dd_company_alignment_net_tms}
+dd_company_alignment_net_tms <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_tms")
+DT::datatable(dd_company_alignment_net_tms)
+
+```
+
+### Disaggregated company buildout/phaseout alignment metric for TMS sectors
+
+For each company in the analyzed banking books, shows the aggregate alignment metric - disaggregated into its buildout and phaseout components - for sectors, which have technology level calculations using the target market share, namely `automotive, coal, oil and gas, power`. See the [`pacta.multi.loanbook.analysis` wensite](https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html) for methodological documentation.
+
+```{r dd_company_alignment_bo_po_tms}
+dd_company_alignment_bo_po_tms <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_bo_po_tms")
+DT::datatable(dd_company_alignment_bo_po_tms)
+
+```
+
+### Company net alignment metric for SDA sectors
+
+For each company in the analyzed banking books, shows the net aggregate alignment metric for sectors, which have sector level calculations using the sectoral decarbonization approach (SDA), namely `aviation, cement, steel`. See the [`pacta.multi.loanbook.analysis` wensite](https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html) for methodological documentation.
+
+```{r dd_company_alignment_net_sda}
+dd_company_alignment_net_sda <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_sda")
+DT::datatable(dd_company_alignment_net_sda)
+
+```
+
+### Company net aggregate alignment metric with financial exposures
+
+For each company in the analyzed banking books, shows the net aggregate alignment metric for all available sectors. This table includes the financial exposure to each of the analyzed parts of the banking books, split as defined in `by_group`.
+
+```{r dd_company_exposure_net_aggregate_alignment}
+dd_company_exposure_net_aggregate_alignment <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_exposure_net_aggregate_alignment")
+DT::datatable(dd_company_exposure_net_aggregate_alignment)
+
+```
+
+### Disaggregated company buildout/phaseout alignment metric with financial exposures
+
+For each company in the analyzed banking books, shows the net aggregate alignment metric - disaggregated by its buildout and phaseout components - for all sectors that use technology level TMS calculations, namely `automotive, coal, oil and gas, power`. This table includes the financial exposure to each of the analyzed parts of the banking books, split as defined in `by_group`. Note that the financial exposure is not disaggregated, the alignment metric is.
+
+```{r dd_company_exposure_bo_po_aggregate_alignment}
+dd_company_exposure_bo_po_aggregate_alignment <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_exposure_bo_po_aggregate_alignment")
+DT::datatable(dd_company_exposure_bo_po_aggregate_alignment)
+
+```
+
+### Loan book net aggregate alignment metric with financial exposures
+
+For each loan book level group (split as defined in `by_group`), shows the net aggregate alignment metric for all available sectors. This table includes the financial exposure to each of the analyzed parts of the banking books. Company level results are aggregated to the loan book level, using their relative financial exposure as weights.
+
+```{r dd_loanbook_exposure_net_aggregate_alignment}
+dd_loanbook_exposure_net_aggregate_alignment <- dplyr::filter(data_dictionary, .data[["dataset"]] == "loanbook_exposure_net_aggregate_alignment")
+DT::datatable(dd_loanbook_exposure_net_aggregate_alignment)
+
+```
+
+### Disaggregated loan book buildout/phaseout alignment metric with financial exposures
+
+For each loan book level group (split as defined in `by_group`), shows the net aggregate alignment metric - disaggregated by its buildout and phaseout components - for all sectors using technology level TMS calculations, namely `automotive, coal, oil and gas, power`. Company level results are aggregated to the loan book level, using their relative financial exposure as weights.
+
+```{r dd_loanbook_exposure_bo_po_aggregate_alignment}
+dd_loanbook_exposure_bo_po_aggregate_alignment <- dplyr::filter(data_dictionary, .data[["dataset"]] == "loanbook_exposure_bo_po_aggregate_alignment")
+DT::datatable(dd_loanbook_exposure_bo_po_aggregate_alignment)
+
+```
+
+### Input data for Sankey plot
+
+Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_sankey()`.
+
+```{r dd_data_sankey}
+dd_data_sankey <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_sankey")
+DT::datatable(dd_data_sankey)
+
+``` 
+  
+### Input data for alignment-by-exposure scatter plot
+
+Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_scatter_alignment_exposure()`.
+
+```{r dd_data_scatter_alignment_exposure}
+dd_data_scatter_alignment_exposure <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_alignment_exposure")
+DT::datatable(dd_data_scatter_alignment_exposure)
+
+``` 
+  
+### Input data for buildout/phaseout scatter plot
+
+Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_scatter()`.
+
+```{r dd_data_scatter_sector}
+dd_data_scatter_sector <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
+DT::datatable(dd_data_scatter_sector)
+
+``` 
+
+### Input data for animated buildout/phaseout scatter plot
+
+Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_scatter_animated()`.
+
+```{r dd_data_scatter_sector_animated}
+dd_data_scatter_sector_animated <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector_animated")
+DT::datatable(dd_data_scatter_sector_animated)
+
+``` 
+
+### Input data for net timline plot
+
+Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_timeline()`.
+
+```{r dd_data_timeline_net}
+dd_data_timeline_net <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_net")
+DT::datatable(dd_data_timeline_net)
+
+``` 
+
+### Input data for buildout/phaseout timline plot
+
+Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_timeline()`.
+
+```{r dd_data_timeline_bo_po}
+dd_data_timeline_bo_po <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_bo_po")
+DT::datatable(dd_data_timeline_bo_po)
+
+``` 
+
