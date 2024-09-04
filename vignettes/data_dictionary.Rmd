@@ -104,7 +104,7 @@ DT::datatable(dd_data_trajectory)
 Results for a given portfolio and sector, tailored to be used in the emission intensity chart
 
 ```{r dd_data_emission_intensity}
-dd_data_emission_intensity <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_trajectory")
+dd_data_emission_intensity <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_emission_intensity")
 DT::datatable(dd_data_emission_intensity)
 
 ```
