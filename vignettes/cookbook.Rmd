@@ -49,7 +49,7 @@ run_match_prioritize(config_path)
 
 # Match success and coverage stats
 
-After the matching and prioritization process is complete, you may want to review the match success rate and loanbook coverage stats. This can be done with the `run_calculate_match_success_rate()` and `run_calculate_loanbook_coverage()` functions.
+After the matching and prioritization process is complete, you may want to review the match success rate and loanbook coverage stats. This can be done with the `run_calculate_match_success_rate()` and `run_calculate_loanbook_coverage()` functions. In case you are not satisfied with your match success rate, you may have to go back to the manual matching process and try to match additional loans. You can then rerun `run_calculate_match_success_rate()` and `run_calculate_loanbook_coverage()` to check if your additional matching has improved coverage.
 
 ```r
 run_calculate_match_success_rate(config_path)
