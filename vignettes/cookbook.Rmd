@@ -29,7 +29,7 @@ prepare_abcd(config_path)
 prepare_sector_split(config_path)
 ```
 
-# Macthing process
+# Matching process
 
 To run the matching process, you will use the `run_matching()` function.
 
