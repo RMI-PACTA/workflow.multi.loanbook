@@ -12,5 +12,10 @@
 #'   \item{value}{Which values are allowed for the column}
 #'   ...
 #' }
+#'
+#' @details
+#' For more details see the help vignette:
+#' \code{vignette("data_dictionary", package = "workflow.multi.loanbook")}
+#'
 #' @source internal
 "data_dictionary"
