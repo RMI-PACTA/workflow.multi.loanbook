@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   config_yml: config_yml.html
   data_dictionary: data_dictionary.html
-last_built: 2024-09-04T12:12Z
+last_built: 2024-09-05T08:11Z
 urls:
   reference: https://rmi-pacta.github.io/workflow.multi.loanbook/reference
   article: https://rmi-pacta.github.io/workflow.multi.loanbook/articles
