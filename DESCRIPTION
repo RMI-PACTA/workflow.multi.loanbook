@@ -54,13 +54,13 @@ Depends:
 License: MIT + file LICENSE
 RoxygenNote: 7.3.2
 Suggests: 
+    gt,
     knitr,
     pkgdown,
     rmarkdown,
     usethis,
     testthat (>= 3.1.9),
-    writexl,
-    DT
+    writexl
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
 Config/Needs/website: rmi-pacta/pacta.pkgdown.rmitemplate
