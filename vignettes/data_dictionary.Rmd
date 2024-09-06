@@ -16,6 +16,32 @@ knitr::opts_chunk$set(
 
 ```{r setup, echo = FALSE}
 library(workflow.multi.loanbook)
+
+plot_table <- function(table) {
+  table_plot <- gt::gt(dplyr::select(table, -"dataset"))
+  
+  table_plot <- 
+    gt::cols_width(
+      .data = table_plot,
+      column ~ gt::px(150),
+      typeof ~ gt::px(90)
+    )
+  
+  table_plot <-
+    gt::tab_style(
+      data = table_plot,
+      style = gt::cell_text(size = "smaller"),
+      locations = gt::cells_body(columns = 1:2)
+    )
+  
+  gt::tab_options(
+    data = table_plot,
+    ihtml.active = TRUE,
+    ihtml.use_pagination = FALSE,
+    ihtml.use_sorting = TRUE,
+    ihtml.use_highlight = TRUE
+  )
+}
 ```
 # Intro
 
@@ -43,14 +69,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "lbk_match_success_rate")
 
 ```{r dd_lbk_match_success_rate_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "lbk_match_success_rate")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Loan book coverage
@@ -61,14 +80,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "summary_statistics_loanboo
 
 ```{r dd_summary_statistics_loanbook_coverage_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "summary_statistics_loanbook_coverage")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ## Standard PACTA analysis
@@ -85,14 +97,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "tms_results_all_groups")
 
 ```{r dd_tms_results_all_groups_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "tms_results_all_groups")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 
@@ -106,14 +111,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "sda_results_all_groups")
 
 ```{r dd_sda_results_all_groups_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "sda_results_all_groups")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 
@@ -127,14 +125,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_tech_mix")
 
 ```{r dd_data_tech_mix_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_tech_mix")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 
@@ -148,14 +139,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_trajectory")
 
 ```{r dd_data_trajectory_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_trajectory")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 
@@ -169,14 +153,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_emission_intensity")
 
 ```{r dd_data_emission_intensity_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_emission_intensity")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 
@@ -190,14 +167,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "companies_included")
 
 ```{r dd_companies_included_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "companies_included")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 
@@ -215,14 +185,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "company_technology_deviati
 
 ```{r dd_company_technology_deviation_tms_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_technology_deviation_tms")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Company net alignment metric for TMS sectors
@@ -235,14 +198,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_tms"
 
 ```{r dd_company_alignment_net_tms_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_tms")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Disaggregated company buildout/phaseout alignment metric for TMS sectors
@@ -255,14 +211,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_bo_po_tm
 
 ```{r dd_company_alignment_bo_po_tms_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_bo_po_tms")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Company net alignment metric for SDA sectors
@@ -275,14 +224,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_sda"
 
 ```{r dd_company_alignment_net_sda_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_sda")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Company net aggregate alignment metric with financial exposures
@@ -295,14 +237,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "company_exposure_net_aggre
 
 ```{r dd_company_exposure_net_aggregate_alignment_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_exposure_net_aggregate_alignment")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Disaggregated company buildout/phaseout alignment metric with financial exposures
@@ -315,14 +250,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "company_exposure_bo_po_agg
 
 ```{r dd_company_exposure_bo_po_aggregate_alignment_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "company_exposure_bo_po_aggregate_alignment")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Loan book net aggregate alignment metric with financial exposures
@@ -335,14 +263,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "loanbook_exposure_net_aggr
 
 ```{r dd_loanbook_exposure_net_aggregate_alignment_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "loanbook_exposure_net_aggregate_alignment")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Disaggregated loan book buildout/phaseout alignment metric with financial exposures
@@ -355,14 +276,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "loanbook_exposure_bo_po_ag
 
 ```{r dd_loanbook_exposure_bo_po_aggregate_alignment_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "loanbook_exposure_bo_po_aggregate_alignment")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Input data for Sankey plot
@@ -375,14 +289,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_sankey")
 
 ```{r dd_data_sankey_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_sankey")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
   
 ### Input data for alignment-by-exposure scatter plot
@@ -395,14 +302,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_alignment_exp
 
 ```{r dd_data_scatter_alignment_exposure_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_alignment_exposure")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
   
 ### Input data for buildout/phaseout scatter plot
@@ -415,14 +315,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
 
 ```{r dd_data_scatter_sector_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Input data for animated buildout/phaseout scatter plot
@@ -435,14 +328,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector_animat
 
 ```{r dd_data_scatter_sector_animated_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "dd_data_scatter_sector_animated")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Input data for net timline plot
@@ -455,14 +341,7 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_net")
 
 ```{r dd_data_timeline_net_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_net")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
 
 ### Input data for buildout/phaseout timline plot
@@ -475,12 +354,5 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_bo_po")
 
 ```{r dd_data_timeline_bo_po_table, echo = FALSE}
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_bo_po")
-DT::datatable(
-  dplyr::select(table, -"dataset"),
-  rownames = FALSE,
-  options = list(
-    pageLength = nrow(table),
-    dom = "t"
-  )
-)
+plot_table(table)
 ```
