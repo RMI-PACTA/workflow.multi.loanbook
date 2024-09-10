@@ -27,9 +27,13 @@ run_aggregate_alignment_metric <- function(config) {
   time_frame <- get_time_frame(config)
 
   by_group <- get_aggregate_alignment_metric_by_group(config)
-  if (by_group == "NULL") {by_group <- NULL}
-  if (length(by_group) >= 1) {
-    by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))
+  if (!is.null(by_group)) {
+    stop_if_not_inherits(by_group, "character")
+    if (by_group == "NULL") {
+      by_group <- NULL
+    } else {
+      by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))
+    }
   }
 
   # load input data----
