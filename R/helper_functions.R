@@ -74,3 +74,14 @@ apply_sector_split_to_loans <- function(data,
 
   data
 }
+
+check_and_prepare_by_group <- function(by_group) {
+  if (!is.null(by_group)) {
+    stop_if_not_inherits(by_group, "character")
+    if (by_group == "NULL") {
+      by_group <- NULL
+    } else {
+      by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))
+    }
+  }
+}

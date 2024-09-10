@@ -27,14 +27,7 @@ run_aggregate_alignment_metric <- function(config) {
   time_frame <- get_time_frame(config)
 
   by_group <- get_aggregate_alignment_metric_by_group(config)
-  if (!is.null(by_group)) {
-    stop_if_not_inherits(by_group, "character")
-    if (by_group == "NULL") {
-      by_group <- NULL
-    } else {
-      by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))
-    }
-  }
+  by_group <- check_and_prepare_by_group(by_group)
 
   # load input data----
   region_isos_select <- r2dii.data::region_isos %>%
