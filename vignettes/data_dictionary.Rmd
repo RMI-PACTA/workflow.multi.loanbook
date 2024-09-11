@@ -91,12 +91,12 @@ The standard PACTA analysis is run across all input banking books, but produces 
 
 Target market share results at the portfolio level for each included banking book
 
-```{r dd_tms_results_all_groups, results = FALSE}
-dplyr::filter(data_dictionary, .data[["dataset"]] == "tms_results_all_groups")
+```{r dd_tms_results, results = FALSE}
+dplyr::filter(data_dictionary, .data[["dataset"]] == "tms_results")
 ```
 
-```{r dd_tms_results_all_groups_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "tms_results_all_groups")
+```{r dd_tms_results_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "tms_results")
 plot_table(table)
 ```
 
@@ -105,12 +105,12 @@ plot_table(table)
 
 SDA results at the portfolio level for each included banking book
 
-```{r dd_sda_results_all_groups, results = FALSE}
-dplyr::filter(data_dictionary, .data[["dataset"]] == "sda_results_all_groups")
+```{r dd_sda_results, results = FALSE}
+dplyr::filter(data_dictionary, .data[["dataset"]] == "sda_results")
 ```
 
-```{r dd_sda_results_all_groups_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "sda_results_all_groups")
+```{r dd_sda_results_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "sda_results")
 plot_table(table)
 ```
 
