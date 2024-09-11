@@ -5,7 +5,7 @@ articles:
   config_yml: config_yml.html
   cookbook: cookbook.html
   data_dictionary: data_dictionary.html
-last_built: 2024-09-09T07:10Z
+last_built: 2024-09-11T12:18Z
 urls:
   reference: https://rmi-pacta.github.io/workflow.multi.loanbook/reference
   article: https://rmi-pacta.github.io/workflow.multi.loanbook/articles
