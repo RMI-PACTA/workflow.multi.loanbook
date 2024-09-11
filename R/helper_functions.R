@@ -78,6 +78,7 @@ apply_sector_split_to_loans <- function(data,
 check_and_prepare_by_group <- function(by_group) {
   if (!is.null(by_group)) {
     stop_if_not_inherits(by_group, "character")
+    stop_if_not_length(by_group, 1)
     if (by_group == "NULL") {
       by_group <- NULL
     } else {
