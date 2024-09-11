@@ -645,20 +645,19 @@ section might look like:</p>
 </h5>
 <p><code class="sourceCode yaml"><span class="at">by_group</span></code>
 allows specifying the level of disaggregation to be used in the
-analysis. It determines the variable(s) along which the loan books are
+analysis. It determines the variable along which the loan books are
 grouped and thus the dimension by which to compare the PACTA
 calculations. For example, one may want to calculate system-wide results
 without disaggregation, using <code class="sourceCode yaml"><span class="ch">NULL</span></code> or one may
 want to analyse alignment along bank specific traits, such as <code class="sourceCode yaml"><span class="st">"group_id"</span></code>
 or <code class="sourceCode yaml"><span class="st">"bank_type"</span></code>.
-It can be <code class="sourceCode yaml"><span class="ch">NULL</span></code>, a single
-string/character value, or a character vector. If it is not <code class="sourceCode yaml"><span class="ch">NULL</span></code>, the
+It can be <code class="sourceCode yaml"><span class="ch">NULL</span></code> or a
+character vector of length 1. If it is not <code class="sourceCode yaml"><span class="ch">NULL</span></code>, the
 indicated name must be a variable that is provided in the input loan
 books and it must be complete (<code>"group_id"</code> is automatically
 created when reading in the loan books, so the user does not have to add
-it to the raw loan books). If more than value is provided, the analysis
-will create all combinations of groups between the variables. However,
-not all plots support more than one level of disaggregation. As an
+it to the raw loan books). If the provided character string is <code class="sourceCode yaml"><span class="st">"NULL"</span></code>,
+it will be treated as <code class="sourceCode yaml"><span class="ch">NULL</span></code>. As an
 example:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="at">    </span><span class="fu">by_group</span><span class="kw">:</span><span class="at"> </span><span class="st">"group_id"</span></span></code></pre></div>
 </div>
