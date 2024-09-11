@@ -1,3 +1,11 @@
+#' run_pacta
+#'
+#' @param config either a single string defining the path to a config YML file
+#'   or a list object that contains the appropriate config params
+#'
+#' @return `NULL` (called for side effects)
+#'
+#' @importFrom rlang :=
 run_pacta <- function(config) {
   config <- load_config(config)
 
@@ -101,7 +109,7 @@ run_pacta <- function(config) {
         co2_intensity_scenario = scenario_input_sda,
         region_isos = region_isos_select
       ) %>%
-      dplyr::mutate(!!rlang::sym(by_group) := .env$i)
+      dplyr::mutate("{by_group}" := .env$i)
 
     results_sda_total <- results_sda_total %>%
       dplyr::bind_rows(results_sda_i)
@@ -131,7 +139,7 @@ run_pacta <- function(config) {
         scenario = scenario_input_tms,
         region_isos = region_isos_select
       ) %>%
-      dplyr::mutate(!!rlang::sym(by_group) := .env$i)
+      dplyr::mutate("{by_group}" := .env$i)
 
     results_tms_total <- results_tms_total %>%
       dplyr::bind_rows(results_tms_i)
