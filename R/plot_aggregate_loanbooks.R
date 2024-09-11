@@ -34,10 +34,7 @@ plot_aggregate_loanbooks <- function(config) {
   }
 
   by_group <- get_aggregate_alignment_metric_by_group(config)
-  if (!is.null(by_group) && by_group == "NULL") { by_group <- NULL }
-  if (length(by_group) >= 1) {
-    by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))
-  }
+  by_group <- check_and_prepare_by_group(by_group)
 
   dir.create(output_path_aggregated, recursive = TRUE, showWarnings = FALSE)
 
