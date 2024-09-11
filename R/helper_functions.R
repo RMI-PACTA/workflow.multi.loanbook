@@ -82,7 +82,7 @@ check_and_prepare_by_group <- function(by_group) {
     if (by_group == "NULL") {
       by_group <- NULL
     } else {
-      by_group <- gsub(" ", "", unlist(strsplit(by_group, split = ",")))
+      by_group
     }
   }
 }
