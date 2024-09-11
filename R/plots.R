@@ -117,7 +117,8 @@ generate_individual_outputs <- function(data,
                                         matched_prioritized,
                                         output_directory,
                                         target_type = c("tms", "sda"),
-                                        group_id,
+                                        by_group,
+                                        by_group_value,
                                         scenario_source,
                                         scenario,
                                         region = "global",
@@ -133,7 +134,8 @@ generate_individual_outputs <- function(data,
   # validate input values
   validate_input_args_generate_individual_outputs(
     output_directory = output_directory,
-    group_id = group_id,
+    by_group = by_group,
+    by_group_value = by_group_value,
     scenario_source = scenario_source,
     target_scenario = target_scenario,
     region = region,
@@ -146,38 +148,39 @@ generate_individual_outputs <- function(data,
   validate_input_data_generate_individual_outputs(
     data = data,
     matched_prioritized = matched_prioritized,
-    target_type = target_type
+    target_type = target_type,
+    by_group = by_group
   )
 
   # create sub directory for the selected institute
-  dir.create(file.path(output_directory, group_id), showWarnings = FALSE)
+  dir.create(file.path(output_directory, by_group_value), showWarnings = FALSE)
 
   data <- data %>%
     dplyr::filter(
-      group_id == .env$group_id,
-      scenario_source == .env$scenario_source,
-      region == .env$region,
-      sector %in% .env$sector
+      .data[[by_group]] == .env$by_group_value,
+      .data[["scenario_source"]] == .env$scenario_source,
+      .data[["region"]] == .env$region,
+      .data[["sector"]] %in% .env$sector
     )
 
   matched_prioritized <- matched_prioritized %>%
     dplyr::filter(
-      group_id == .env$group_id,
-      sector %in% .env$sector
+      .data[[by_group]] == .env$by_group_value,
+      .data[["sector"]] %in% .env$sector
     )
 
   if (target_type == "tms") {
     # plot tech mix for given sector
     data_techmix <- data %>%
       dplyr::filter(
-        .data$metric %in% c("projected", "corporate_economy", .env$target_scenario),
-        dplyr::between(.data$year, .env$start_year, .env$start_year + .env$time_horizon)
+        .data[["metric"]] %in% c("projected", "corporate_economy", .env$target_scenario),
+        dplyr::between(.data[["year"]], .env$start_year, .env$start_year + .env$time_horizon)
       ) %>%
       dplyr::mutate(
         label = dplyr::case_when(
-          .data$metric == "projected" ~ "Portfolio",
-          .data$metric == "corporate_economy" ~ "Corporate Economy",
-          .data$metric == .env$target_scenario ~ glue::glue("{r2dii.plot::to_title(toupper(.env$scenario))} Scenario")
+          .data[["metric"]] == "projected" ~ "Portfolio",
+          .data[["metric"]] == "corporate_economy" ~ "Corporate Economy",
+          .data[["metric"]] == .env$target_scenario ~ glue::glue("{r2dii.plot::to_title(toupper(.env$scenario))} Scenario")
         )
       ) %>%
       r2dii.plot::prep_techmix(
@@ -207,38 +210,38 @@ generate_individual_outputs <- function(data,
       readr::write_csv(
         file = file.path(
           output_directory,
-          group_id,
-          glue::glue("data_tech_mix_{sector}_{group_id}.csv")
+          by_group_value,
+          glue::glue("data_tech_mix_{sector}_{by_group_value}.csv")
         ),
         na = ""
       )
 
     ggplot2::ggsave(
-      filename = glue::glue("plot_tech_mix_{sector}_{group_id}.png"),
+      filename = glue::glue("plot_tech_mix_{sector}_{by_group_value}.png"),
       plot = plot_techmix,
       device = "png",
-      path = file.path(output_directory, group_id)
+      path = file.path(output_directory, by_group_value)
     )
 
     # plot trajectory charts for all available techs in given sector
     technologies_in_sector <- r2dii.data::increasing_or_decreasing %>%
-      dplyr::filter(.data$sector == .env$sector) %>%
-      dplyr::pull(.data$technology)
+      dplyr::filter(.data[["sector"]] == .env$sector) %>%
+      dplyr::pull(.data[["technology"]])
 
     technologies_to_plot <- data %>%
       dplyr::filter(
-        .data$metric == .env$target_scenario,
-        .data$technology %in% .env$technologies_in_sector
+        .data[["metric"]] == .env$target_scenario,
+        .data[["technology"]] %in% .env$technologies_in_sector
       ) %>%
-      dplyr::distinct(.data$technology) %>%
-      dplyr::arrange(.data$technology) %>%
+      dplyr::distinct(.data[["technology"]]) %>%
+      dplyr::arrange(.data[["technology"]]) %>%
       dplyr::pull()
 
     for (i in 1:length(technologies_to_plot)) {
       data_trajectory <- data %>%
         dplyr::filter(
-          .data$technology == .env$technologies_to_plot[i],
-          dplyr::between(.data$year, .env$start_year, .env$start_year + .env$time_horizon)
+          .data[["technology"]] == .env$technologies_to_plot[i],
+          dplyr::between(.data[["year"]], .env$start_year, .env$start_year + .env$time_horizon)
         ) %>%
         r2dii.plot::prep_trajectory(
           convert_label = r2dii.plot::recode_metric_trajectory,
@@ -265,17 +268,17 @@ generate_individual_outputs <- function(data,
         readr::write_csv(
           file = file.path(
             output_directory,
-            group_id,
-            glue::glue("data_trajectory_{sector}_{technologies_to_plot[i]}_{group_id}.csv")
+            by_group_value,
+            glue::glue("data_trajectory_{sector}_{technologies_to_plot[i]}_{by_group_value}.csv")
           ),
           na = ""
         )
 
       ggplot2::ggsave(
-        filename = glue::glue("plot_trajectory_{sector}_{technologies_to_plot[i]}_{group_id}.png"),
+        filename = glue::glue("plot_trajectory_{sector}_{technologies_to_plot[i]}_{by_group_value}.png"),
         plot = plot_trajectory,
         device = "png",
-        path = file.path(output_directory, group_id)
+        path = file.path(output_directory, by_group_value)
       )
     }
   } else {
@@ -285,12 +288,12 @@ generate_individual_outputs <- function(data,
     data_emission_intensity <- data %>%
       dplyr::filter(
         dplyr::between(
-          .data$year,
+          .data[["year"]],
           .env$start_year,
           .env$start_year + .env$time_horizon)
       ) %>%
       dplyr::filter(
-        .data$emission_factor_metric %in% c(
+        .data[["emission_factor_metric"]] %in% c(
           "projected",
           "corporate_economy",
           .env$target_scenario,
@@ -299,7 +302,7 @@ generate_individual_outputs <- function(data,
       ) %>%
       dplyr::mutate(
         emission_factor_metric = factor(
-          .data$emission_factor_metric,
+          .data[["emission_factor_metric"]],
           levels = c(
             "projected",
             "corporate_economy",
@@ -348,32 +351,36 @@ generate_individual_outputs <- function(data,
       readr::write_csv(
         file = file.path(
           output_directory,
-          group_id,
-          glue::glue("data_emission_intensity_{sector}_{group_id}.csv")
+          by_group_value,
+          glue::glue("data_emission_intensity_{sector}_{by_group_value}.csv")
         ),
         na = ""
       )
 
     ggplot2::ggsave(
-      filename = glue::glue("plot_emission_intensity_{sector}_{group_id}.png"),
+      filename = glue::glue("plot_emission_intensity_{sector}_{by_group_value}.png"),
       plot = plot_emission_intensity,
       device = "png",
-      path = file.path(output_directory, group_id)
+      path = file.path(output_directory, by_group_value)
     )
   }
   companies_included <- matched_prioritized %>%
     dplyr::select(
-      "group_id", "name_abcd", "sector_abcd", "loan_size_outstanding",
-      "loan_size_outstanding_currency", "loan_size_credit_limit",
-      "loan_size_credit_limit_currency"
+      dplyr::all_of(
+        c(
+          .env$by_group, "name_abcd", "sector_abcd", "loan_size_outstanding",
+          "loan_size_outstanding_currency", "loan_size_credit_limit",
+          "loan_size_credit_limit_currency"
+        )
+      )
     )
 
   companies_included %>%
     readr::write_csv(
       file = file.path(
         output_directory,
-        group_id,
-        glue::glue("companies_included_{sector}_{group_id}.csv")
+        by_group_value,
+        glue::glue("companies_included_{sector}_{by_group_value}.csv")
       ),
       na = ""
     )
@@ -382,7 +389,8 @@ generate_individual_outputs <- function(data,
 
 
 validate_input_args_generate_individual_outputs <- function(output_directory,
-                                                            group_id,
+                                                            by_group,
+                                                            by_group_value,
                                                             scenario_source,
                                                             target_scenario,
                                                             region,
@@ -392,7 +400,9 @@ validate_input_args_generate_individual_outputs <- function(output_directory,
   stop_if_not_length(output_directory, 1L)
   stop_if_not_inherits(output_directory, "character")
 
-  stop_if_not_length(group_id, 1L)
+  stop_if_not_length(by_group, 1L)
+
+  stop_if_not_length(by_group_value, 1L)
 
   stop_if_not_length(scenario_source, 1L)
   stop_if_not_inherits(scenario_source, "character")
@@ -418,13 +428,14 @@ validate_input_args_generate_individual_outputs <- function(output_directory,
 
 validate_input_data_generate_individual_outputs <- function(data,
                                                             matched_prioritized,
-                                                            target_type) {
+                                                            target_type,
+                                                            by_group) {
   if (target_type == "sda") {
     pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
       data = data,
       expected_columns = c(
         "sector", "year", "region", "scenario_source", "emission_factor_metric",
-        "emission_factor_value", "group_id"
+        "emission_factor_value", by_group
       )
     )
   } else if (target_type == "tms") {
@@ -433,7 +444,7 @@ validate_input_data_generate_individual_outputs <- function(data,
       expected_columns = c(
         "sector", "technology", "year", "region", "scenario_source", "metric",
         "production", "technology_share", "scope",
-        "percentage_of_initial_production_by_scope", "group_id"
+        "percentage_of_initial_production_by_scope", by_group
       )
     )
   }
@@ -441,7 +452,7 @@ validate_input_data_generate_individual_outputs <- function(data,
   pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
     data = matched_prioritized,
     expected_columns = c(
-      "group_id", "name_abcd", "sector", "sector_abcd", "loan_size_outstanding",
+      by_group, "name_abcd", "sector", "sector_abcd", "loan_size_outstanding",
       "loan_size_outstanding_currency", "loan_size_credit_limit",
       "loan_size_credit_limit_currency"
     )
