@@ -58,7 +58,7 @@ dd_company_alignment_net_sda <- dplyr::tribble(
 
 dd_company_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "company_exposure_bo_po_aggregate_alignment", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "company_exposure_bo_po_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "company_exposure_bo_po_aggregate_alignment", "name_abcd", "character", "The name of the company", "The name of the company",
   "company_exposure_bo_po_aggregate_alignment", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
   "company_exposure_bo_po_aggregate_alignment", "activity_unit", "character", "The unit the activity is measured in for a given sector", "The unit corresponding to the sector. For example 'MW' of capacity for power",
@@ -76,7 +76,7 @@ dd_company_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
 
 dd_company_exposure_net_aggregate_alignment <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "company_exposure_net_aggregate_alignment", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "company_exposure_net_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "company_exposure_net_aggregate_alignment", "name_abcd", "character", "The name of the company", "The name of the company",
   "company_exposure_net_aggregate_alignment", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
   "company_exposure_net_aggregate_alignment", "activity_unit", "character", "The unit the activity is measured in for a given sector", "The unit corresponding to the sector. For example 'MW' of capacity for power",
@@ -94,7 +94,7 @@ dd_company_exposure_net_aggregate_alignment <- dplyr::tribble(
 
 dd_loanbook_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "loanbook_exposure_bo_po_aggregate_alignment", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "loanbook_exposure_bo_po_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "loanbook_exposure_bo_po_aggregate_alignment", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
   "loanbook_exposure_bo_po_aggregate_alignment", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
   "loanbook_exposure_bo_po_aggregate_alignment", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
@@ -108,7 +108,7 @@ dd_loanbook_exposure_bo_po_aggregate_alignment <- dplyr::tribble(
 
 dd_loanbook_exposure_net_aggregate_alignment <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "loanbook_exposure_net_aggregate_alignment", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "loanbook_exposure_net_aggregate_alignment", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "loanbook_exposure_net_aggregate_alignment", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
   "loanbook_exposure_net_aggregate_alignment", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
   "loanbook_exposure_net_aggregate_alignment", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
@@ -125,7 +125,7 @@ dd_loanbook_exposure_net_aggregate_alignment <- dplyr::tribble(
 
 dd_data_sankey <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_sankey", "&#60;by_group&#62;", "character", "Leftmost node in the sankey plot. Defines the split of the banking books into groups. Any additional descriptor either at the loan level or at the banking book level", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_sankey", "<by_group>", "character", "Leftmost node in the sankey plot. Defines the split of the banking books into groups. Any additional descriptor either at the loan level or at the banking book level", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "data_sankey", "middle_node", "character", "Middle node in the sankey plot. A different grouping of interest. E.g. 'sector' would split the financial exposures according to sectoral exposure", "Must be available in the exposure alignment results used as input for the graph",
   "data_sankey", "middle_node2", "character", "Optional: An additional middle node can be added for further disaggregation of exposures in the sankey plot", "Must be available in the exposure alignment results used as input for the graph",
   "data_sankey", "is_aligned", "logical", "End node and color indicator. A dummy variable that indicates if the underlying counterparty related to the exposure is aligned based on the net alignment metric or not", "Value is either 'Aligned' or 'Not aligned'",
@@ -134,7 +134,7 @@ dd_data_sankey <- dplyr::tribble(
 
 dd_data_scatter_alignment_exposure <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_scatter_alignment_exposure", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_scatter_alignment_exposure", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "data_scatter_alignment_exposure", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
   "data_scatter_alignment_exposure", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
   "data_scatter_alignment_exposure", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
@@ -167,7 +167,7 @@ dd_data_scatter_sector_animated <- dplyr::tribble(
 # same as loanbook_exposure_net_aggregate_alignment, but filtered for a specific sector
 dd_data_timeline_net <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_timeline_net", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_timeline_net", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "data_timeline_net", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
   "data_timeline_net", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
   "data_timeline_net", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
@@ -185,7 +185,7 @@ dd_data_timeline_net <- dplyr::tribble(
 # same as loanbook_exposure_bo_po_aggregate_alignment, but filtered for a specific sector
 dd_data_timeline_bo_po <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_timeline_bo_po", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_timeline_bo_po", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "data_timeline_bo_po", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
   "data_timeline_bo_po", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
   "data_timeline_bo_po", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
@@ -199,7 +199,7 @@ dd_data_timeline_bo_po <- dplyr::tribble(
 
 dd_tms_results <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "tms_results", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "tms_results", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "tms_results", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
   "tms_results", "technology", "character", "The technology", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
   "tms_results", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
@@ -214,7 +214,7 @@ dd_tms_results <- dplyr::tribble(
 
 dd_sda_results <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "sda_results", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "sda_results", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "sda_results", "sector", "character", "The sector of the technology", "One of the following: 'aviation', 'cement', 'steel'",
   "sda_results", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
   "sda_results", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
@@ -225,7 +225,7 @@ dd_sda_results <- dplyr::tribble(
 
 dd_data_tech_mix <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_tech_mix", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_tech_mix", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "data_tech_mix", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
   "data_tech_mix", "technology", "character", "The technology", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
   "data_tech_mix", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
@@ -243,7 +243,7 @@ dd_data_tech_mix <- dplyr::tribble(
 
 dd_data_trajectory <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_trajectory", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_trajectory", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "data_trajectory", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
   "data_trajectory", "technology", "character", "The technology", "One of the in-scope PACTA technologies that belong to the sector indicated in 'sector'",
   "data_trajectory", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
@@ -260,7 +260,7 @@ dd_data_trajectory <- dplyr::tribble(
 
 dd_data_emission_intensity <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_emission_intensity", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_emission_intensity", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "data_emission_intensity", "sector", "character", "The sector of the technology", "One of the following: 'aviation', 'cement', 'steel'",
   "data_emission_intensity", "year", "integer", "The year of the data", "A year greater or equal to the 'start_year' of the analyis",
   "data_emission_intensity", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
@@ -273,7 +273,7 @@ dd_data_emission_intensity <- dplyr::tribble(
 # TODO: possibly deprecate this output
 dd_companies_included <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "companies_included", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "companies_included", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "companies_included", "name_abcd", "character", "The name of the company", "The name of the company",
   "companies_included", "sector_abcd", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
   "companies_included", "loan_size_outstanding", "double", "Remaining outstanding loan value to the given counterparty", "Numerical value greater or equal to 0",
@@ -286,7 +286,7 @@ dd_companies_included <- dplyr::tribble(
 dd_summary_statistics_loanbook_coverage <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "summary_statistics_loanbook_coverage", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
-  # "summary_statistics_loanbook_coverage", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  # "summary_statistics_loanbook_coverage", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "summary_statistics_loanbook_coverage", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
   "summary_statistics_loanbook_coverage", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
   "summary_statistics_loanbook_coverage", "total_exposure", "double", "Remaining outstanding loan value to the all companies in the sector that have some operations within the given region", "Numerical value greater or equal to 0",
@@ -303,7 +303,7 @@ dd_summary_statistics_loanbook_coverage <- dplyr::tribble(
 dd_lbk_match_success_rate <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "lbk_match_success_rate", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
-  # "lbk_match_success_rate", "&#60;by_group&#62;", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  # "lbk_match_success_rate", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "lbk_match_success_rate", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
   "lbk_match_success_rate", "matched", "character", "Indicates if the matching values are shown for matched or unmatched loans", "Must be one of the following: 'Matched' or 'Not matched'",
   "lbk_match_success_rate", "match_n", "integer", "Number of loans identified for analysis in a given sector in the given banking book that were successfully matched with companies in the production data", "Integer value greater or equal to 0",
