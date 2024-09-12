@@ -34,13 +34,16 @@ plot_table <- function(table) {
       locations = gt::cells_body(columns = 1:2)
     )
   
-  gt::tab_options(
-    data = table_plot,
-    ihtml.active = TRUE,
-    ihtml.use_pagination = FALSE,
-    ihtml.use_sorting = TRUE,
-    ihtml.use_highlight = TRUE
-  )
+  table_plot <-
+    gt::tab_options(
+      data = table_plot,
+      ihtml.active = TRUE,
+      ihtml.use_pagination = FALSE,
+      ihtml.use_sorting = TRUE,
+      ihtml.use_highlight = TRUE
+    )
+  
+  gt::fmt_passthrough(table_plot)
 }
 ```
 # Intro
