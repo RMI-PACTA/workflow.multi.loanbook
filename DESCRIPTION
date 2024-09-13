@@ -60,6 +60,7 @@ Suggests:
     rmarkdown,
     usethis,
     testthat (>= 3.1.9),
+    tibble,
     writexl
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
