@@ -1,3 +1,5 @@
+# primary energy efficiency ----------------------------------------------------
+
 # Physical energy content and primary energy efficiency.
 # Power generation based on heat/combustion causes a loss of a share of primary
 # energy. To back calculate the primary energy content based on electricity
@@ -21,6 +23,8 @@ primary_energy_efficiency <- dplyr::tribble(
 )
 
 
+# unit conversions -------------------------------------------------------------
+
 # unit conversions are taken from: http://wds.iea.org/wds/pdf/WORLDBAL_Documentation.pdf
 # last accessed on 27 Feb 2023
 
@@ -32,31 +36,41 @@ unit_conversion <- dplyr::tribble(
 )
 
 
-# activity units
-
-library(dplyr)
+# activity units ---------------------------------------------------------------
 
 sda_sectors <- c("aviation", "cement", "steel")
 
 activity_units <-
-  r2dii.data::abcd_demo %>%
   dplyr::distinct(
+    .data = r2dii.data::abcd_demo,
     .data[["sector"]],
     .data[["technology"]],
     .data[["production_unit"]],
     .data[["emission_factor_unit"]]
-  ) %>%
-  dplyr::rename(activity_unit = "production_unit") %>%
+  )
+
+activity_units <-
+  dplyr::rename(
+    .data = activity_units,
+    activity_unit = "production_unit"
+  )
+
+activity_units <-
   dplyr::mutate(
+    .data = activity_units,
     activity_unit = dplyr::if_else(
       .data[["sector"]] %in% .env[["sda_sectors"]],
       .data[["emission_factor_unit"]],
       .data[["activity_unit"]]
     )
-  ) %>%
-  dplyr::select(-"emission_factor_unit")
+  )
+
+activity_units <- dplyr::select(activity_units, -"emission_factor_unit")
 
 usethis::use_data(activity_units, internal = TRUE, overwrite = TRUE)
+
+
+# add datasets as internal data ------------------------------------------------
 
 usethis::use_data(
   activity_units, primary_energy_efficiency, unit_conversion,
