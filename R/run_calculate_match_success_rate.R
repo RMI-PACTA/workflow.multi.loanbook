@@ -9,6 +9,10 @@ run_calculate_match_success_rate <- function(config) {
     path_own_sector_classification <- get_manual_sector_classification_path(config)
   }
 
+  by_group <- get_aggregate_alignment_metric_by_group(config)
+  by_group <- check_and_prepare_by_group(by_group)
+  by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
+
   match_success_rate_plot_width <- get_match_plot_width(config)
   match_success_rate_plot_height <- get_match_plot_height(config)
   match_success_rate_plot_units <- get_match_plot_units(config)
@@ -51,11 +55,23 @@ run_calculate_match_success_rate <- function(config) {
   list_raw <- list.files(dir_raw)[grepl("csv$", list.files(dir_raw))]
   stop_if_no_files_found(list_raw, dir_raw, "dir_raw", "raw loan book CSVs")
 
-  raw_lbk <- readr::read_csv(
-    file = file.path(dir_raw, list_raw),
-    col_types = col_types_raw,
-    id = "group_id"
-  ) %>%
+  if (is.null(by_group) || by_group != "group_id") {
+    raw_lbk <- readr::read_csv(
+      file = file.path(dir_raw, list_raw),
+      col_types = col_types_raw,
+      col_select = dplyr::all_of(c(by_group, col_select_raw)),
+      id = "group_id"
+    )
+  } else {
+    raw_lbk <- readr::read_csv(
+      file = file.path(dir_raw, list_raw),
+      col_types = col_types_raw,
+      col_select = dplyr::all_of(c(col_select_raw)),
+      id = "group_id"
+    )
+  }
+
+  raw_lbk <- raw_lbk %>%
     dplyr::mutate(
       group_id = gsub(glue::glue("{dir_raw}/"), "", .data$group_id),
       group_id = gsub(".csv", "", .data$group_id)
@@ -68,8 +84,18 @@ run_calculate_match_success_rate <- function(config) {
   matched_prioritized <- readr::read_csv(
     file = file.path(dir_matched, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
-    col_select = dplyr::all_of(col_select_matched_prioritized)
+    col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
+
+  # add helper column to facilitate calculation of meta results----
+  # TODO: decide if this should be removed from outputs
+  if (is.null(by_group)) {
+    by_group <- "meta"
+    raw_lbk <- raw_lbk %>%
+      dplyr::mutate(meta = "meta")
+    matched_prioritized <- matched_prioritized %>%
+      dplyr::mutate(meta = "meta")
+  }
 
   ## load classification system----
   if (matching_use_own_sector_classification) {
@@ -115,18 +141,22 @@ run_calculate_match_success_rate <- function(config) {
     raw_lbk = raw_lbk,
     matched_prioritized = matched_prioritized,
     sector_classification_system = sector_classification_system,
-    misclassfied_loans = loans_to_remove
+    misclassfied_loans = loans_to_remove,
+    by_group = by_group
   )
 
   # write to csv
   lbk_match_success_rate %>%
     readr::write_csv(
-      file = file.path(dir_matched, "lbk_match_success_rate.csv"),
+      file = file.path(dir_matched, paste0("lbk_match_success_rate", by_group_ext, ".csv")),
       na = ""
     )
 
   # prepare match success data for plotting----
-  data_lbk_match_success_rate <- prep_match_success_rate(data = lbk_match_success_rate)
+  data_lbk_match_success_rate <- prep_match_success_rate(
+    data = lbk_match_success_rate,
+    by_group = by_group
+  )
 
   # plot match success rate----
   plot_match_success_currency <- unique(raw_lbk$loan_size_outstanding_currency)
@@ -134,14 +164,14 @@ run_calculate_match_success_rate <- function(config) {
   ## plot relative match success rates for individual loan books----
   plot_match_success_rate_rel_n_ind <- data_lbk_match_success_rate %>%
     plot_match_success_rate(
-      aggregate = FALSE,
       metric_type = "relative",
       match_success_type = "n",
-      currency = plot_match_success_currency
+      currency = plot_match_success_currency,
+      by_group = by_group
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_rel_n_individual.png"),
+    filename = file.path(dir_matched, paste0("plot_match_success_rate_rel_n", by_group_ext, ".png")),
     plot = plot_match_success_rate_rel_n_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -151,14 +181,14 @@ run_calculate_match_success_rate <- function(config) {
 
   plot_match_success_rate_rel_outstanding_ind <- data_lbk_match_success_rate %>%
     plot_match_success_rate(
-      aggregate = FALSE,
       metric_type = "relative",
       match_success_type = "outstanding",
-      currency = plot_match_success_currency
+      currency = plot_match_success_currency,
+      by_group = by_group
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_rel_outstanding_individual.png"),
+    filename = file.path(dir_matched, paste0("plot_match_success_rate_rel_outstanding", by_group_ext, ".png")),
     plot = plot_match_success_rate_rel_outstanding_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -168,67 +198,15 @@ run_calculate_match_success_rate <- function(config) {
 
   plot_match_success_rate_rel_credit_limit_ind <- data_lbk_match_success_rate %>%
     plot_match_success_rate(
-      aggregate = FALSE,
       metric_type = "relative",
       match_success_type = "credit_limit",
-      currency = plot_match_success_currency
+      currency = plot_match_success_currency,
+      by_group = by_group
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_rel_credit_limit_individual.png"),
+    filename = file.path(dir_matched, paste0("plot_match_success_rate_rel_credit_limit", by_group_ext, ".png")),
     plot = plot_match_success_rate_rel_credit_limit_ind,
-    width = match_success_rate_plot_width,
-    height = match_success_rate_plot_height,
-    units = match_success_rate_plot_units,
-    dpi = match_success_rate_plot_resolution
-  )
-
-  ## plot relative match success rates for the aggregate loan book----
-  plot_match_success_rate_rel_n_agg <- data_lbk_match_success_rate %>%
-    plot_match_success_rate(
-      aggregate = TRUE,
-      metric_type = "relative",
-      match_success_type = "n",
-      currency = plot_match_success_currency
-    )
-
-  ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_rel_n_aggregate.png"),
-    plot = plot_match_success_rate_rel_n_agg,
-    width = match_success_rate_plot_width,
-    height = match_success_rate_plot_height,
-    units = match_success_rate_plot_units,
-    dpi = match_success_rate_plot_resolution
-  )
-
-  plot_match_success_rate_rel_outstanding_agg <- data_lbk_match_success_rate %>%
-    plot_match_success_rate(
-      aggregate = TRUE,
-      metric_type = "relative",
-      match_success_type = "outstanding",
-      currency = plot_match_success_currency
-    )
-
-  ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_rel_outstanding_aggregate.png"),
-    plot = plot_match_success_rate_rel_outstanding_agg,
-    width = match_success_rate_plot_width,
-    height = match_success_rate_plot_height,
-    units = match_success_rate_plot_units,
-    dpi = match_success_rate_plot_resolution
-  )
-
-  plot_match_success_rate_rel_credit_limit_agg <- data_lbk_match_success_rate %>%
-    plot_match_success_rate(
-      aggregate = TRUE,
-      metric_type = "relative",
-      match_success_type = "credit_limit",
-      currency = plot_match_success_currency
-    )
-
-  ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_rel_credit_limit_aggregate.png"),
-    plot = plot_match_success_rate_rel_credit_limit_agg,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
     units = match_success_rate_plot_units,
@@ -238,14 +216,14 @@ run_calculate_match_success_rate <- function(config) {
   ## plot absolute match success rates for individual loan books----
   plot_match_success_rate_abs_n_ind <- data_lbk_match_success_rate %>%
     plot_match_success_rate(
-      aggregate = FALSE,
       metric_type = "absolute",
       match_success_type = "n",
-      currency = plot_match_success_currency
+      currency = plot_match_success_currency,
+      by_group = by_group
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_abs_n_individual.png"),
+    filename = file.path(dir_matched, paste0("plot_match_success_rate_abs_n", by_group_ext, ".png")),
     plot = plot_match_success_rate_abs_n_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -255,14 +233,14 @@ run_calculate_match_success_rate <- function(config) {
 
   plot_match_success_rate_abs_outstanding_ind <- data_lbk_match_success_rate %>%
     plot_match_success_rate(
-      aggregate = FALSE,
       metric_type = "absolute",
       match_success_type = "outstanding",
-      currency = plot_match_success_currency
+      currency = plot_match_success_currency,
+      by_group = by_group
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_abs_outstanding_individual.png"),
+    filename = file.path(dir_matched, paste0("plot_match_success_rate_abs_outstanding", by_group_ext, ".png")),
     plot = plot_match_success_rate_abs_outstanding_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -272,67 +250,15 @@ run_calculate_match_success_rate <- function(config) {
 
   plot_match_success_rate_abs_credit_limit_ind <- data_lbk_match_success_rate %>%
     plot_match_success_rate(
-      aggregate = FALSE,
       metric_type = "absolute",
       match_success_type = "credit_limit",
-      currency = plot_match_success_currency
+      currency = plot_match_success_currency,
+      by_group = by_group
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_abs_credit_limit_individual.png"),
+    filename = file.path(dir_matched, paste0("plot_match_success_rate_abs_credit_limit", by_group_ext, ".png")),
     plot = plot_match_success_rate_abs_credit_limit_ind,
-    width = match_success_rate_plot_width,
-    height = match_success_rate_plot_height,
-    units = match_success_rate_plot_units,
-    dpi = match_success_rate_plot_resolution
-  )
-
-  ## plot absolute match success rates for the aggregate loan book----
-  plot_match_success_rate_abs_n_agg <- data_lbk_match_success_rate %>%
-    plot_match_success_rate(
-      aggregate = TRUE,
-      metric_type = "absolute",
-      match_success_type = "n",
-      currency = plot_match_success_currency
-    )
-
-  ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_abs_n_aggregate.png"),
-    plot = plot_match_success_rate_abs_n_agg,
-    width = match_success_rate_plot_width,
-    height = match_success_rate_plot_height,
-    units = match_success_rate_plot_units,
-    dpi = match_success_rate_plot_resolution
-  )
-
-  plot_match_success_rate_abs_outstanding_agg <- data_lbk_match_success_rate %>%
-    plot_match_success_rate(
-      aggregate = TRUE,
-      metric_type = "absolute",
-      match_success_type = "outstanding",
-      currency = plot_match_success_currency
-    )
-
-  ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_abs_outstanding_aggregate.png"),
-    plot = plot_match_success_rate_abs_outstanding_agg,
-    width = match_success_rate_plot_width,
-    height = match_success_rate_plot_height,
-    units = match_success_rate_plot_units,
-    dpi = match_success_rate_plot_resolution
-  )
-
-  plot_match_success_rate_abs_credit_limit_agg <- data_lbk_match_success_rate %>%
-    plot_match_success_rate(
-      aggregate = TRUE,
-      metric_type = "absolute",
-      match_success_type = "credit_limit",
-      currency = plot_match_success_currency
-    )
-
-  ggplot2::ggsave(
-    filename = file.path(dir_matched, "plot_match_success_rate_abs_credit_limit_aggregate.png"),
-    plot = plot_match_success_rate_abs_credit_limit_agg,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
     units = match_success_rate_plot_units,
@@ -343,7 +269,8 @@ run_calculate_match_success_rate <- function(config) {
 calculate_match_success_rate <- function(raw_lbk,
                                          matched_prioritized,
                                          sector_classification_system,
-                                         misclassfied_loans = NULL) {
+                                         misclassfied_loans = NULL,
+                                         by_group) {
   # combine data----
   # add sectors to raw loan books
   raw_lbk_with_sectors <- add_sectors_to_raw_lbk(
@@ -353,7 +280,8 @@ calculate_match_success_rate <- function(raw_lbk,
 
   lbk_match_success <- combine_raw_and_matched_loan_books(
     raw_lbk_with_sectors = raw_lbk_with_sectors,
-    matched_prioritized = matched_prioritized
+    matched_prioritized = matched_prioritized,
+    by_group = by_group
   )
 
   ## remove misclassified loans----
@@ -368,21 +296,11 @@ calculate_match_success_rate <- function(raw_lbk,
     )
   }
 
-  # add meta loan book
-  # TODO: unify use of meta loan book across repo
-  lbk_match_success_meta <- dplyr::mutate(
-    .data = lbk_match_success,
-    id_loan = paste0(.data[["id_loan"]], "_", .data[["group_id"]]),
-    group_id = "meta_loanbook",
-  )
-
-  lbk_match_success <- dplyr::bind_rows(
-    lbk_match_success,
-    lbk_match_success_meta
-  )
-
   # calculate match success rate----
-  lbk_match_success_rate <- add_match_success_rate(lbk_match_success)
+  lbk_match_success_rate <- add_match_success_rate(
+    lbk_match_success,
+    by_group = by_group
+  )
 }
 
 add_sectors_to_raw_lbk <- function(raw_lbk, sector_classification_system) {
@@ -412,7 +330,8 @@ add_sectors_to_raw_lbk <- function(raw_lbk, sector_classification_system) {
 }
 
 combine_raw_and_matched_loan_books <- function(raw_lbk_with_sectors,
-                                               matched_prioritized) {
+                                               matched_prioritized,
+                                               by_group) {
   # join raw and matched loan books, matching on all common columns, but using the
   # financial sector from the raw loan book to match the production sector.
   # this simulates matching with the option by_sector = TRUE
@@ -427,6 +346,11 @@ combine_raw_and_matched_loan_books <- function(raw_lbk_with_sectors,
     dplyr::mutate(
       id_loan = gsub(paste0("_", .env$all_sectors, collapse="|"), "", .data[["id_loan"]])
     )
+
+  if (by_group != "group_id") {
+    matched_prioritized <- matched_prioritized %>%
+      dplyr::select(-"group_id")
+  }
 
   # use left_join so that unmatched loans are properly accounted for
   lbk_match_success <- dplyr::left_join(
@@ -446,7 +370,7 @@ combine_raw_and_matched_loan_books <- function(raw_lbk_with_sectors,
       "lei_direct_loantaker",
       "isin_direct_loantaker",
       "id_loan",
-      "group_id",
+      by_group,
       "sector" = "sector_abcd",
       "borderline"
     )
@@ -469,19 +393,20 @@ combine_raw_and_matched_loan_books <- function(raw_lbk_with_sectors,
     )
 }
 
-add_match_success_rate <- function(data) {
+add_match_success_rate <- function(data,
+                                   by_group) {
   data <- data %>%
     dplyr::mutate(
       total_n = dplyr::n(),
       total_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
       total_credit_limit = sum(.data[["loan_size_credit_limit"]], na.rm = TRUE),
-      .by = c("group_id", "sector")
+      .by = c(by_group, "sector")
     ) %>%
     dplyr::summarise(
       match_n = dplyr::n(),
       match_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
       match_credit_limit = sum(.data[["loan_size_credit_limit"]], na.rm = TRUE),
-      .by = c("group_id", "sector", "matched", "total_n", "total_outstanding", "total_credit_limit")
+      .by = c(by_group, "sector", "matched", "total_n", "total_outstanding", "total_credit_limit")
     ) %>%
     dplyr::mutate(
       match_success_rate_rel = .data[["match_n"]] / .data[["total_n"]],
@@ -493,7 +418,7 @@ add_match_success_rate <- function(data) {
     dplyr::select(
       dplyr::all_of(
         c(
-          "group_id",
+          by_group,
           "sector",
           "matched",
           "match_n",
@@ -509,13 +434,14 @@ add_match_success_rate <- function(data) {
       )
     ) %>%
     dplyr::arrange(
-      .data[["group_id"]],
+      .data[[by_group]],
       .data[["sector"]],
       .data[["matched"]]
     )
 }
 
-prep_match_success_rate <- function(data) {
+prep_match_success_rate <- function(data,
+                                    by_group) {
   # prepare match success data for plotting----
   data <- data %>%
     dplyr::select(
@@ -523,7 +449,7 @@ prep_match_success_rate <- function(data) {
     ) %>%
     tidyr::pivot_longer(
       cols = -c(
-        "group_id",
+        by_group,
         "sector",
         "matched"
       ),

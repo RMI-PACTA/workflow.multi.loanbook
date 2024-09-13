@@ -30,7 +30,8 @@ test_that("combine_raw_and_matched_loan_books identifies correct matched and unm
 
   test_lbk_match_success <- combine_raw_and_matched_loan_books(
     raw_lbk_with_sectors = test_raw_lbk_with_sectors,
-    matched_prioritized = test_matched_prio
+    matched_prioritized = test_matched_prio,
+    by_group = "group_id"
   )
 
   matched <- test_lbk_match_success %>%
@@ -64,7 +65,8 @@ test_that("combine_raw_and_matched_loan_books removes group_id from id_loan wher
 
   test_lbk_match_success <- combine_raw_and_matched_loan_books(
     raw_lbk_with_sectors = test_raw_lbk_with_sectors,
-    matched_prioritized = test_matched_prio
+    matched_prioritized = test_matched_prio,
+    by_group = "group_id"
   )
 
   testthat::expect_equal(test_raw$id_loan, unique(test_lbk_match_success$id_loan))
@@ -93,7 +95,8 @@ test_that("combine_raw_and_matched_loan_books removes sector_abcd from id_loan w
 
   test_lbk_match_success <- combine_raw_and_matched_loan_books(
     raw_lbk_with_sectors = test_raw_lbk_with_sectors,
-    matched_prioritized = test_matched_prio
+    matched_prioritized = test_matched_prio,
+    by_group = "group_id"
   )
 
   testthat::expect_equal(

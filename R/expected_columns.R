@@ -138,6 +138,7 @@ col_types_raw <- readr::cols(
   lei_direct_loantaker = "c",
   isin_direct_loantaker = "c"
 )
+col_select_raw <- names(col_types_raw[["cols"]])
 
 # expected columns companies_sector_split file
 col_types_companies_sector_split <- readr::cols_only(
