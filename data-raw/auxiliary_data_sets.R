@@ -20,6 +20,7 @@ primary_energy_efficiency <- dplyr::tribble(
   "global", "power", "renewablescap",                                 1
 )
 
+
 # unit conversions are taken from: http://wds.iea.org/wds/pdf/WORLDBAL_Documentation.pdf
 # last accessed on 27 Feb 2023
 
@@ -30,8 +31,35 @@ unit_conversion <- dplyr::tribble(
   "power",       "MWh",             8.598e-08
 )
 
+
+# activity units
+
+library(dplyr)
+
+sda_sectors <- c("aviation", "cement", "steel")
+
+activity_units <-
+  r2dii.data::abcd_demo %>%
+  dplyr::distinct(
+    .data[["sector"]],
+    .data[["technology"]],
+    .data[["production_unit"]],
+    .data[["emission_factor_unit"]]
+  ) %>%
+  dplyr::rename(activity_unit = "production_unit") %>%
+  dplyr::mutate(
+    activity_unit = dplyr::if_else(
+      .data[["sector"]] %in% .env[["sda_sectors"]],
+      .data[["emission_factor_unit"]],
+      .data[["activity_unit"]]
+    )
+  ) %>%
+  dplyr::select(-"emission_factor_unit")
+
+usethis::use_data(activity_units, internal = TRUE, overwrite = TRUE)
+
 usethis::use_data(
-  primary_energy_efficiency, unit_conversion,
+  activity_units, primary_energy_efficiency, unit_conversion,
   overwrite = TRUE,
   internal = TRUE
 )
