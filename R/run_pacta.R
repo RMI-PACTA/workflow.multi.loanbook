@@ -1,3 +1,11 @@
+#' run_pacta
+#'
+#' @param config either a single string defining the path to a config YML file
+#'   or a list object that contains the appropriate config params
+#'
+#' @return `NULL` (called for side effects)
+#'
+#' @importFrom rlang :=
 run_pacta <- function(config) {
   config <- load_config(config)
 
@@ -30,6 +38,10 @@ run_pacta <- function(config) {
   }
 
   dir.create(output_path_standard, recursive = TRUE, showWarnings = FALSE)
+
+  by_group <- get_aggregate_alignment_metric_by_group(config)
+  by_group <- check_and_prepare_by_group(by_group)
+  by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
 
   # TODO: add check if all files exist, resort to test files if not
 
@@ -65,32 +77,31 @@ run_pacta <- function(config) {
   matched_prioritized <- readr::read_csv(
     file = file.path(dir_matched, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
-    col_select = dplyr::all_of(col_select_matched_prioritized)
+    col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
 
-  # meta loan book----
-  # aggregate all individual loan books into one meta loan book and add that to
-  # the full list of loan books
-  matched_prioritized_meta <- matched_prioritized %>%
-    dplyr::mutate(
-      id_loan = paste0(.data$id_loan, "_", .data$group_id),
-      group_id = "meta_loanbook"
-    )
+  # add helper column to facilitate calculation of meta results----
+  # TODO: decide if this should be removed from outputs
+  if (is.null(by_group)) {
+    by_group <- "meta"
+    matched_prioritized <- matched_prioritized %>%
+      dplyr::mutate(meta = "meta")
+  }
 
-  matched_prioritized <- matched_prioritized %>%
-    dplyr::bind_rows(matched_prioritized_meta)
+  # remove non standard columns from matched_prioritzed when calling r2dii.analysis
+  matched_prio_non_standard_cols <- names(matched_prioritized)[!names(matched_prioritized) %in% col_standard_matched_prioritized]
 
   # generate all P4B outputs----
-  unique_loanbooks_matched <- unique(matched_prioritized$group_id)
+  unique_loanbook_groups_matched <- unique(matched_prioritized[[by_group]])
 
   ## generate SDA outputs----
   results_sda_total <- NULL
 
   # generate SDA results for each individual loan book, including the meta loan book
-  for (i in unique_loanbooks_matched) {
+  for (i in unique_loanbook_groups_matched) {
     matched_i <- matched_prioritized %>%
-      dplyr::filter(.data$group_id == i) %>%
-      dplyr::select(-"group_id")
+      dplyr::filter(.data[[by_group]] == i) %>%
+      dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols))
 
     results_sda_i <- matched_i %>%
       r2dii.analysis::target_sda(
@@ -98,7 +109,7 @@ run_pacta <- function(config) {
         co2_intensity_scenario = scenario_input_sda,
         region_isos = region_isos_select
       ) %>%
-      dplyr::mutate(group_id = .env$i)
+      dplyr::mutate("{by_group}" := .env$i)
 
     results_sda_total <- results_sda_total %>%
       dplyr::bind_rows(results_sda_i)
@@ -107,7 +118,7 @@ run_pacta <- function(config) {
   # write SDA results to csv
   results_sda_total %>%
     readr::write_csv(
-      file.path(output_path_standard, "sda_results_all_groups.csv"),
+      file.path(output_path_standard, paste0("sda_results", by_group_ext, ".csv")),
       na = ""
     )
 
@@ -117,10 +128,10 @@ run_pacta <- function(config) {
   results_tms_total <- NULL
 
   # generate TMS results for each individual loan book, including the meta loan book
-  for (i in unique_loanbooks_matched) {
+  for (i in unique_loanbook_groups_matched) {
     matched_i <- matched_prioritized %>%
-      dplyr::filter(.data$group_id == i) %>%
-      dplyr::select(-"group_id")
+      dplyr::filter(.data[[by_group]] == i) %>%
+      dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols))
 
     results_tms_i <- matched_i %>%
       r2dii.analysis::target_market_share(
@@ -128,7 +139,7 @@ run_pacta <- function(config) {
         scenario = scenario_input_tms,
         region_isos = region_isos_select
       ) %>%
-      dplyr::mutate(group_id = .env$i)
+      dplyr::mutate("{by_group}" := .env$i)
 
     results_tms_total <- results_tms_total %>%
       dplyr::bind_rows(results_tms_i)
@@ -137,15 +148,16 @@ run_pacta <- function(config) {
   # write TMS results to csv
   results_tms_total %>%
     readr::write_csv(
-      file.path(output_path_standard, "tms_results_all_groups.csv"),
+      file.path(output_path_standard, paste0("tms_results", by_group_ext, ".csv")),
       na = ""
     )
 
   # generate P4B plots----
 
   ## retrieve set of unique groups to loop over----
-  unique_groups_tms <- unique(results_tms_total$group_id)
-  unique_groups_sda <- unique(results_sda_total$group_id)
+  unique_groups_tms <- unique(results_tms_total[[by_group]])
+  unique_groups_sda <- unique(results_sda_total[[by_group]])
+
 
   ## run automatic result generation ----------
 
@@ -154,7 +166,7 @@ run_pacta <- function(config) {
   for (tms_i in unique_groups_tms) {
     available_rows <- results_tms_total %>%
       dplyr::filter(
-        .data[["group_id"]] == .env[["tms_i"]],
+        .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
         grepl(.env[["scenario_select"]], .data$metric),
         .data[["region"]] == .env[["region_select"]],
@@ -167,7 +179,8 @@ run_pacta <- function(config) {
         matched_prioritized = matched_prioritized,
         output_directory = output_path_standard,
         target_type = "tms",
-        group_id = tms_i,
+        by_group = by_group,
+        by_group_value = tms_i,
         scenario_source = scenario_source_input,
         scenario = scenario_select,
         region = region_select,
@@ -184,7 +197,7 @@ run_pacta <- function(config) {
   for (tms_i in unique_groups_tms) {
     available_rows <- results_tms_total %>%
       dplyr::filter(
-        .data[["group_id"]] == .env[["tms_i"]],
+        .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
         grepl(.env[["scenario_select"]], .data$metric),
         .data[["region"]] == .env[["region_select"]],
@@ -197,7 +210,8 @@ run_pacta <- function(config) {
         matched_prioritized = matched_prioritized,
         output_directory = output_path_standard,
         target_type = "tms",
-        group_id = tms_i,
+        by_group = by_group,
+        by_group_value = tms_i,
         scenario_source = scenario_source_input,
         scenario = scenario_select,
         region = region_select,
@@ -214,7 +228,7 @@ run_pacta <- function(config) {
   for (tms_i in unique_groups_tms) {
     available_rows <- results_tms_total %>%
       dplyr::filter(
-        .data[["group_id"]] == .env[["tms_i"]],
+        .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
         grepl(.env[["scenario_select"]], .data$metric),
         .data[["region"]] == .env[["region_select"]],
@@ -227,7 +241,8 @@ run_pacta <- function(config) {
         matched_prioritized = matched_prioritized,
         output_directory = output_path_standard,
         target_type = "tms",
-        group_id = tms_i,
+        by_group = by_group,
+        by_group_value = tms_i,
         scenario_source = scenario_source_input,
         scenario = scenario_select,
         region = region_select,
@@ -244,7 +259,7 @@ run_pacta <- function(config) {
   for (tms_i in unique_groups_tms) {
     available_rows <- results_tms_total %>%
       dplyr::filter(
-        .data[["group_id"]] == .env[["tms_i"]],
+        .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
         grepl(.env[["scenario_select"]], .data$metric),
         .data[["region"]] == .env[["region_select"]],
@@ -257,7 +272,8 @@ run_pacta <- function(config) {
         matched_prioritized = matched_prioritized,
         output_directory = output_path_standard,
         target_type = "tms",
-        group_id = tms_i,
+        by_group = by_group,
+        by_group_value = tms_i,
         scenario_source = scenario_source_input,
         scenario = scenario_select,
         region = region_select,
@@ -275,7 +291,7 @@ run_pacta <- function(config) {
   for (sda_i in unique_groups_sda) {
     available_rows <- results_sda_total %>%
       dplyr::filter(
-        .data[["group_id"]] == .env[["tms_i"]],
+        .data[[by_group]] == .env[["sda_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
         grepl(.env[["scenario_select"]], .data$emission_factor_metric),
         .data[["region"]] == .env[["region_select"]],
@@ -288,7 +304,8 @@ run_pacta <- function(config) {
         matched_prioritized = matched_prioritized,
         output_directory = output_path_standard,
         target_type = "sda",
-        group_id = sda_i,
+        by_group = by_group,
+        by_group_value = sda_i,
         scenario_source = scenario_source_input,
         scenario = scenario_select,
         region = region_select,
@@ -305,7 +322,7 @@ run_pacta <- function(config) {
   for (sda_i in unique_groups_sda) {
     available_rows <- results_sda_total %>%
       dplyr::filter(
-        .data[["group_id"]] == .env[["tms_i"]],
+        .data[[by_group]] == .env[["sda_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
         grepl(.env[["scenario_select"]], .data$emission_factor_metric),
         .data[["region"]] == .env[["region_select"]],
@@ -318,7 +335,8 @@ run_pacta <- function(config) {
         matched_prioritized = matched_prioritized,
         output_directory = output_path_standard,
         target_type = "sda",
-        group_id = sda_i,
+        by_group = by_group,
+        by_group_value = sda_i,
         scenario_source = scenario_source_input,
         scenario = scenario_select,
         region = region_select,
@@ -335,7 +353,7 @@ run_pacta <- function(config) {
   for (sda_i in unique_groups_sda) {
     available_rows <- results_sda_total %>%
       dplyr::filter(
-        .data[["group_id"]] == .env[["tms_i"]],
+        .data[[by_group]] == .env[["sda_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
         grepl(.env[["scenario_select"]], .data$emission_factor_metric),
         .data[["region"]] == .env[["region_select"]],
@@ -348,7 +366,8 @@ run_pacta <- function(config) {
         matched_prioritized = matched_prioritized,
         output_directory = output_path_standard,
         target_type = "sda",
-        group_id = sda_i,
+        by_group = by_group,
+        by_group_value = sda_i,
         scenario_source = scenario_source_input,
         scenario = scenario_select,
         region = region_select,
