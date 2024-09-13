@@ -400,13 +400,13 @@ add_match_success_rate <- function(data,
       total_n = dplyr::n(),
       total_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
       total_credit_limit = sum(.data[["loan_size_credit_limit"]], na.rm = TRUE),
-      .by = c(by_group, "sector")
+      .by = dplyr::all_of(c(by_group, "sector"))
     ) %>%
     dplyr::summarise(
       match_n = dplyr::n(),
       match_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
       match_credit_limit = sum(.data[["loan_size_credit_limit"]], na.rm = TRUE),
-      .by = c(by_group, "sector", "matched", "total_n", "total_outstanding", "total_credit_limit")
+      .by = dplyr::all_of(c(by_group, "sector", "matched", "total_n", "total_outstanding", "total_credit_limit"))
     ) %>%
     dplyr::mutate(
       match_success_rate_rel = .data[["match_n"]] / .data[["total_n"]],
