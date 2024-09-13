@@ -109,3 +109,68 @@ test_that("combine_raw_and_matched_loan_books removes sector_abcd from id_loan w
     unique(r2dii.data::sector_classifications$sector)
   )
 })
+
+# combine_raw_and_matched_loan_books
+test_that("calculate_match_success_rate returns results for each group of variable by_group available in matched_prioritized", {
+  test_raw_meta <- r2dii.data::loanbook_demo %>%
+    dplyr::mutate(group_id = "test") %>%
+    dplyr::mutate(meta = "meta")
+
+  test_raw_group_id <- r2dii.data::loanbook_demo %>%
+    dplyr::mutate(group_id = "test")
+
+  test_raw_foo <- r2dii.data::loanbook_demo %>%
+    dplyr::mutate(group_id = "test") %>%
+    dplyr::mutate(
+      foo = dplyr::if_else(
+        as.numeric(row.names(.)) %% 2 == 0, "bar", "baz"
+      )
+    )
+
+  test_matched_prio_meta <- test_raw_meta %>%
+    r2dii.match::match_name(abcd = r2dii.data::abcd_demo, by_sector = TRUE, min_score = 1) %>%
+    dplyr::filter(.data[["level"]] == "direct_loantaker")
+
+  test_matched_prio_group_id <- test_raw_group_id %>%
+    r2dii.match::match_name(abcd = r2dii.data::abcd_demo, by_sector = TRUE, min_score = 1) %>%
+    dplyr::filter(.data[["level"]] == "direct_loantaker")
+
+  test_matched_prio_foo <- test_raw_foo %>%
+    r2dii.match::match_name(abcd = r2dii.data::abcd_demo, by_sector = TRUE, min_score = 1) %>%
+    dplyr::filter(.data[["level"]] == "direct_loantaker")
+
+  nace_sectors <- r2dii.data::sector_classifications %>%
+    dplyr::filter(.data$code_system == "NACE")
+
+  lbk_match_success_rate_meta <- calculate_match_success_rate(
+    raw_lbk = test_raw_meta,
+    matched_prioritized = test_matched_prio_meta,
+    sector_classification_system = nace_sectors,
+    misclassfied_loans = NULL,
+    by_group = "meta"
+  )
+
+  lbk_match_success_rate_group_id <- calculate_match_success_rate(
+    raw_lbk = test_raw_group_id,
+    matched_prioritized = test_matched_prio_group_id,
+    sector_classification_system = nace_sectors,
+    misclassfied_loans = NULL,
+    by_group = "group_id"
+  )
+
+  lbk_match_success_rate_foo <- calculate_match_success_rate(
+    raw_lbk = test_raw_foo,
+    matched_prioritized = test_matched_prio_foo,
+    sector_classification_system = nace_sectors,
+    misclassfied_loans = NULL,
+    by_group = "foo"
+  )
+
+  testthat::expect_contains(names(lbk_match_success_rate_meta), "meta")
+  testthat::expect_contains(names(lbk_match_success_rate_group_id), "group_id")
+  testthat::expect_contains(names(lbk_match_success_rate_foo), "foo")
+
+  testthat::expect_contains(unique(lbk_match_success_rate_meta[["meta"]]), unique(test_matched_prio_meta[["meta"]]))
+  testthat::expect_contains(unique(lbk_match_success_rate_group_id[["group_id"]]), unique(test_matched_prio_group_id[["group_id"]]))
+  testthat::expect_contains(unique(lbk_match_success_rate_foo[["foo"]]), unique(test_matched_prio_foo[["foo"]]))
+})
