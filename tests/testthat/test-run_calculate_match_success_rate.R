@@ -173,4 +173,24 @@ test_that("calculate_match_success_rate returns results for each group of variab
   testthat::expect_contains(unique(lbk_match_success_rate_meta[["meta"]]), unique(test_matched_prio_meta[["meta"]]))
   testthat::expect_contains(unique(lbk_match_success_rate_group_id[["group_id"]]), unique(test_matched_prio_group_id[["group_id"]]))
   testthat::expect_contains(unique(lbk_match_success_rate_foo[["foo"]]), unique(test_matched_prio_foo[["foo"]]))
+
+  testthat::expect_condition(
+    lbk_match_success_rate_meta <- calculate_match_success_rate(
+      raw_lbk = test_raw_meta,
+      matched_prioritized = test_matched_prio_meta,
+      sector_classification_system = nace_sectors,
+      misclassfied_loans = NULL,
+      by_group = "foo"
+    )
+  )
+
+  testthat::expect_condition(
+    lbk_match_success_rate_foo <- calculate_match_success_rate(
+      raw_lbk = test_raw_foo,
+      matched_prioritized = test_matched_prio_foo,
+      sector_classification_system = nace_sectors,
+      misclassfied_loans = NULL,
+      by_group = "meta"
+    )
+  )
 })
