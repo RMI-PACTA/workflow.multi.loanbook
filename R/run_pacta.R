@@ -41,7 +41,7 @@ run_pacta <- function(config) {
 
   by_group <- get_aggregate_alignment_metric_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
-  by_group_ext <- if (is.null(by_group)) { "_meta" } else {paste0("_", by_group, collapse = "_")}
+  by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
 
   # TODO: add check if all files exist, resort to test files if not
 
