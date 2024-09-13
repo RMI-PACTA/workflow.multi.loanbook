@@ -44,7 +44,6 @@ Imports:
     readr (>= 2.0.0),
     readxl,
     rlang,
-    tibble,
     tidyr,
     withr
 Remotes:
