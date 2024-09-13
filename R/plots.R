@@ -1,13 +1,13 @@
 # TODO: move to `r2dii.plot` and export
 plot_match_success_rate <- function(data,
-                                    aggregate = c(TRUE, FALSE),
                                     metric_type = c("absolute", "relative"),
                                     match_success_type = c("n", "outstanding", "credit_limit"),
-                                    currency) {
+                                    currency,
+                                    by_group) {
   # validate inputs
   stop_if_not_inherits(data, "data.frame")
   expected_cols <- c(
-    "group_id",
+    by_group,
     "sector",
     "matched",
     "match_success_type",
@@ -22,15 +22,6 @@ plot_match_success_rate <- function(data,
 
   stop_if_not_length(currency, 1L)
   stop_if_not_inherits(currency, "character")
-
-  # prepare data
-  if (aggregate) {
-    data <- data %>%
-      dplyr::filter(.data$group_id == "meta_loanbook")
-  } else {
-    data <- data %>%
-      dplyr::filter(.data$group_id != "meta_loanbook")
-  }
 
   data <- data %>%
     dplyr::filter(.data$sector != "not in scope") %>%
@@ -61,11 +52,7 @@ plot_match_success_rate <- function(data,
     subtitle <- "credit limit by sector"
   }
 
-  if (aggregate) {
-    subtitle <- r2dii.plot::to_title(glue::glue("aggregate {subtitle}"))
-  } else {
-    subtitle <- r2dii.plot::to_title(glue::glue("{subtitle} and loan book"))
-  }
+  subtitle <- r2dii.plot::to_title(glue::glue("{subtitle} and {by_group}"))
 
   if (match_success_type == "n") {
     y_label <- "Match success rate (n)"
@@ -101,14 +88,9 @@ plot_match_success_rate <- function(data,
       subtitle = subtitle
     ) +
     ggplot2::theme_bw() +
-    theme_match_success
+    theme_match_success +
+    ggplot2::facet_wrap(ggplot2::vars(r2dii.plot::to_title(.data[[by_group]])))
 
-  if (!aggregate) {
-    plot <- plot +
-      ggplot2::facet_wrap(
-        ~ group_id
-      )
-  }
   plot
 }
 
