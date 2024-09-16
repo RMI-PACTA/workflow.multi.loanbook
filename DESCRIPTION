@@ -35,8 +35,10 @@ Imports:
     ggplot2,
     glue,
     htmlwidgets,
+    networkD3,
     pacta.multi.loanbook.analysis,
     pacta.multi.loanbook.plot,
+    plotly,
     r2dii.analysis,
     r2dii.data (>= 0.5.0),
     r2dii.match,
@@ -44,7 +46,9 @@ Imports:
     readr (>= 2.0.0),
     readxl,
     rlang,
+    scales,
     tidyr,
+    webshot,
     withr
 Remotes:
     rmi-pacta/pacta.multi.loanbook.analysis,
