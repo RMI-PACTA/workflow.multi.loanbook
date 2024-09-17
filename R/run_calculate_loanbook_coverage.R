@@ -9,7 +9,7 @@ run_calculate_loanbook_coverage <- function(config) {
   scenario_source_input <- get_scenario_source(config)
   start_year <- get_start_year(config)
 
-  by_group <- get_aggregate_alignment_metric_by_group(config)
+  by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
   by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
 

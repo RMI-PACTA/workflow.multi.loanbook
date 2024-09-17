@@ -26,7 +26,7 @@ run_aggregate_alignment_metric <- function(config) {
   start_year <- get_start_year(config)
   time_frame <- get_time_frame(config)
 
-  by_group <- get_aggregate_alignment_metric_by_group(config)
+  by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
 
   # load input data----

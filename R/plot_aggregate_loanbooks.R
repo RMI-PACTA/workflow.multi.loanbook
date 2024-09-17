@@ -33,7 +33,7 @@ plot_aggregate_loanbooks <- function(config) {
     output_path_aggregated <- file.path(output_path, sector_split_type_select, "aggregated")
   }
 
-  by_group <- get_aggregate_alignment_metric_by_group(config)
+  by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
 
   dir.create(output_path_aggregated, recursive = TRUE, showWarnings = FALSE)
