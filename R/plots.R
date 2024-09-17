@@ -413,17 +413,17 @@ validate_input_data_generate_individual_outputs <- function(data,
                                                             target_type,
                                                             by_group) {
   if (target_type == "sda") {
-    pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
+    stop_if_not_expected_columns(
       data = data,
-      expected_columns = c(
+      cols = c(
         "sector", "year", "region", "scenario_source", "emission_factor_metric",
         "emission_factor_value", by_group
       )
     )
   } else if (target_type == "tms") {
-    pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
+    stop_if_not_expected_columns(
       data = data,
-      expected_columns = c(
+      cols = c(
         "sector", "technology", "year", "region", "scenario_source", "metric",
         "production", "technology_share", "scope",
         "percentage_of_initial_production_by_scope", by_group
@@ -431,9 +431,9 @@ validate_input_data_generate_individual_outputs <- function(data,
     )
   }
 
-  pacta.multi.loanbook.analysis::validate_data_has_expected_cols(
+  stop_if_not_expected_columns(
     data = matched_prioritized,
-    expected_columns = c(
+    cols = c(
       by_group, "name_abcd", "sector", "sector_abcd", "loan_size_outstanding",
       "loan_size_outstanding_currency", "loan_size_credit_limit",
       "loan_size_credit_limit_currency"

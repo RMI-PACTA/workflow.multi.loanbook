@@ -193,7 +193,7 @@ plot_table(table)
 
 ### Company net alignment metric for TMS sectors
 
-For each company in the analyzed banking books, shows the net aggregate alignment metric for sectors, which have technology level calculations using the target market share, namely `automotive, coal, oil and gas, power`. See the [`pacta.multi.loanbook.analysis` wensite](https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html) for methodological documentation.
+For each company in the analyzed banking books, shows the net aggregate alignment metric for sectors, which have technology level calculations using the target market share, namely `automotive, coal, oil and gas, power`. See `vignette("company_alignment_metric")` for methodological documentation.
 
 ```{r dd_company_alignment_net_tms, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_tms")
@@ -206,7 +206,7 @@ plot_table(table)
 
 ### Disaggregated company buildout/phaseout alignment metric for TMS sectors
 
-For each company in the analyzed banking books, shows the aggregate alignment metric - disaggregated into its buildout and phaseout components - for sectors, which have technology level calculations using the target market share, namely `automotive, coal, oil and gas, power`. See the [`pacta.multi.loanbook.analysis` wensite](https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html) for methodological documentation.
+For each company in the analyzed banking books, shows the aggregate alignment metric - disaggregated into its buildout and phaseout components - for sectors, which have technology level calculations using the target market share, namely `automotive, coal, oil and gas, power`. See `vignette("company_alignment_metric")` for methodological documentation.
 
 ```{r dd_company_alignment_bo_po_tms, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_bo_po_tms")
@@ -219,7 +219,7 @@ plot_table(table)
 
 ### Company net alignment metric for SDA sectors
 
-For each company in the analyzed banking books, shows the net aggregate alignment metric for sectors, which have sector level calculations using the sectoral decarbonization approach (SDA), namely `aviation, cement, steel`. See the [`pacta.multi.loanbook.analysis` wensite](https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html) for methodological documentation.
+For each company in the analyzed banking books, shows the net aggregate alignment metric for sectors, which have sector level calculations using the sectoral decarbonization approach (SDA), namely `aviation, cement, steel`. See `vignette("company_alignment_metric")` for methodological documentation.
 
 ```{r dd_company_alignment_net_sda, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "company_alignment_net_sda")
@@ -284,7 +284,7 @@ plot_table(table)
 
 ### Input data for Sankey plot
 
-Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_sankey()`.
+Data set meant to be used as input into `plot_sankey()`.
 
 ```{r dd_data_sankey, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "data_sankey")
@@ -297,7 +297,7 @@ plot_table(table)
   
 ### Input data for alignment-by-exposure scatter plot
 
-Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_scatter_alignment_exposure()`.
+Data set meant to be used as input into `plot_scatter_alignment_exposure()`.
 
 ```{r dd_data_scatter_alignment_exposure, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_alignment_exposure")
@@ -310,7 +310,7 @@ plot_table(table)
   
 ### Input data for buildout/phaseout scatter plot
 
-Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_scatter()`.
+Data set meant to be used as input into `plot_scatter()`.
 
 ```{r dd_data_scatter_sector, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
@@ -323,7 +323,7 @@ plot_table(table)
 
 ### Input data for animated buildout/phaseout scatter plot
 
-Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_scatter_animated()`.
+Data set meant to be used as input into `plot_scatter_animated()`.
 
 ```{r dd_data_scatter_sector_animated, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector_animated")
@@ -336,7 +336,7 @@ plot_table(table)
 
 ### Input data for net timline plot
 
-Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_timeline()`.
+Data set meant to be used as input into `plot_timeline()`.
 
 ```{r dd_data_timeline_net, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_net")
@@ -349,7 +349,7 @@ plot_table(table)
 
 ### Input data for buildout/phaseout timline plot
 
-Data set meant to be used as input into `pacta.multi.loanbook.plot::plot_timeline()`.
+Data set meant to be used as input into `plot_timeline()`.
 
 ```{r dd_data_timeline_bo_po, results = FALSE}
 dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_bo_po")
