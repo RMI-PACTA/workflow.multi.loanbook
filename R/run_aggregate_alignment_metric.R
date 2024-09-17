@@ -121,7 +121,7 @@ run_aggregate_alignment_metric <- function(config) {
   # calculate aggregation for the loan book
 
   company_technology_deviation_tms <- tms_result_for_aggregation %>%
-    pacta.multi.loanbook.analysis::calculate_company_tech_deviation(
+    calculate_company_tech_deviation(
       technology_direction = technology_direction,
       scenario_source = scenario_source_input,
       scenario = scenario_select,
@@ -136,7 +136,7 @@ run_aggregate_alignment_metric <- function(config) {
     )
 
   company_alignment_net_tms <- company_technology_deviation_tms %>%
-    pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_tms(
+    calculate_company_aggregate_alignment_tms(
       scenario_source = scenario_source_input,
       scenario = scenario_select,
       level = "net"
@@ -149,7 +149,7 @@ run_aggregate_alignment_metric <- function(config) {
     )
 
   company_alignment_bo_po_tms <- company_technology_deviation_tms %>%
-    pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_tms(
+    calculate_company_aggregate_alignment_tms(
       scenario_source = scenario_source_input,
       scenario = scenario_select,
       level = "bo_po"
@@ -176,7 +176,7 @@ run_aggregate_alignment_metric <- function(config) {
 
   ## aggregate SDA P4B results to company level alignment metric----
   company_alignment_net_sda <- sda_result_for_aggregation %>%
-    pacta.multi.loanbook.analysis::calculate_company_aggregate_alignment_sda(
+    calculate_company_aggregate_alignment_sda(
       scenario_source = scenario_source_input,
       scenario = scenario_select,
       time_frame = time_frame
@@ -221,7 +221,7 @@ run_aggregate_alignment_metric <- function(config) {
 
   # net
   aggregated_alignment_net <- company_alignment_net %>%
-    pacta.multi.loanbook.analysis::aggregate_alignment_loanbook_exposure(
+    aggregate_alignment_loanbook_exposure(
       matched = matched_prioritized,
       level = "net",
       .by = by_group
@@ -236,7 +236,7 @@ run_aggregate_alignment_metric <- function(config) {
 
   # buildout / phaseout
   aggregated_alignment_bo_po <- company_alignment_bo_po_tms %>%
-    pacta.multi.loanbook.analysis::aggregate_alignment_loanbook_exposure(
+    aggregate_alignment_loanbook_exposure(
       matched = matched_prioritized,
       level = "bo_po",
       .by = by_group

@@ -43,8 +43,6 @@ Imports:
     glue,
     htmlwidgets,
     networkD3,
-    pacta.multi.loanbook.analysis,
-    pacta.multi.loanbook.plot,
     plotly,
     r2dii.analysis,
     r2dii.data (>= 0.5.0),
@@ -57,9 +55,6 @@ Imports:
     tidyr,
     webshot,
     withr
-Remotes:
-    rmi-pacta/pacta.multi.loanbook.analysis,
-    rmi-pacta/pacta.multi.loanbook.plot
 Depends:
     R (>= 4.1.0)
 License: MIT + file LICENSE
