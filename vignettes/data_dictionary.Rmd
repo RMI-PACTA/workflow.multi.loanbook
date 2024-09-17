@@ -176,7 +176,7 @@ plot_table(table)
 
 ## Aggregated PACTA metrics
 
-The aggregated PACTA metrics are also run across all input banking books. The calculations produce the net aggregate alignment metric, which is defined in `pacta.multi.loanbook.analysis` and allows producing the corresponding plots using `pacta.multi.loanbook.plot`. Results are grouped at the level defined by the `by_group` parameter.
+The aggregated PACTA metrics are also run across all input banking books. The calculations produce the net aggregate alignment metric, which is defined in the vignettes ["Calculation of a company alignment metric"](company_alignment_metric.html) and ["Calculation of exposure-weighted aggregated alignment metric"](loanbook_aggregated_alignment_metric.html) and allows producing the corresponding plots. Results are grouped at the level defined by the `by_group` parameter.
 
 ### Company technology deviation
 
