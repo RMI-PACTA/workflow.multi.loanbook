@@ -18,6 +18,13 @@ Authors@R:
         comment = c(ORCID = "0000-0001-5099-9500")
       ),
       person(
+        given = "Monika",
+        family = "Furdyna",
+        role = c("aut", "ctr"),
+        email = "monika.furdyna@gmail.com",
+        comment = c(ORCID = "0000-0002-3728-0646")
+      ),
+      person(
         given = "RMI",
         role = c("cph", "fnd"),
         email = "PACTA4supervisors@rmi.org"
