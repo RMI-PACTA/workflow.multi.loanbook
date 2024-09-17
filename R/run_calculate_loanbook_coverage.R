@@ -9,6 +9,10 @@ run_calculate_loanbook_coverage <- function(config) {
   scenario_source_input <- get_scenario_source(config)
   start_year <- get_start_year(config)
 
+  by_group <- get_aggregate_alignment_metric_by_group(config)
+  by_group <- check_and_prepare_by_group(by_group)
+  by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
+
   # validate config values----
   stop_if_not_length(dir_matched, 1L)
   stop_if_not_inherits(dir_matched, "character")
@@ -40,12 +44,20 @@ run_calculate_loanbook_coverage <- function(config) {
   matched_prioritized <- readr::read_csv(
     file = file.path(dir_matched, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
-    col_select = dplyr::all_of(col_select_matched_prioritized)
+    col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
+
+  # add helper column to facilitate calculation of meta results----
+  # TODO: decide if this should be removed from outputs
+  if (is.null(by_group)) {
+    by_group <- "meta"
+    matched_prioritized <- matched_prioritized %>%
+      dplyr::mutate(meta = "meta")
+  }
 
   matched_companies <- matched_prioritized %>%
     dplyr::distinct(
-      .data$group_id,
+      .data[[by_group]],
       .data$name_abcd,
       .data$sector_abcd,
       .data$loan_size_outstanding,
@@ -117,7 +129,13 @@ run_calculate_loanbook_coverage <- function(config) {
       ) %>%
       dplyr::mutate(
         matched_rows_company_sector = sum(.data$score, na.rm = TRUE),
-        .by =c("group_id", "name_company", "sector")
+        .by = dplyr::all_of(
+          c(
+            by_group,
+            "name_company",
+            "sector"
+          )
+        )
       ) %>%
       dplyr::mutate(
         n_companies_total = dplyr::n_distinct(.data$name_company, na.rm = TRUE),
@@ -128,7 +146,14 @@ run_calculate_loanbook_coverage <- function(config) {
         total_exposure = sum(.data$loan_size_outstanding / .data$matched_rows_company_sector, na.rm = TRUE),
         n_companies_matched = dplyr::n_distinct(.data$matched_company, na.rm = TRUE),
         production_financed = sum(.data$financed_production, na.rm = TRUE),
-        .by = c("group_id", "sector", "n_companies_total", "production_total")
+        .by = dplyr::all_of(
+          c(
+            by_group,
+            "sector",
+            "n_companies_total",
+            "production_total"
+          )
+        )
       ) %>%
       dplyr::mutate(
         share_companies_matched = .data$n_companies_matched / .data$n_companies_total,
@@ -138,7 +163,7 @@ run_calculate_loanbook_coverage <- function(config) {
 
     # remove entries that were not matched to any loan book AFTER calculating
     # summary statistics, so that totals are calculated correctly
-    production_coverage_summary_i <- dplyr::filter(production_coverage_summary_i, !is.na(.data$group_id))
+    production_coverage_summary_i <- dplyr::filter(production_coverage_summary_i, !is.na(.data[[by_group]]))
 
     production_coverage_summary <- production_coverage_summary %>%
       dplyr::bind_rows(production_coverage_summary_i)
@@ -150,7 +175,7 @@ run_calculate_loanbook_coverage <- function(config) {
     dplyr::select(
       dplyr::all_of(
         c(
-          "group_id",
+          by_group,
           "region",
           "sector",
           "total_exposure",
@@ -167,7 +192,7 @@ run_calculate_loanbook_coverage <- function(config) {
   # save output to matched directory----
   production_coverage_summary %>%
     readr::write_csv(
-      file.path(dir_output, "summary_statistics_loanbook_coverage.csv"),
+      file.path(dir_output, paste0("summary_statistics_loanbook_coverage", by_group_ext, ".csv")),
       na = ""
     )
 }

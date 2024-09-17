@@ -282,11 +282,9 @@ dd_companies_included <- dplyr::tribble(
   "companies_included", "loan_size_credit_limit_currency", "character", "Denomination of the credit lines of loans listed in the given banking book", "Three letter currency code following the ISO 4217 standard. Only one currency allowed per banking book"
 )
 
-# TODO: extend variable grouping to standard PACTA and update
 dd_summary_statistics_loanbook_coverage <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "summary_statistics_loanbook_coverage", "group_id", "character", "Identification of the banking book analysed", "The group_id is automatically generated from the file name of the corresponding raw banking book",
-  # "summary_statistics_loanbook_coverage", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "summary_statistics_loanbook_coverage", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
   "summary_statistics_loanbook_coverage", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
   "summary_statistics_loanbook_coverage", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
   "summary_statistics_loanbook_coverage", "total_exposure", "double", "Remaining outstanding loan value to the all companies in the sector that have some operations within the given region", "Numerical value greater or equal to 0",
