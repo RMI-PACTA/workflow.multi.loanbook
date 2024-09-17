@@ -27,7 +27,7 @@
 #'
 #' @examples
 #' # TODO
-# nolint start: cyclocomp_linter.
+
 plot_scatter_animated <- function(data,
                                   data_level = c("company", "group_var"),
                                   sector = NULL,
@@ -282,7 +282,7 @@ plot_scatter_animated <- function(data,
 
   p
 }
-# nolint end
+
 
 check_plot_scatter_animated <- function(data,
                                         alignment_limit,
