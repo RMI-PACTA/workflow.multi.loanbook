@@ -57,7 +57,7 @@ run_calculate_loanbook_coverage <- function(config) {
 
   matched_companies <- matched_prioritized %>%
     dplyr::distinct(
-      !!rlang::sym(by_group),
+      .data[[by_group]],
       .data$name_abcd,
       .data$sector_abcd,
       .data$loan_size_outstanding,
