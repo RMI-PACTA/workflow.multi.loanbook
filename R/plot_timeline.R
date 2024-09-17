@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' # TODO
-# nolint start: cyclocomp_linter.
+
 plot_timeline <- function(data,
                           sector = NULL,
                           scenario_source = NULL,
@@ -121,7 +121,7 @@ plot_timeline <- function(data,
     )
   p
 }
-# nolint end
+
 
 check_timeline <- function(data, alignment_limits, group_var) {
   abort_if_missing_names(
