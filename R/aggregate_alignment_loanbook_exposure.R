@@ -17,7 +17,9 @@
 #'   inputs.
 #'
 #' @return NULL
-#' @export
+#'
+#' @noRd
+
 aggregate_alignment_loanbook_exposure <- function(data,
                                                   matched,
                                                   level = c("net", "bo_po"),
@@ -217,9 +219,9 @@ validate_input_data_aggregate_alignment_loanbook_exposure <- function(data,
                                                                       matched,
                                                                       group_vars,
                                                                       .by = NULL) {
-  validate_data_has_expected_cols(
+  stop_if_not_expected_columns(
     data = data,
-    expected_columns = c(
+    cols = c(
       group_vars,
       "name_abcd",
       "activity_unit",
@@ -228,9 +230,9 @@ validate_input_data_aggregate_alignment_loanbook_exposure <- function(data,
     )
   )
 
-  validate_data_has_expected_cols(
+  stop_if_not_expected_columns(
     data = matched,
-    expected_columns = c(
+    cols = c(
       "id_loan",
       "loan_size_outstanding",
       "loan_size_outstanding_currency",

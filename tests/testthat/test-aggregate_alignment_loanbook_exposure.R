@@ -141,7 +141,7 @@ test_that("net aggregate results with bad .by returns error", {
           .by = "bad"
       )
     },
-    regexp = "Must include expected columns in input data set."
+    regexp = "does not contain all of the expected columns[.]"
   )
 })
 

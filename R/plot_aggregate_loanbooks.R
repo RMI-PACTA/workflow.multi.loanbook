@@ -137,7 +137,7 @@ plot_aggregate_loanbooks <- function(config) {
   # Plot sankey plot of financial flows scenario alignment - examples
   if (length(by_group) <= 1) {
     if (!is.null(company_aggregated_alignment_net)) {
-      data_sankey_sector <- pacta.multi.loanbook.plot::prep_sankey(
+      data_sankey_sector <- prep_sankey(
         company_aggregated_alignment_net,
         region = "global",
         year = 2027,
@@ -164,7 +164,7 @@ plot_aggregate_loanbooks <- function(config) {
           na = ""
         )
 
-      pacta.multi.loanbook.plot::plot_sankey(
+      plot_sankey(
         data_sankey_sector,
         group_var = by_group,
         save_png_to = path.expand(output_path_aggregated),
@@ -178,7 +178,7 @@ plot_aggregate_loanbooks <- function(config) {
 
   if (length(by_group) <= 1) {
     if (!is.null(company_aggregated_alignment_net)) {
-      data_sankey_company_sector <- pacta.multi.loanbook.plot::prep_sankey(
+      data_sankey_company_sector <- prep_sankey(
         company_aggregated_alignment_net,
         region = "global",
         year = 2027,
@@ -206,7 +206,7 @@ plot_aggregate_loanbooks <- function(config) {
           na = ""
         )
 
-      pacta.multi.loanbook.plot::plot_sankey(
+      plot_sankey(
         data_sankey_company_sector,
         group_var = by_group,
         save_png_to = path.expand(output_path_aggregated),
@@ -226,7 +226,7 @@ plot_aggregate_loanbooks <- function(config) {
       nrow(loanbook_exposure_aggregated_alignment_net) > 0
     ) {
       data_scatter_alignment_exposure <- loanbook_exposure_aggregated_alignment_net %>%
-        pacta.multi.loanbook.plot::prep_scatter_alignment_exposure(
+        prep_scatter_alignment_exposure(
           year = year_scatter_alignment_exposure,
           region = region_scatter_alignment_exposure,
           scenario = scenario_select,
@@ -250,7 +250,7 @@ plot_aggregate_loanbooks <- function(config) {
         )
 
       plot_scatter_alignment_exposure <- data_scatter_alignment_exposure %>%
-        pacta.multi.loanbook.plot::plot_scatter_alignment_exposure(
+        plot_scatter_alignment_exposure(
           floor_outliers = -1,
           cap_outliers = 1,
           group_var = by_group,
@@ -283,7 +283,7 @@ plot_aggregate_loanbooks <- function(config) {
       nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
       nrow(loanbook_exposure_aggregated_alignment_net) > 0
     ) {
-      data_scatter_automotive_group <- pacta.multi.loanbook.plot::prep_scatter(
+      data_scatter_automotive_group <- prep_scatter(
         loanbook_exposure_aggregated_alignment_bo_po,
         loanbook_exposure_aggregated_alignment_net,
         year = year_scatter,
@@ -308,7 +308,7 @@ plot_aggregate_loanbooks <- function(config) {
           na = ""
         )
 
-      pacta.multi.loanbook.plot::plot_scatter(
+      plot_scatter(
         data_scatter_automotive_group,
         data_level = data_level_group,
         year = year_scatter,
@@ -337,7 +337,7 @@ plot_aggregate_loanbooks <- function(config) {
       nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
       nrow(loanbook_exposure_aggregated_alignment_net) > 0
     ) {
-      data_scatter_power_group <- pacta.multi.loanbook.plot::prep_scatter(
+      data_scatter_power_group <- prep_scatter(
         loanbook_exposure_aggregated_alignment_bo_po,
         loanbook_exposure_aggregated_alignment_net,
         year = year_scatter,
@@ -362,7 +362,7 @@ plot_aggregate_loanbooks <- function(config) {
           na = ""
         )
 
-      pacta.multi.loanbook.plot::plot_scatter(
+      plot_scatter(
         data_scatter_power_group,
         data_level = data_level_group,
         year = year_scatter,
@@ -396,7 +396,7 @@ plot_aggregate_loanbooks <- function(config) {
       nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
       nrow(loanbook_exposure_aggregated_alignment_net) > 0
     ) {
-      data_scatter_automotive_group_a <- pacta.multi.loanbook.plot::prep_scatter_animated(
+      data_scatter_automotive_group_a <- prep_scatter_animated(
         loanbook_exposure_aggregated_alignment_bo_po,
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_scatter,
@@ -420,7 +420,7 @@ plot_aggregate_loanbooks <- function(config) {
           na = ""
         )
 
-      plot_scatter_automotive_group_a <- pacta.multi.loanbook.plot::plot_scatter_animated(
+      plot_scatter_automotive_group_a <- plot_scatter_animated(
         data_scatter_automotive_group_a,
         sector = sector_scatter,
         data_level = data_level_group,
@@ -451,7 +451,7 @@ plot_aggregate_loanbooks <- function(config) {
       nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
       nrow(loanbook_exposure_aggregated_alignment_net) > 0
     ) {
-      data_scatter_power_group_a <- pacta.multi.loanbook.plot::prep_scatter_animated(
+      data_scatter_power_group_a <- prep_scatter_animated(
         loanbook_exposure_aggregated_alignment_bo_po,
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_scatter,
@@ -475,7 +475,7 @@ plot_aggregate_loanbooks <- function(config) {
           na = ""
         )
 
-      plot_scatter_power_group_a <- pacta.multi.loanbook.plot::plot_scatter_animated(
+      plot_scatter_power_group_a <- plot_scatter_animated(
         data_scatter_power_group_a,
         sector = sector_scatter,
         data_level = data_level_group,
@@ -533,7 +533,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_automotive <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_automotive <- prep_timeline(
         loanbook_exposure_aggregated_alignment_bo_po,
         sector = sector_timeline,
         region = region_timeline,
@@ -551,7 +551,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_automotive,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -587,7 +587,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_power <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_power <- prep_timeline(
         loanbook_exposure_aggregated_alignment_bo_po,
         sector = sector_timeline,
         region = region_timeline,
@@ -605,7 +605,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_power,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -641,7 +641,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_automotive <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_automotive <- prep_timeline(
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_timeline,
         region = region_timeline,
@@ -659,7 +659,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_automotive,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -695,7 +695,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_coal <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_coal <- prep_timeline(
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_timeline,
         region = region_timeline,
@@ -713,7 +713,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_coal,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -749,7 +749,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_oil_and_gas <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_oil_and_gas <- prep_timeline(
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_timeline,
         region = region_timeline,
@@ -767,7 +767,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_oil_and_gas,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -803,7 +803,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_power <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_power <- prep_timeline(
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_timeline,
         region = region_timeline,
@@ -821,7 +821,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_power,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -857,7 +857,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_aviation <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_aviation <- prep_timeline(
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_timeline,
         region = region_timeline,
@@ -875,7 +875,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_aviation,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -911,7 +911,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_cement <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_cement <- prep_timeline(
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_timeline,
         region = region_timeline,
@@ -929,7 +929,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_cement,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -965,7 +965,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_timeline_steel <- pacta.multi.loanbook.plot::prep_timeline(
+      data_timeline_steel <- prep_timeline(
         loanbook_exposure_aggregated_alignment_net,
         sector = sector_timeline,
         region = region_timeline,
@@ -983,7 +983,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_timeline(
+        plot_timeline(
           data_timeline_steel,
           sector = sector_timeline,
           scenario_source = scenario_source_input,
@@ -1029,7 +1029,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_scatter_automotive_company_i <- pacta.multi.loanbook.plot::prep_scatter(
+      data_scatter_automotive_company_i <- prep_scatter(
         company_aggregated_alignment_bo_po,
         company_aggregated_alignment_net,
         year = year_scatter,
@@ -1051,7 +1051,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_scatter(
+        plot_scatter(
           data_scatter_automotive_company_i,
           data_level = data_level_company,
           year = year_scatter,
@@ -1092,7 +1092,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_scatter_power_company_i <- pacta.multi.loanbook.plot::prep_scatter(
+      data_scatter_power_company_i <- prep_scatter(
         company_aggregated_alignment_bo_po,
         company_aggregated_alignment_net,
         year = year_scatter,
@@ -1114,7 +1114,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        pacta.multi.loanbook.plot::plot_scatter(
+        plot_scatter(
           data_scatter_power_company_i,
           data_level = data_level_company,
           year = year_scatter,
@@ -1159,7 +1159,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_scatter_automotive_company_animated_i <- pacta.multi.loanbook.plot::prep_scatter_animated(
+      data_scatter_automotive_company_animated_i <- prep_scatter_animated(
         company_aggregated_alignment_bo_po,
         company_aggregated_alignment_net,
         sector = sector_scatter,
@@ -1180,7 +1180,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        plot_scatter_animated_i <- pacta.multi.loanbook.plot::plot_scatter_animated(
+        plot_scatter_animated_i <- plot_scatter_animated(
           data_scatter_automotive_company_animated_i,
           sector = sector_scatter,
           data_level = data_level_company,
@@ -1222,7 +1222,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in unique_by_group) {
-      data_scatter_power_company_animated_i <- pacta.multi.loanbook.plot::prep_scatter_animated(
+      data_scatter_power_company_animated_i <- prep_scatter_animated(
         company_aggregated_alignment_bo_po,
         company_aggregated_alignment_net,
         sector = sector_scatter,
@@ -1243,7 +1243,7 @@ plot_aggregate_loanbooks <- function(config) {
             na = ""
           )
 
-        plot_scatter_animated_i <- pacta.multi.loanbook.plot::plot_scatter_animated(
+        plot_scatter_animated_i <- plot_scatter_animated(
           data_scatter_power_company_animated_i,
           sector = sector_scatter,
           data_level = data_level_company,
