@@ -1,3 +1,23 @@
 url: https://rmi-pacta.github.io/workflow.multi.loanbook/
 template:
   package: pacta.pkgdown.rmitemplate
+
+articles:
+- title: Methodology
+  navbar: Methodology
+  contents:
+  - company_alignment_metric
+  - loanbook_aggregated_alignment_metric
+
+- title: Documentation
+  desc: Documentation of files and objects used for input and output
+  navbar: Documentation
+  contents:
+  - config_yml
+  - data_dictionary
+
+- title: Cookbooks
+  desc: Cookbooks demonstrating how to use this package for your own projects
+  navbar: Cookbooks
+  contents:
+  - cookbook
