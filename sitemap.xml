@@ -11,10 +11,6 @@
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/authors.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/index.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/abcd_test_data.html</loc></url>
-<url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/aggregate_alignment_loanbook_exposure.html</loc></url>
-<url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/calculate_company_aggregate_alignment_sda.html</loc></url>
-<url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/calculate_company_aggregate_alignment_tms.html</loc></url>
-<url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/calculate_company_tech_deviation.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/data_dictionary.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/index.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/loanbook_test_data.html</loc></url>
@@ -30,6 +26,5 @@
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/prep_scatter_animated.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/prep_timeline.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/run_pacta.html</loc></url>
-<url><loc>https://rmi-pacta.github.io/workflow.multi.loanbook/reference/validate_data_has_expected_cols.html</loc></url>
 </urlset>
 

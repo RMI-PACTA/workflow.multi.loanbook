@@ -3804,10 +3804,11 @@ visualized.</p>
 </h3>
 <p>The aggregated PACTA metrics are also run across all input banking
 books. The calculations produce the net aggregate alignment metric,
-which is defined in <code>pacta.multi.loanbook.analysis</code> and
-allows producing the corresponding plots using
-<code>pacta.multi.loanbook.plot</code>. Results are grouped at the level
-defined by the <code>by_group</code> parameter.</p>
+which is defined in the vignettes <a href="company_alignment_metric.html">“Calculation of a company alignment
+metric”</a> and <a href="loanbook_aggregated_alignment_metric.html">“Calculation of
+exposure-weighted aggregated alignment metric”</a> and allows producing
+the corresponding plots. Results are grouped at the level defined by the
+<code>by_group</code> parameter.</p>
 <div class="section level4">
 <h4 id="company-technology-deviation">Company technology deviation<a class="anchor" aria-label="anchor" href="#company-technology-deviation"></a>
 </h4>
@@ -4279,8 +4280,9 @@ level calculations using the target market share, namely
 <p>For each company in the analyzed banking books, shows the net
 aggregate alignment metric for sectors, which have technology level
 calculations using the target market share, namely
-<code>automotive, coal, oil and gas, power</code>. See the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html" class="external-link"><code>pacta.multi.loanbook.analysis</code>
-wensite</a> for methodological documentation.</p>
+<code>automotive, coal, oil and gas, power</code>. See
+<code><a href="../articles/company_alignment_metric.html">vignette("company_alignment_metric")</a></code> for methodological
+documentation.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"company_alignment_net_tms"</span><span class="op">)</span></span></code></pre></div>
 <div id="egslqeqmfa" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -4744,8 +4746,9 @@ sectors<a class="anchor" aria-label="anchor" href="#disaggregated-company-buildo
 alignment metric - disaggregated into its buildout and phaseout
 components - for sectors, which have technology level calculations using
 the target market share, namely
-<code>automotive, coal, oil and gas, power</code>. See the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html" class="external-link"><code>pacta.multi.loanbook.analysis</code>
-wensite</a> for methodological documentation.</p>
+<code>automotive, coal, oil and gas, power</code>. See
+<code><a href="../articles/company_alignment_metric.html">vignette("company_alignment_metric")</a></code> for methodological
+documentation.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"company_alignment_bo_po_tms"</span><span class="op">)</span></span></code></pre></div>
 <div id="amrewkadgw" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -5207,8 +5210,9 @@ wensite</a> for methodological documentation.</p>
 <p>For each company in the analyzed banking books, shows the net
 aggregate alignment metric for sectors, which have sector level
 calculations using the sectoral decarbonization approach (SDA), namely
-<code>aviation, cement, steel</code>. See the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook.analysis/articles/company_alignment_metric.html" class="external-link"><code>pacta.multi.loanbook.analysis</code>
-wensite</a> for methodological documentation.</p>
+<code>aviation, cement, steel</code>. See
+<code><a href="../articles/company_alignment_metric.html">vignette("company_alignment_metric")</a></code> for methodological
+documentation.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"company_alignment_net_sda"</span><span class="op">)</span></span></code></pre></div>
 <div id="xbhisifmmy" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -7527,7 +7531,7 @@ exposure as weights.</p>
 <h4 id="input-data-for-sankey-plot">Input data for Sankey plot<a class="anchor" aria-label="anchor" href="#input-data-for-sankey-plot"></a>
 </h4>
 <p>Data set meant to be used as input into
-<code><a href="https://rdrr.io/pkg/pacta.multi.loanbook.plot/man/plot_sankey.html" class="external-link">pacta.multi.loanbook.plot::plot_sankey()</a></code>.</p>
+<code><a href="../reference/plot_sankey.html">plot_sankey()</a></code>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"data_sankey"</span><span class="op">)</span></span></code></pre></div>
 <div id="uzjcdmfnby" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -7987,7 +7991,7 @@ exposure as weights.</p>
 <h4 id="input-data-for-alignment-by-exposure-scatter-plot">Input data for alignment-by-exposure scatter plot<a class="anchor" aria-label="anchor" href="#input-data-for-alignment-by-exposure-scatter-plot"></a>
 </h4>
 <p>Data set meant to be used as input into
-<code><a href="https://rdrr.io/pkg/pacta.multi.loanbook.plot/man/plot_scatter_alignment_exposure.html" class="external-link">pacta.multi.loanbook.plot::plot_scatter_alignment_exposure()</a></code>.</p>
+<code><a href="../reference/plot_scatter_alignment_exposure.html">plot_scatter_alignment_exposure()</a></code>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"data_scatter_alignment_exposure"</span><span class="op">)</span></span></code></pre></div>
 <div id="esrejldsxt" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -8447,7 +8451,7 @@ exposure as weights.</p>
 <h4 id="input-data-for-buildoutphaseout-scatter-plot">Input data for buildout/phaseout scatter plot<a class="anchor" aria-label="anchor" href="#input-data-for-buildoutphaseout-scatter-plot"></a>
 </h4>
 <p>Data set meant to be used as input into
-<code><a href="https://rdrr.io/pkg/pacta.multi.loanbook.plot/man/plot_scatter.html" class="external-link">pacta.multi.loanbook.plot::plot_scatter()</a></code>.</p>
+<code><a href="../reference/plot_scatter.html">plot_scatter()</a></code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"data_scatter_sector"</span><span class="op">)</span></span></code></pre></div>
 <div id="yqwtxjxwiy" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -8907,7 +8911,7 @@ exposure as weights.</p>
 <h4 id="input-data-for-animated-buildoutphaseout-scatter-plot">Input data for animated buildout/phaseout scatter plot<a class="anchor" aria-label="anchor" href="#input-data-for-animated-buildoutphaseout-scatter-plot"></a>
 </h4>
 <p>Data set meant to be used as input into
-<code><a href="https://rdrr.io/pkg/pacta.multi.loanbook.plot/man/plot_scatter_animated.html" class="external-link">pacta.multi.loanbook.plot::plot_scatter_animated()</a></code>.</p>
+<code><a href="../reference/plot_scatter_animated.html">plot_scatter_animated()</a></code>.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"data_scatter_sector_animated"</span><span class="op">)</span></span></code></pre></div>
 <div id="jisysoqowe" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -9367,7 +9371,7 @@ exposure as weights.</p>
 <h4 id="input-data-for-net-timline-plot">Input data for net timline plot<a class="anchor" aria-label="anchor" href="#input-data-for-net-timline-plot"></a>
 </h4>
 <p>Data set meant to be used as input into
-<code><a href="https://rdrr.io/pkg/pacta.multi.loanbook.plot/man/plot_timeline.html" class="external-link">pacta.multi.loanbook.plot::plot_timeline()</a></code>.</p>
+<code><a href="../reference/plot_timeline.html">plot_timeline()</a></code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"data_timeline_net"</span><span class="op">)</span></span></code></pre></div>
 <div id="ytkovhgshl" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -9827,7 +9831,7 @@ exposure as weights.</p>
 <h4 id="input-data-for-buildoutphaseout-timline-plot">Input data for buildout/phaseout timline plot<a class="anchor" aria-label="anchor" href="#input-data-for-buildoutphaseout-timline-plot"></a>
 </h4>
 <p>Data set meant to be used as input into
-<code><a href="https://rdrr.io/pkg/pacta.multi.loanbook.plot/man/plot_timeline.html" class="external-link">pacta.multi.loanbook.plot::plot_timeline()</a></code>.</p>
+<code><a href="../reference/plot_timeline.html">plot_timeline()</a></code>.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data_dictionary</span>, <span class="va">.data</span><span class="op">[[</span><span class="st">"dataset"</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="st">"data_timeline_bo_po"</span><span class="op">)</span></span></code></pre></div>
 <div id="cphlxbgrza" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
