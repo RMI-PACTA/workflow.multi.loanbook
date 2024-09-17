@@ -18,6 +18,13 @@ Authors@R:
         comment = c(ORCID = "0000-0001-5099-9500")
       ),
       person(
+        given = "Monika",
+        family = "Furdyna",
+        role = c("aut", "ctr"),
+        email = "monika.furdyna@gmail.com",
+        comment = c(ORCID = "0000-0002-3728-0646")
+      ),
+      person(
         given = "RMI",
         role = c("cph", "fnd"),
         email = "PACTA4supervisors@rmi.org"
@@ -35,8 +42,10 @@ Imports:
     ggplot2,
     glue,
     htmlwidgets,
+    networkD3,
     pacta.multi.loanbook.analysis,
     pacta.multi.loanbook.plot,
+    plotly,
     r2dii.analysis,
     r2dii.data (>= 0.5.0),
     r2dii.match,
@@ -44,7 +53,9 @@ Imports:
     readr (>= 2.0.0),
     readxl,
     rlang,
+    scales,
     tidyr,
+    webshot,
     withr
 Remotes:
     rmi-pacta/pacta.multi.loanbook.analysis,
