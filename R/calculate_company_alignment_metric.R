@@ -23,7 +23,9 @@
 #'   is five years.
 #'
 #' @return NULL
-#' @export
+#'
+#' @noRd
+
 calculate_company_tech_deviation <- function(data,
                                              technology_direction,
                                              scenario_source = "geco_2021",
@@ -248,7 +250,9 @@ apply_bridge_technology_cap <- function(data,
 #'   disaggregated into buildout and phaseout technologies (`bo_po`).
 #'
 #' @return NULL
-#' @export
+#'
+#' @noRd
+
 calculate_company_aggregate_alignment_tms <- function(data,
                                                       scenario_source = "geco_2021",
                                                       scenario = "1.5c",
@@ -390,7 +394,9 @@ fill_missing_direction <- function(data) {
 #'   is five years.
 #'
 #' @return NULL
-#' @export
+#'
+#' @noRd
+
 calculate_company_aggregate_alignment_sda <- function(data,
                                                       scenario_source = "geco_2021",
                                                       scenario = "1.5c",
@@ -586,18 +592,18 @@ validate_input_args_calculate_company_tech_deviation <- function(scenario_source
 
 validate_input_data_calculate_company_tech_deviation <- function(data,
                                                                  technology_direction) {
-  validate_data_has_expected_cols(
+  stop_if_not_expected_columns(
     data = data,
-    expected_columns = c(
+    cols = c(
       "sector", "technology", "year", "region", "scenario_source", "name_abcd",
       "metric", "production", "technology_share", "scope",
       "percentage_of_initial_production_by_scope"
     )
   )
 
-  validate_data_has_expected_cols(
+  stop_if_not_expected_columns(
     data = technology_direction,
-    expected_columns = c(
+    cols = c(
       "scenario_source", "scenario", "sector", "technology", "region",
       "directional_dummy"
     )
@@ -650,9 +656,9 @@ validate_input_args_calculate_company_aggregate_alignment_tms <- function(scenar
 
 validate_input_data_calculate_company_aggregate_alignment_tms <- function(data,
                                                                           scenario) {
-  validate_data_has_expected_cols(
+  stop_if_not_expected_columns(
     data = data,
-    expected_columns = c(
+    cols = c(
       "sector", "technology", "year", "region", "scenario_source", "name_abcd",
       "projected", paste0("target_", scenario), "direction",
       "total_tech_deviation", "activity_unit"
@@ -729,9 +735,9 @@ validate_input_args_calculate_company_aggregate_alignment_sda <- function(scenar
 
 
 validate_input_data_calculate_company_aggregate_alignment_sda <- function(data) {
-  validate_data_has_expected_cols(
+  stop_if_not_expected_columns(
     data = data,
-    expected_columns = c(
+    cols = c(
       "sector", "year", "region", "scenario_source", "name_abcd",
       "emission_factor_metric", "emission_factor_value"
     )
