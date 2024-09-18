@@ -81,12 +81,12 @@ plot_scatter_animated <- function(data,
   if (!is.null(floor_outliers)) {
     data <- data %>%
       dplyr::mutate(
-        buildout = dplyr::if_else(.data$buildout <= .env$floor_outliers, .env$floor_outliers, .data$buildout),
-        phaseout = dplyr::if_else(.data$phaseout <= .env$floor_outliers, .env$floor_outliers, .data$phaseout),
+        buildout = dplyr::if_else(.data[["buildout"]] <= .env[["floor_outliers"]], .env[["floor_outliers"]], .data[["buildout"]]),
+        phaseout = dplyr::if_else(.data[["phaseout"]] <= .env[["floor_outliers"]], .env[["floor_outliers"]], .data[["phaseout"]]),
         net = dplyr::if_else(
-          .data$buildout <= .env$floor_outliers | .data$phaseout <= .env$floor_outliers,
-          .data$buildout + .data$phaseout,
-          .data$net
+          .data[["buildout"]] <= .env[["floor_outliers"]] | .data[["phaseout"]] <= .env[["floor_outliers"]],
+          .data[["buildout"]] + .data[["phaseout"]],
+          .data[["net"]]
         ) # net is a sum of buildout and phaseout
       )
     subtitle <- glue::glue("{subtitle}\nThe outliers are displayed on the borders of the plot.", .trim = FALSE)
@@ -94,12 +94,12 @@ plot_scatter_animated <- function(data,
   if (!is.null(cap_outliers)) {
     data <- data %>%
       dplyr::mutate(
-        buildout = dplyr::if_else(.data$buildout >= .env$cap_outliers, .env$cap_outliers, .data$buildout),
-        phaseout = dplyr::if_else(.data$phaseout >= .env$cap_outliers, .env$cap_outliers, .data$phaseout),
+        buildout = dplyr::if_else(.data[["buildout"]] >= .env[["cap_outliers"]], .env[["cap_outliers"]], .data[["buildout"]]),
+        phaseout = dplyr::if_else(.data[["phaseout"]] >= .env[["cap_outliers"]], .env[["cap_outliers"]], .data[["phaseout"]]),
         net = dplyr::if_else(
-          .data$buildout >= .env$cap_outliers | .data$phaseout >= .env$cap_outliers,
-          .data$buildout + .data$phaseout,
-          .data$net
+          .data[["buildout"]] >= .env[["cap_outliers"]] | .data[["phaseout"]] >= .env[["cap_outliers"]],
+          .data[["buildout"]] + .data[["phaseout"]],
+          .data[["net"]]
         ) # net is a sum of buildout and phaseout
       )
     if (is.null(floor_outliers)) {

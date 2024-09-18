@@ -85,18 +85,18 @@ plot_scatter <- function(data,
   if (!is.null(floor_outliers)) {
     data <- data %>%
       dplyr::mutate(
-        buildout = dplyr::if_else(.data$buildout <= .env$floor_outliers, .env$floor_outliers, .data$buildout),
-        phaseout = dplyr::if_else(.data$phaseout <= .env$floor_outliers, .env$floor_outliers, .data$phaseout),
-        net = dplyr::if_else(.data$net <= .env$floor_outliers, .env$floor_outliers, .data$net)
+        buildout = dplyr::if_else(.data[["buildout"]] <= .env[["floor_outliers"]], .env[["floor_outliers"]], .data[["buildout"]]),
+        phaseout = dplyr::if_else(.data[["phaseout"]] <= .env[["floor_outliers"]], .env[["floor_outliers"]], .data[["phaseout"]]),
+        net = dplyr::if_else(.data[["net"]] <= .env[["floor_outliers"]], .env[["floor_outliers"]], .data[["net"]])
       )
     subtitle <- glue::glue("{subtitle}\nThe outliers are displayed on the borders of the plot.", .trim = FALSE)
   }
   if (!is.null(cap_outliers)) {
     data <- data %>%
       dplyr::mutate(
-        buildout = dplyr::if_else(.data$buildout >= .env$cap_outliers, .env$cap_outliers, .data$buildout),
-        phaseout = dplyr::if_else(.data$phaseout >= .env$cap_outliers, .env$cap_outliers, .data$phaseout),
-        net = dplyr::if_else(.data$net >= .env$cap_outliers, .env$cap_outliers, .data$net)
+        buildout = dplyr::if_else(.data[["buildout"]] >= .env[["cap_outliers"]], .env[["cap_outliers"]], .data[["buildout"]]),
+        phaseout = dplyr::if_else(.data[["phaseout"]] >= .env[["cap_outliers"]], .env[["cap_outliers"]], .data[["phaseout"]]),
+        net = dplyr::if_else(.data[["net"]] >= .env[["cap_outliers"]], .env[["cap_outliers"]], .data[["net"]])
       )
     if (is.null(floor_outliers)) {
       subtitle <- glue::glue("{subtitle}\nThe outliers are displayed on the borders of the plot.", .trim = FALSE)
@@ -113,7 +113,7 @@ plot_scatter <- function(data,
     net = c(0, 0, 0)
   )
 
-  p <- ggplot2::ggplot(data, ggplot2::aes(x = .data$buildout, y = .data$phaseout, colour = .data$net)) +
+  p <- ggplot2::ggplot(data, ggplot2::aes(x = .data[["buildout"]], y = .data[["phaseout"]], colour = .data[["net"]])) +
     ggplot2::geom_hline(yintercept = 0, colour = "#c0c0c0") +
     ggplot2::geom_vline(xintercept = 0, colour = "#c0c0c0") +
     ggplot2::geom_line(data = data_net_0) +
@@ -162,7 +162,7 @@ plot_scatter <- function(data,
       size = 3,
       hjust = 0
     ) +
-    ggplot2::geom_point(ggplot2::aes(shape = .data$datapoint)) +
+    ggplot2::geom_point(ggplot2::aes(shape = .data[["datapoint"]])) +
     ggplot2::scale_x_continuous(
       name = "Deviation from scenario value\nfor low-carbon technologies build-out",
       labels = scales::percent,

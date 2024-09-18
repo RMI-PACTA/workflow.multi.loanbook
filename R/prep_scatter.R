@@ -69,9 +69,9 @@ prep_scatter <- function(data_bopo,
   data_scatter <- data_bopo %>%
     dplyr::bind_rows(data_net) %>%
     dplyr::filter(
-      .data$year == .env$year,
-      .data$sector == .env$sector,
-      .data$region == .env$region,
+      .data[["year"]] == .env[["year"]],
+      .data[["sector"]] == .env[["sector"]],
+      .data[["region"]] == .env[["region"]],
       !!rlang::sym(group_var) %in% groups_to_plot
     ) %>%
     dplyr::select("name" = name_col, "direction", "value" = value_col) %>%
@@ -79,9 +79,9 @@ prep_scatter <- function(data_bopo,
     tidyr::pivot_wider(names_from = "direction", values_from = "value") %>%
     dplyr::mutate(
       datapoint = dplyr::case_when(
-        grepl(".*[Bb]enchmark,*", .data$name) ~ "benchmark",
-        TRUE & (data_level == "group_var") ~ "group",
-        TRUE & (data_level == "company") ~ "company",
+        grepl(".*[Bb]enchmark,*", .data[["name"]]) ~ "benchmark",
+        TRUE & (.env[["data_level"]] == "group_var") ~ "group",
+        TRUE & (.env[["data_level"]] == "company") ~ "company",
         TRUE ~ "other"
       )
     )

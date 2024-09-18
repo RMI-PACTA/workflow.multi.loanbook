@@ -40,12 +40,12 @@ prep_scatter_alignment_exposure <- function(data,
 
   data <- data %>%
     dplyr::filter(
-      !grepl(paste0(.env$exclude_groups, collapse = "|"), !!rlang::sym(group_var))
+      !grepl(paste0(.env[["exclude_groups"]], collapse = "|"), !!rlang::sym(group_var))
     ) %>%
     dplyr::filter(
-      .data$year == .env$year,
-      .data$region == .env$region,
-      .data$scenario == .env$scenario
+      .data[["year"]] == .env[["year"]],
+      .data[["region"]] == .env[["region"]],
+      .data[["scenario"]] == .env[["scenario"]]
     ) %>%
     dplyr::select(
       dplyr::all_of(

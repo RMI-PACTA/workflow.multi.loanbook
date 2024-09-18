@@ -48,12 +48,12 @@ plot_sankey <- function(data,
     data_links <- data %>%
       dplyr::mutate(
         group_var = r2dii.plot::to_title(!!rlang::sym(group_var)),
-        middle_node = r2dii.plot::to_title(.data$middle_node)
+        middle_node = r2dii.plot::to_title(.data[["middle_node"]])
       )
     if ("middle_node2" %in% names(data_links)) {
       data_links <- data_links %>%
         dplyr::mutate(
-          middle_node2 = r2dii.plot::to_title(.data$middle_node2)
+          middle_node2 = r2dii.plot::to_title(.data[["middle_node2"]])
         )
     }
   } else {
@@ -62,7 +62,7 @@ plot_sankey <- function(data,
 
   links_1 <- data_links %>%
     dplyr::select(
-      source = .env$group_var,
+      source = .env[["group_var"]],
       target = "middle_node",
       value = "loan_size_outstanding",
       group = "is_aligned"
@@ -71,7 +71,7 @@ plot_sankey <- function(data,
   if ("middle_node2" %in% names(data_links)) {
     links_2 <- data_links %>%
       dplyr::select(
-        .env$group_var,
+        .env[["group_var"]],
         source = "middle_node",
         target = "middle_node2",
         value = "loan_size_outstanding",
@@ -80,7 +80,7 @@ plot_sankey <- function(data,
 
     links_3 <- data_links %>%
       dplyr::select(
-        .env$group_var,
+        .env[["group_var"]],
         source = "middle_node2",
         target = "is_aligned",
         value = "loan_size_outstanding",
@@ -91,7 +91,7 @@ plot_sankey <- function(data,
   } else {
     links_2 <- data_links %>%
       dplyr::select(
-        .env$group_var,
+        .env[["group_var"]],
         source = "middle_node",
         target = "is_aligned",
         value = "loan_size_outstanding",
@@ -102,10 +102,10 @@ plot_sankey <- function(data,
   }
 
   links <- links %>%
-    dplyr::group_by(.data$source, .data$target, .data$group) %>%
-    dplyr::summarise(value = sum(.data$value, na.rm = TRUE)) %>%
+    dplyr::group_by(.data[["source"]], .data[["target"]], .data[["group"]]) %>%
+    dplyr::summarise(value = sum(.data[["value"]], na.rm = TRUE)) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$source, .data$group) %>%
+    dplyr::arrange(.data[["source"]], .data[["group"]]) %>%
     as.data.frame()
 
   # TODO: colour the companies if fully aligned or not
@@ -114,7 +114,7 @@ plot_sankey <- function(data,
   ) %>%
     dplyr::mutate(
       group = dplyr::case_when(
-        .data$name %in% c("Aligned", "Not aligned", "Unknown") ~ .data$name,
+        .data[["name"]] %in% c("Aligned", "Not aligned", "Unknown") ~ .data[["name"]],
         TRUE ~ "other"
       )
     )
