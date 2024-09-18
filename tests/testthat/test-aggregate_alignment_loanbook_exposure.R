@@ -75,12 +75,12 @@ test_that("number of identified companies equals unique list of companies in inp
 
 test_that("number of identified companies per direction equals unique list of companies in input data", {
   n_companies_input_bopo <- test_data_aggregate_alignment_loanbook_exposure_bopo %>%
-    dplyr::distinct(.data$name_abcd) %>%
+    dplyr::distinct(.data[["name_abcd"]]) %>%
     nrow()
 
   n_output_buildout <- test_output_aggregate_alignment_loanbook_exposure_bopo$aggregate %>%
-    dplyr::filter(.data$direction == "buildout") %>%
-    dplyr::pull(.data$n_companies)
+    dplyr::filter(.data[["direction"]] == "buildout") %>%
+    dplyr::pull(.data[["n_companies"]])
 
   expect_equal(
     n_output_buildout,
@@ -88,8 +88,8 @@ test_that("number of identified companies per direction equals unique list of co
   )
 
   n_output_phaseout <- test_output_aggregate_alignment_loanbook_exposure_bopo$aggregate %>%
-    dplyr::filter(.data$direction == "phaseout") %>%
-    dplyr::pull(.data$n_companies)
+    dplyr::filter(.data[["direction"]] == "phaseout") %>%
+    dplyr::pull(.data[["n_companies"]])
 
   expect_equal(
     n_output_phaseout,
@@ -177,7 +177,7 @@ test_that("net aggregate results with .by specified returns results for each gro
 })
 
 test_that("net aggregate results with multiple variables specified in .by returns results for each combination of groups", {
-  n_groups_2 <- nrow(dplyr::distinct(test_matched_dot_by, .data$foo, .data$bar))
+  n_groups_2 <- nrow(dplyr::distinct(test_matched_dot_by, .data[["foo"]], .data[["bar"]]))
 
   test_output_with_dot_by_2 <- test_data_company_net %>%
     aggregate_alignment_loanbook_exposure(
@@ -206,8 +206,8 @@ test_data_company_bopo <- tibble::tribble(
 # styler: on
 
 test_that("bopo aggregate results grouped by foo returns results for each available combination of buildout/phaseout and group foo", {
-  n_groups <- dplyr::distinct(test_matched_dot_by, .data$foo)
-  n_directions <- dplyr::distinct(test_data_company_bopo, .data$direction)
+  n_groups <- dplyr::distinct(test_matched_dot_by, .data[["foo"]])
+  n_directions <- dplyr::distinct(test_data_company_bopo, .data[["direction"]])
 
   test_output_with_dot_by <- test_data_company_bopo %>%
     aggregate_alignment_loanbook_exposure(

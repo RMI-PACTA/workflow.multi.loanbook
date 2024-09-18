@@ -46,8 +46,8 @@ prep_sankey <- function(data_alignment,
 
   data_alignment <- data_alignment %>%
     dplyr::filter(
-      .data$region == .env$region,
-      .data$year == .env$year
+      .data[["region"]] == .env[["region"]],
+      .data[["year"]] == .env[["year"]]
     )
 
   if (is.null(middle_node2)) {
@@ -61,26 +61,26 @@ prep_sankey <- function(data_alignment,
         middle_node = !!rlang::sym(middle_node)
       ) %>%
       dplyr::select(group_var, "middle_node", "is_aligned", "loan_size_outstanding") %>%
-      dplyr::group_by(!!rlang::sym(group_var), .data$middle_node, .data$is_aligned) %>%
-      dplyr::summarise(loan_size_outstanding = sum(.data$loan_size_outstanding, na.rm = TRUE)) %>%
+      dplyr::group_by(!!rlang::sym(group_var), .data[["middle_node"]], .data[["is_aligned"]]) %>%
+      dplyr::summarise(loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE)) %>%
       dplyr::ungroup() %>%
-      dplyr::arrange(!!rlang::sym(group_var), .data$is_aligned)
+      dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]])
   } else {
     data_out <- data_alignment %>%
       dplyr::mutate(
         is_aligned = dplyr::case_when(
-          alignment_metric >= 0 ~ "Aligned",
-          alignment_metric < 0 ~ "Not aligned",
+          .data[["alignment_metric"]] >= 0 ~ "Aligned",
+          .data[["alignment_metric"]] < 0 ~ "Not aligned",
           TRUE ~ "Unknown"
         ),
         middle_node = !!rlang::sym(middle_node),
         middle_node2 = !!rlang::sym(middle_node2)
       ) %>%
       dplyr::select(group_var, "middle_node", "middle_node2", "is_aligned", "loan_size_outstanding") %>%
-      dplyr::group_by(!!rlang::sym(group_var), .data$middle_node, .data$middle_node2, .data$is_aligned) %>%
-      dplyr::summarise(loan_size_outstanding = sum(.data$loan_size_outstanding, na.rm = TRUE)) %>%
+      dplyr::group_by(!!rlang::sym(group_var), .data[["middle_node"]], .data[["middle_node2"]], .data[["is_aligned"]]) %>%
+      dplyr::summarise(loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE)) %>%
       dplyr::ungroup() %>%
-      dplyr::arrange(!!rlang::sym(group_var), .data$is_aligned)
+      dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]])
   }
   data_out
 }

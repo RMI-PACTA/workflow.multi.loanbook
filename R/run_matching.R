@@ -85,8 +85,8 @@ run_matching <- function(config) {
     col_types = col_types_raw,
     id = "group_id"
   ) %>%
-    dplyr::mutate(group_id = tools::file_path_sans_ext(basename(.data$group_id))) %>%
-    dplyr::group_split(.data$group_id)
+    dplyr::mutate(group_id = tools::file_path_sans_ext(basename(.data[["group_id"]]))) %>%
+    dplyr::group_split(.data[["group_id"]])
 
   # match and save loan books----
   cli::cli_progress_bar(
@@ -94,7 +94,7 @@ run_matching <- function(config) {
     format = "{cli::pb_spin} Matching loanbooks {cli::pb_current}/{cli::pb_total} | ETA: {cli::pb_eta}"
   )
   for (i in seq_along(raw_lbk)) {
-    group_name <- unique(raw_lbk[[i]]$group_id)
+    group_name <- unique(raw_lbk[[i]][["group_id"]])
 
     ## match data----
     if (matching_use_own_sector_classification) {

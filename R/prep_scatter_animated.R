@@ -66,8 +66,8 @@ prep_scatter_animated <- function(data_bopo,
   data_scatter <- data_bopo %>%
     dplyr::bind_rows(data_net) %>%
     dplyr::filter(
-      .data$sector == .env$sector,
-      .data$region == .env$region,
+      .data[["sector"]] == .env[["sector"]],
+      .data[["region"]] == .env[["region"]],
       !!rlang::sym(group_var) %in% groups_to_plot
     ) %>%
     dplyr::select("name" = name_col, "direction", "year", "value" = value_col) %>%
@@ -75,16 +75,16 @@ prep_scatter_animated <- function(data_bopo,
     tidyr::pivot_wider(names_from = "direction", values_from = "value") %>%
     dplyr::mutate(
       datapoint = dplyr::case_when(
-        grepl(".*[Bb]enchmark,*", .data$name) ~ "Benchmark",
-        TRUE & data_level == "group_var" ~ "Group",
-        TRUE & data_level == "company" ~ "Company",
+        grepl(".*[Bb]enchmark,*", .data[["name"]]) ~ "Benchmark",
+        TRUE & .env[["data_level"]] == "group_var" ~ "Group",
+        TRUE & .env[["data_level"]] == "company" ~ "Company",
         TRUE ~ "Portfolio"
       )
     ) %>%
     dplyr::mutate(
-      datapoint = factor(.data$datapoint, levels = c("Group", "Company", "Portfolio", "Benchmark"))
+      datapoint = factor(.data[["datapoint"]], levels = c("Group", "Company", "Portfolio", "Benchmark"))
     ) %>%
-    dplyr::arrange(.data$datapoint)
+    dplyr::arrange(.data[["datapoint"]])
 
   data_scatter
 }

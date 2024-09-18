@@ -40,9 +40,9 @@ plot_scatter_alignment_exposure <- function(data,
     data <- data %>%
       dplyr::mutate(
         exposure_weighted_net_alignment = dplyr::if_else(
-          .data$exposure_weighted_net_alignment <= .env$floor_outliers,
-          .env$floor_outliers,
-          .data$exposure_weighted_net_alignment
+          .data[["exposure_weighted_net_alignment"]] <= .env[["floor_outliers"]],
+          .env[["floor_outliers"]],
+          .data[["exposure_weighted_net_alignment"]]
         )
       )
   }
@@ -51,9 +51,9 @@ plot_scatter_alignment_exposure <- function(data,
     data <- data %>%
       dplyr::mutate(
         exposure_weighted_net_alignment = dplyr::if_else(
-          .data$exposure_weighted_net_alignment >= .env$cap_outliers,
-          .env$cap_outliers,
-          .data$exposure_weighted_net_alignment
+          .data[["exposure_weighted_net_alignment"]] >= .env[["cap_outliers"]],
+          .env[["cap_outliers"]],
+          .data[["exposure_weighted_net_alignment"]]
         )
       )
   }
@@ -68,11 +68,11 @@ plot_scatter_alignment_exposure <- function(data,
   }
 
   plot <- data %>%
-    dplyr::mutate(sector = tools::toTitleCase(.data$sector)) %>%
+    dplyr::mutate(sector = tools::toTitleCase(.data[["sector"]])) %>%
     ggplot2::ggplot(
       ggplot2::aes(
-        x = .data$sum_loan_size_outstanding,
-        y = .data$exposure_weighted_net_alignment,
+        x = .data[["sum_loan_size_outstanding"]],
+        y = .data[["exposure_weighted_net_alignment"]],
         color = !!rlang::sym(group_var)
       )
     ) +

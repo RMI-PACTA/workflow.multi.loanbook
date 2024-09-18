@@ -45,10 +45,10 @@ prepare_abcd <- function(config) {
                                     time_frame) {
     comp_sec_no_prod_t5 <- data %>%
       dplyr::filter(
-        .data[["year"]] %in% c(.env$start_year, .env$start_year + .env$time_frame)
+        .data[["year"]] %in% c(.env[["start_year"]], .env[["start_year"]] + .env[["time_frame"]])
       ) %>%
       dplyr::summarise(
-        sum_production = sum(.data$production, na.rm = TRUE),
+        sum_production = sum(.data[["production"]], na.rm = TRUE),
         .by = c("name_company", "sector", "year")
       ) %>%
       tidyr::pivot_wider(
@@ -61,24 +61,24 @@ prepare_abcd <- function(config) {
         .data[[paste0("prod_", start_year + time_frame)]] == 0
       ) %>%
       dplyr::distinct(
-        .data$name_company,
-        .data$sector
+        .data[["name_company"]],
+        .data[["sector"]]
       )
 
     comp_sec_no_prod_t0_to_t5 <- data %>%
       dplyr::filter(
-        .data[["year"]] %in% c(.env$start_year, .env$start_year + .env$time_frame)
+        .data[["year"]] %in% c(.env[["start_year"]], .env[["start_year"]] + .env[["time_frame"]])
       ) %>%
       dplyr::summarise(
-        sum_production = sum(.data$production, na.rm = TRUE),
+        sum_production = sum(.data[["production"]], na.rm = TRUE),
         .by = c("name_company", "sector")
       ) %>%
       dplyr::filter(
-        .data$sum_production == 0
+        .data[["sum_production"]] == 0
       ) %>%
       dplyr::distinct(
-        .data$name_company,
-        .data$sector
+        .data[["name_company"]],
+        .data[["sector"]]
       )
 
     data <- data %>%

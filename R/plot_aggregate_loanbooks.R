@@ -220,7 +220,7 @@ plot_aggregate_loanbooks <- function(config) {
   ### scatter plot alignment by exposure and sector comparison----
   year_scatter_alignment_exposure <- 2027
   region_scatter_alignment_exposure <- region_select
-  currency <- unique(company_aggregated_alignment_net$loan_size_outstanding_currency)
+  currency <- unique(company_aggregated_alignment_net[["loan_size_outstanding_currency"]])
   if (length(by_group) <= 1) {
     if (
       nrow(loanbook_exposure_aggregated_alignment_net) > 0
@@ -533,7 +533,7 @@ plot_aggregate_loanbooks <- function(config) {
   if (length(by_group) == 1) {
     unique_by_group <- company_aggregated_alignment_bo_po %>%
       dplyr::filter(
-        .data$sector == .env$sector_scatter,
+        .data[["sector"]] == .env[["sector_scatter"]],
         !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
       ) %>%
       dplyr::pull(!!rlang::sym(by_group)) %>%
@@ -596,7 +596,7 @@ plot_aggregate_loanbooks <- function(config) {
   if (length(by_group) == 1) {
     unique_by_group <- company_aggregated_alignment_bo_po %>%
       dplyr::filter(
-        .data$sector == .env$sector_scatter,
+        .data[["sector"]] == .env[["sector_scatter"]],
         !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
       ) %>%
       dplyr::pull(!!rlang::sym(by_group)) %>%
@@ -663,7 +663,7 @@ plot_aggregate_loanbooks <- function(config) {
   if (length(by_group) == 1) {
     unique_by_group <- company_aggregated_alignment_bo_po %>%
       dplyr::filter(
-        .data$sector == .env$sector_scatter,
+        .data[["sector"]] == .env[["sector_scatter"]],
         !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
       ) %>%
       dplyr::pull(!!rlang::sym(by_group)) %>%
@@ -726,7 +726,7 @@ plot_aggregate_loanbooks <- function(config) {
   if (length(by_group) == 1) {
     unique_by_group <- company_aggregated_alignment_bo_po %>%
       dplyr::filter(
-        .data$sector == .env$sector_scatter,
+        .data[["sector"]] == .env[["sector_scatter"]],
         !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
       ) %>%
       dplyr::pull(!!rlang::sym(by_group)) %>%

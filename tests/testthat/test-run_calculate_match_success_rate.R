@@ -18,7 +18,7 @@ test_that("combine_raw_and_matched_loan_books identifies correct matched and unm
     )
 
   nace_sectors <- r2dii.data::sector_classifications %>%
-    dplyr::filter(.data$code_system == "NACE")
+    dplyr::filter(.data[["code_system"]] == "NACE")
 
   test_raw_lbk_with_sectors <- add_sectors_to_raw_lbk(
     raw_lbk = test_raw,
@@ -52,7 +52,7 @@ test_that("combine_raw_and_matched_loan_books removes group_id from id_loan wher
     dplyr::mutate(group_id = "test")
 
   nace_sectors <- r2dii.data::sector_classifications %>%
-    dplyr::filter(.data$code_system == "NACE")
+    dplyr::filter(.data[["code_system"]] == "NACE")
 
   test_raw_lbk_with_sectors <- add_sectors_to_raw_lbk(
     raw_lbk = test_raw,
@@ -82,7 +82,7 @@ test_that("combine_raw_and_matched_loan_books removes sector_abcd from id_loan w
     dplyr::mutate(group_id = "test")
 
   nace_sectors <- r2dii.data::sector_classifications %>%
-    dplyr::filter(.data$code_system == "NACE")
+    dplyr::filter(.data[["code_system"]] == "NACE")
 
   test_raw_lbk_with_sectors <- add_sectors_to_raw_lbk(
     raw_lbk = test_raw,
@@ -140,7 +140,7 @@ test_that("calculate_match_success_rate returns results for each group of variab
     dplyr::filter(.data[["level"]] == "direct_loantaker")
 
   nace_sectors <- r2dii.data::sector_classifications %>%
-    dplyr::filter(.data$code_system == "NACE")
+    dplyr::filter(.data[["code_system"]] == "NACE")
 
   lbk_match_success_rate_meta <- calculate_match_success_rate(
     raw_lbk = test_raw_meta,
@@ -197,7 +197,7 @@ test_that("calculate_match_success_rate can only be calculated for by_groups tha
     dplyr::filter(.data[["level"]] == "direct_loantaker")
 
   nace_sectors <- r2dii.data::sector_classifications %>%
-    dplyr::filter(.data$code_system == "NACE")
+    dplyr::filter(.data[["code_system"]] == "NACE")
 
   testthat::expect_no_condition(
     calculate_match_success_rate(

@@ -20,5 +20,5 @@ read_abcd_raw <- function(path, sheet) {
       )
     )
 
-  dplyr::mutate(abcd, year = as.integer(.data$year))
+  dplyr::mutate(abcd, year = as.integer(.data[["year"]]))
 }
