@@ -164,39 +164,6 @@ dd_data_scatter_sector_animated <- dplyr::tribble(
   "data_scatter_sector_animated", "datapoint", "character", "The level of the analysis, either group level or company level", "Must be one of: 'Group' or 'company'"
 )
 
-# same as loanbook_exposure_net_aggregate_alignment, but filtered for a specific sector
-dd_data_timeline_net <- dplyr::tribble(
-  ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_timeline_net", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
-  "data_timeline_net", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
-  "data_timeline_net", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
-  "data_timeline_net", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas', 'aviation', 'cement', 'steel'",
-  "data_timeline_net", "year", "integer", "The year of the data", "A year between the 'start_year' of the analyis and the 'start_year' plus the 'time_frame'",
-  "data_timeline_net", "direction", "character", "At the sector level, 'direction' indicates if the alignment value is aggregated across buildout or phaseout technologies, or if it is the net aggregate of the sector.", "In this case, must be: 'net'",
-  "data_timeline_net", "n_companies", "double", "Number of individual company-by-sector combinations in the given sector analysed within this (group of) banking book(s)", "Numerical value greater or equal to 0",
-  "data_timeline_net", "n_companies_aligned", "double", "Number of individual company-by-sector combinations within the given sector that have an alignment metric greater or equal to 0", "Numerical value greater or equal to 0 and smaller or equal to 'n_companies'",
-  "data_timeline_net", "share_companies_aligned", "double", "Share of 'n_companies_aligned' relative to 'n_companies'", "Numerical value. Must be between 0 and 1",
-  "data_timeline_net", "exposure_weighted_net_alignment", "double", "Net aggregate alignment value aggregated to the banking book-by-sector level. Individual company alignment metrics are allocated based on financial exposure, using the 'exposure_weight'", "Numerical value. Can be negative or positive",
-  "data_timeline_net", "sum_loan_size_outstanding", "double", "Sum of outstanding loan size at the banking book-by-sector level of all loans analysed within this (group of) banking book(s)", "Numerical value greater or equal to 0",
-  "data_timeline_net", "sum_exposure_companies_aligned", "double", "Sum of outstanding loan size at the banking book-by-sector level of all loans to aligned companies within this (group of) banking book(s)", "Numerical value greater or equal to 0 and smaller or equal to 'sum_loan_size_outstanding'",
-  "data_timeline_net", "share_exposure_aligned", "double", "Share of 'sum_exposure_companies_aligned' relative to 'sum_loan_size_outstanding'", "Numerical value. Must be between 0 and 1"
-)
-
-# same as loanbook_exposure_bo_po_aggregate_alignment, but filtered for a specific sector
-dd_data_timeline_bo_po <- dplyr::tribble(
-  ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_timeline_bo_po", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
-  "data_timeline_bo_po", "scenario", "character", "The name of the scenario against which alignment is measured", "Must be available in the input scenario data. Must be a scenario provided in the indicated 'scenario_source'",
-  "data_timeline_bo_po", "region", "character", "The region for which the analysis has been run. Indicates which production assets have been considered and which scenario region is used", "Must be a value available in the input scenario data",
-  "data_timeline_bo_po", "sector", "character", "The sector of the technology", "One of the following: 'power', 'automotive', 'coal', 'oil and gas'",
-  "data_timeline_bo_po", "year", "integer", "The year of the data", "A year between the 'start_year' of the analyis and the 'start_year' plus the 'time_frame'",
-  "data_timeline_bo_po", "direction", "character", "At the sector level, 'direction' indicates if the alignment value is aggregated across buildout or phaseout technologies, or if it is the net aggregate of the sector.", "In this case, must be: 'buildout' or 'phaseout'",
-  "data_timeline_bo_po", "n_companies", "double", "Number of individual company-by-sector combinations in the given sector analysed within this (group of) banking book(s)", "Numerical value greater or equal to 0",
-  "data_timeline_bo_po", "n_companies_aligned", "double", "Number of individual company-by-sector combinations within the given sector that have an alignment metric greater or equal to 0", "Numerical value greater or equal to 0 and smaller or equal to 'n_companies'",
-  "data_timeline_bo_po", "share_companies_aligned", "double", "Share of 'n_companies_aligned' relative to 'n_companies'", "Numerical value. Must be between 0 and 1",
-  "data_timeline_bo_po", "exposure_weighted_net_alignment", "double", "Net aggregate alignment value aggregated to the banking book-by-sector level, disaggregated into 'buildout' and 'phaseout' components. Individual company alignment metrics are allocated based on financial exposure, using the 'exposure_weight'", "Numerical value. Can be negative or positive"
-)
-
 dd_tms_results <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "tms_results", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
@@ -327,8 +294,6 @@ data_dictionary <- dplyr::bind_rows(
   dd_data_scatter_alignment_exposure,
   dd_data_scatter_sector,
   dd_data_scatter_sector_animated,
-  dd_data_timeline_net,
-  dd_data_timeline_bo_po,
   dd_tms_results,
   dd_sda_results,
   dd_data_tech_mix,
