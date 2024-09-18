@@ -1,4 +1,4 @@
-Package: workflow.multi.loanbook
+Package: pacta.multi.loanbook
 Title: Run PACTA on multiple loan books easily
 Version: 0.0.0.9000
 Authors@R:
@@ -73,6 +73,6 @@ Roxygen: list(markdown = TRUE)
 Config/Needs/website: rmi-pacta/pacta.pkgdown.rmitemplate
 VignetteBuilder: knitr
 URL:
-    https://rmi-pacta.github.io/workflow.multi.loanbook/,
-    https://github.com/RMI-PACTA/workflow.multi.loanbook/
+    https://rmi-pacta.github.io/pacta.multi.loanbook/,
+    https://github.com/RMI-PACTA/pacta.multi.loanbook/
 LazyData: true

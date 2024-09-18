@@ -22,7 +22,7 @@ Most of the functions in this package require a path to a `config.yml` file as i
 
 The config file is separated into a few top-level "sections" that contain contextually similar options. The top-level sections will be documented as well below, but note that the top-level sections themselves never have a value directly associated with them.
 
-Also note that the config file must have the top-level section `default`. This is related to a feature of the `yaml` package which facilitates having and targeting different config sets for different purposes. Technically, one could leverage this for use with workflow.multi.loanbook, but it is not recommended.
+Also note that the config file must have the top-level section `default`. This is related to a feature of the `yaml` package which facilitates having and targeting different config sets for different purposes. Technically, one could leverage this for use with pacta.multi.loanbook, but it is not recommended.
 
 # Options
 

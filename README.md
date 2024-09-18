@@ -1,14 +1,14 @@
-# workflow.multi.loanbook
+# pacta.multi.loanbook
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/RMI-PACTA/workflow.multi.loanbook/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RMI-PACTA/workflow.multi.loanbook/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/workflow.multi.loanbook)](https://CRAN.R-project.org/package=workflow.multi.loanbook)
-[![workflow.multi.loanbook status badge](https://rmi-pacta.r-universe.dev/badges/workflow.multi.loanbook)](https://rmi-pacta.r-universe.dev/workflow.multi.loanbook)
+status](https://www.r-pkg.org/badges/version/pacta.multi.loanbook)](https://CRAN.R-project.org/package=pacta.multi.loanbook)
+[![pacta.multi.loanbook status badge](https://rmi-pacta.r-universe.dev/badges/pacta.multi.loanbook)](https://rmi-pacta.r-universe.dev/pacta.multi.loanbook)
 <!-- badges: end -->
 
-The goal of `workflow.multi.loanbook` is to provide an easy-to-use
+The goal of `pacta.multi.loanbook` is to provide an easy-to-use
 interface for anyone who wants to run PACTA on multiple loan books. It
 allows tailoring the analysis to the individual needs of a project in a
 simple and straight-forward manner.
@@ -17,7 +17,7 @@ simple and straight-forward manner.
 
 ### R package dependencies
 
-Running `workflow.multi.loanbook` has a number of R package dependencies that are listed in the `DESCRIPTION` file. These can be installed manually or by using something like `pak::local_install_deps()`.
+Running `pacta.multi.loanbook` has a number of R package dependencies that are listed in the `DESCRIPTION` file. These can be installed manually or by using something like `pak::local_install_deps()`.
 
 ### Setting config options
 
