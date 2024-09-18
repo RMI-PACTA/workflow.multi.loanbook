@@ -1,5 +1,5 @@
 ---
-title: "cookbook"
+title: Running the analysis
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{cookbook}
