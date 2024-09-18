@@ -333,29 +333,3 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector_animat
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "dd_data_scatter_sector_animated")
 plot_table(table)
 ```
-
-### Input data for net timline plot
-
-Data set meant to be used as input into `plot_timeline()`.
-
-```{r dd_data_timeline_net, results = FALSE}
-dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_net")
-```
-
-```{r dd_data_timeline_net_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_net")
-plot_table(table)
-```
-
-### Input data for buildout/phaseout timline plot
-
-Data set meant to be used as input into `plot_timeline()`.
-
-```{r dd_data_timeline_bo_po, results = FALSE}
-dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_bo_po")
-```
-
-```{r dd_data_timeline_bo_po_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_timeline_bo_po")
-plot_table(table)
-```
