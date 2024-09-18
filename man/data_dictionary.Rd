@@ -29,6 +29,6 @@ and the definitions of the variables.
 }
 \details{
 For more details see the help vignette:
-\code{vignette("data_dictionary", package = "workflow.multi.loanbook")}
+\code{vignette("data_dictionary", package = "pacta.multi.loanbook")}
 }
 \keyword{datasets}

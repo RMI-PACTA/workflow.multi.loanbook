@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(workflow.multi.loanbook)
+library(pacta.multi.loanbook)
 
-test_check("workflow.multi.loanbook")
+test_check("pacta.multi.loanbook")

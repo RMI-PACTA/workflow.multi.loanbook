@@ -16,7 +16,7 @@ All of the functions take a `config` argument, which can either be a path to a `
 You'll likely want to load the package and save the path to the `config.yml` file in a variable first:
 
 ```r
-library(workflow.multi.loanbook)
+library(pacta.multi.loanbook)
 config_path <- "config.yml"
 ```
 
