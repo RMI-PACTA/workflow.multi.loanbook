@@ -1,5 +1,5 @@
 ---
-title: Configuring your application
+title: Configuring the application
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{config_yml}
