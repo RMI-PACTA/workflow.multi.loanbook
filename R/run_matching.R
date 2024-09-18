@@ -13,9 +13,9 @@ run_matching <- function(config) {
   matching_overwrite <- get_match_overwrite(config)
   matching_join_id <- get_match_join_id(config)
 
-  matching_use_own_sector_classification <- get_use_maunal_sector_classification(config)
-  if (matching_use_own_sector_classification) {
-    path_own_sector_classification <- get_manual_sector_classification_path(config)
+  matching_use_manual_sector_classification <- get_use_maunal_sector_classification(config)
+  if (matching_use_manual_sector_classification) {
+    path_manual_sector_classification <- get_manual_sector_classification_path(config)
   }
 
   # validate config values----
@@ -51,14 +51,14 @@ run_matching <- function(config) {
   # stop_if_not_length(matching_join_id, 1L)
   # stop_if_not_inherits(matching_join_id, "numeric")
 
-  stop_if_not_length(matching_use_own_sector_classification, 1L)
-  stop_if_not_inherits(matching_use_own_sector_classification, "logical")
+  stop_if_not_length(matching_use_manual_sector_classification, 1L)
+  stop_if_not_inherits(matching_use_manual_sector_classification, "logical")
 
-  # path to own sector classification only required if boolean TRUE
-  if (matching_use_own_sector_classification) {
-    stop_if_not_length(path_own_sector_classification, 1L)
-    stop_if_not_inherits(path_own_sector_classification, "character")
-    stop_if_file_not_found(path_own_sector_classification, desc = "Manual sector classification")
+  # path to manual sector classification only required if boolean TRUE
+  if (matching_use_manual_sector_classification) {
+    stop_if_not_length(path_manual_sector_classification, 1L)
+    stop_if_not_inherits(path_manual_sector_classification, "character")
+    stop_if_file_not_found(path_manual_sector_classification, desc = "Manual sector classification")
   }
 
   # load data----
@@ -67,10 +67,10 @@ run_matching <- function(config) {
   abcd <- read_abcd_raw(path_abcd, sheet_abcd)
   stop_if_not_expected_columns(abcd, cols_abcd, desc = "ABCD")
 
-  ## optionally load own classification system----
-  if (matching_use_own_sector_classification) {
+  ## optionally load manual classification system----
+  if (matching_use_manual_sector_classification) {
     sector_classification_system <- readr::read_csv(
-      file = path_own_sector_classification,
+      file = path_manual_sector_classification,
       col_types = col_types_sector_classification,
       col_select = dplyr::all_of(col_select_sector_classification)
     )
@@ -97,7 +97,7 @@ run_matching <- function(config) {
     group_name <- unique(raw_lbk[[i]][["group_id"]])
 
     ## match data----
-    if (matching_use_own_sector_classification) {
+    if (matching_use_manual_sector_classification) {
       withr::with_options(
         new = list(r2dii.match.sector_classifications = sector_classification_system),
         code = {

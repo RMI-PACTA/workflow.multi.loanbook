@@ -268,10 +268,10 @@ A full example `matching`{.yaml} section might look like:
       p: 0.1
       overwrite: NULL
       join_id: NULL
-    own_sector_classification:
-      use_own_sector_classification: FALSE
-      dir_own_sector_classification: "path/to/own_sector_classification_folder"
-      filename_own_sector_classification: "own_sector_classification.csv"
+    manual_sector_classification:
+      use_manual_sector_classification: FALSE
+      dir_manual_sector_classification: "path/to/manual_sector_classification_folder"
+      filename_manual_sector_classification: "manual_sector_classification.csv"
 ```
 
 ### params_match_name:
@@ -336,39 +336,39 @@ A full example `params_match_name`{.yaml} section might look like:
       join_id: c(lei_direct_loantaker = "lei")
 ```
 
-### own_sector_classification:
+### manual_sector_classification:
 
-A full example `own_sector_classification`{.yaml} section might look like:
+A full example `manual_sector_classification`{.yaml} section might look like:
 
 ```yaml
-    own_sector_classification:
-      use_own_sector_classification: FALSE
-      dir_own_sector_classification: "path/to/own_sector_classification_folder"
-      filename_own_sector_classification: "own_sector_classification.csv"
+    manual_sector_classification:
+      use_manual_sector_classification: FALSE
+      dir_manual_sector_classification: "path/to/manual_sector_classification_folder"
+      filename_manual_sector_classification: "manual_sector_classification.csv"
 ```
 
-#### use_own_sector_classification
+#### use_manual_sector_classification
 
-`use_own_sector_classification`{.yaml} determines if the matching should use an internally provided sector classification system or if it should use one provided by the user instead. Internal sector classification systems are given in `r2dii.data::sector_classifications` - see also additional [documentation in `r2dii.data`](https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html). The function will automatically attempt to use one of the sector classification systems, based on the inputs in the raw loan book files. If an externally prepared sector classification system is to be used, for example because the loans are classified using a system that is not provided in r2dii.data out of the box, the data must be prepared following the same structure as found in `r2dii.data::sector_classifications`. It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
+`use_manual_sector_classification`{.yaml} determines if the matching should use an internally provided sector classification system or if it should use one provided by the user instead. Internal sector classification systems are given in `r2dii.data::sector_classifications` - see also additional [documentation in `r2dii.data`](https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html). The function will automatically attempt to use one of the sector classification systems, based on the inputs in the raw loan book files. If an externally prepared sector classification system is to be used, for example because the loans are classified using a system that is not provided in r2dii.data out of the box, the data must be prepared following the same structure as found in `r2dii.data::sector_classifications`. It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
 
 ```yaml
-      use_own_sector_classification: FALSE
+      use_manual_sector_classification: FALSE
 ```
 
-#### dir_own_sector_classification
+#### dir_manual_sector_classification
 
-`dir_own_sector_classification`{.yaml} is a path to a directory that contains the manual sector classification CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_manual_sector_classification`{.yaml} is a path to a directory that contains the manual sector classification CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
 ```yaml
-      dir_own_sector_classification: "path/to/own_sector_classification_folder"
+      dir_manual_sector_classification: "path/to/manual_sector_classification_folder"
 ```
 
-#### filename_own_sector_classification
+#### filename_manual_sector_classification
 
-`filename_own_sector_classification`{.yaml} is the filename of the CSV that contains the manual sector classification data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_manual_sector_classification`{.yaml} is the filename of the CSV that contains the manual sector classification data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
-      filename_own_sector_classification: "own_sector_classification.csv"
+      filename_manual_sector_classification: "manual_sector_classification.csv"
 ```
 
 ## match_prioritize:

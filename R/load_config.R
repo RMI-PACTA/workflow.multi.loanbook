@@ -120,15 +120,15 @@ get_sector_split_type <- function(params) {
 }
 
 get_use_maunal_sector_classification <- function(params) {
-  params[["matching"]][["own_sector_classification"]][["use_own_sector_classification"]]
+  params[["matching"]][["manual_sector_classification"]][["use_manual_sector_classification"]]
 }
 
 get_manual_sector_classification_dir <- function(params) {
-  params[["matching"]][["own_sector_classification"]][["dir_own_sector_classification"]]
+  params[["matching"]][["manual_sector_classification"]][["dir_manual_sector_classification"]]
 }
 
 get_manual_sector_classification_filename <- function(params) {
-  params[["matching"]][["own_sector_classification"]][["filename_own_sector_classification"]]
+  params[["matching"]][["manual_sector_classification"]][["filename_manual_sector_classification"]]
 }
 
 get_manual_sector_classification_path <- function(params) {
