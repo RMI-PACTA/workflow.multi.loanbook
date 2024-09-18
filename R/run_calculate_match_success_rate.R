@@ -9,7 +9,7 @@ run_calculate_match_success_rate <- function(config) {
     path_own_sector_classification <- get_manual_sector_classification_path(config)
   }
 
-  by_group <- get_aggregate_alignment_metric_by_group(config)
+  by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
   by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
 

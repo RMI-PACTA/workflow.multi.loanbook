@@ -18,6 +18,7 @@ default:
     # the scenario in use
     start_year: 2022
     time_frame: 5
+    by_group: "group_id"
   sector_split:
     apply_sector_split: TRUE
     sector_split_type: "equal_weights"
@@ -47,5 +48,3 @@ default:
     plot_height: 8
     plot_units: "in"
     plot_resolution: 300
-  aggregate_alignment_metric:
-    by_group: "group_id"

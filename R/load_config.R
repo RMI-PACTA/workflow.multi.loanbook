@@ -63,8 +63,8 @@ get_region_select <- function(params) {
   params[["project_parameters"]][["region_select"]]
 }
 
-get_aggregate_alignment_metric_by_group <- function(params) {
-  params[["aggregate_alignment_metric"]][["by_group"]]
+get_by_group <- function(params) {
+  params[["project_parameters"]][["by_group"]]
 }
 
 get_match_priority <- function(params) {
