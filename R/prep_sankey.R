@@ -1,5 +1,3 @@
-#' Prepare data to plot using `plot_sankey()`
-#'
 #' @param data_alignment data.frame. Holds aggregated alignment metrics per
 #'   company for tms sectors. Must contain columns: `"name_abcd"`,
 #'   `"sector"` and any column implied by `group_var`.
@@ -12,10 +10,11 @@
 #'   plotted in sankey plot. Must be present in `data_alignment`.
 #'
 #' @return data.frame
+#'
 #' @export
 #'
-#' @examples
-#' # TODO
+#' @rdname plot_sankey
+
 prep_sankey <- function(data_alignment,
                         region,
                         year,

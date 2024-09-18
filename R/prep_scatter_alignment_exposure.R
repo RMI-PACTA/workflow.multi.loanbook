@@ -1,5 +1,3 @@
-#' Prepare data to plot using `plot_scatter_alignment_exposure()`
-#'
 #' @param data data.frame. Holds net aggregated alignment metrics on the loan
 #'   book level. Must contain columns: `"scenario"`, `"region"`,
 #'   `"sector"`, `"year"`, `"exposure_weighted_net_alignment"`,
@@ -15,10 +13,11 @@
 #'   Defaults to `"benchmark"`.
 #'
 #' @return data.frame
+#'
 #' @export
 #'
-#' @examples
-#' # TODO
+#' @rdname plot_scatter_alignment_exposure
+
 prep_scatter_alignment_exposure <- function(data,
                                             year,
                                             region,
