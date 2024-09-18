@@ -32,8 +32,8 @@ run_aggregate_alignment_metric <- function(config) {
   # load input data----
   region_isos_select <- r2dii.data::region_isos %>%
     dplyr::filter(
-      .data$source == .env$scenario_source_input,
-      .data$region %in% .env$region_select
+      .data[["source"]] == .env[["scenario_source_input"]],
+      .data[["region"]] %in% .env[["region_select"]]
     )
 
   scenario_input_tms <- readr::read_csv(
@@ -74,27 +74,27 @@ run_aggregate_alignment_metric <- function(config) {
   increasing_or_decreasing_aggregate_alignment <- r2dii.data::increasing_or_decreasing %>%
     dplyr::mutate(
       increasing_or_decreasing = dplyr::if_else(
-        .data$technology %in% c("hydrocap", "nuclearcap"),
+        .data[["technology"]] %in% c("hydrocap", "nuclearcap"),
         "decreasing",
-        .data$increasing_or_decreasing
+        .data[["increasing_or_decreasing"]]
       )
     )
 
   # define if technologies should be treated as build out or phase down in the
   # aggregation
   technology_direction <- scenario_input_tms %>%
-    dplyr::filter(.data$year %in% c(.env$start_year, .env$start_year + .env$time_frame)) %>%
+    dplyr::filter(.data[["year"]] %in% c(.env[["start_year"]], .env[["start_year"]] + .env[["time_frame"]])) %>%
     dplyr::distinct(
-      .data$scenario_source,
-      .data$scenario,
-      .data$sector,
-      .data$technology,
-      .data$region
+      .data[["scenario_source"]],
+      .data[["scenario"]],
+      .data[["sector"]],
+      .data[["technology"]],
+      .data[["region"]]
     ) %>%
     dplyr::inner_join(r2dii.data::increasing_or_decreasing, by = c("sector", "technology")) %>%
     dplyr::mutate(
       directional_dummy = dplyr::if_else(
-        .data$increasing_or_decreasing == "increasing",
+        .data[["increasing_or_decreasing"]] == "increasing",
         1,
         -1
       )
@@ -172,7 +172,7 @@ run_aggregate_alignment_metric <- function(config) {
   )
 
   sda_result_for_aggregation <- sda_result_for_aggregation %>%
-    dplyr::filter(.data$year >= .env$start_year)
+    dplyr::filter(.data[["year"]] >= .env[["start_year"]])
 
   ## aggregate SDA P4B results to company level alignment metric----
   company_alignment_net_sda <- sda_result_for_aggregation %>%
@@ -205,13 +205,13 @@ run_aggregate_alignment_metric <- function(config) {
       by_group <- glue::glue("_by_{paste(.by, collapse = \"_\")}")
     }
 
-    data$company %>%
+    data[["company"]] %>%
       readr::write_csv(
         file = file.path(output_dir, glue::glue("company_exposure_{level}_aggregate_alignment{by_group}.csv")),
         na = ""
       )
 
-    data$aggregate %>%
+    data[["aggregate"]] %>%
       readr::write_csv(
         file = file.path(output_dir, glue::glue("loanbook_exposure_{level}_aggregate_alignment{by_group}.csv")),
         na = ""

@@ -48,8 +48,8 @@ run_pacta <- function(config) {
   # load input data----
   region_isos_select <- r2dii.data::region_isos %>%
     dplyr::filter(
-      .data$source == .env$scenario_source_input,
-      .data$region %in% .env$region_select
+      .data[["source"]] == .env[["scenario_source_input"]],
+      .data[["region"]] %in% .env[["region_select"]]
     )
 
   scenario_input_tms <- readr::read_csv(
@@ -109,7 +109,7 @@ run_pacta <- function(config) {
         co2_intensity_scenario = scenario_input_sda,
         region_isos = region_isos_select
       ) %>%
-      dplyr::mutate("{by_group}" := .env$i)
+      dplyr::mutate("{by_group}" := .env[["i"]])
 
     results_sda_total <- results_sda_total %>%
       dplyr::bind_rows(results_sda_i)
@@ -139,7 +139,7 @@ run_pacta <- function(config) {
         scenario = scenario_input_tms,
         region_isos = region_isos_select
       ) %>%
-      dplyr::mutate("{by_group}" := .env$i)
+      dplyr::mutate("{by_group}" := .env[["i"]])
 
     results_tms_total <- results_tms_total %>%
       dplyr::bind_rows(results_tms_i)
@@ -168,7 +168,7 @@ run_pacta <- function(config) {
       dplyr::filter(
         .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data$metric),
+        grepl(.env[["scenario_select"]], .data[["metric"]]),
         .data[["region"]] == .env[["region_select"]],
         .data[["sector"]] == .env[["sector_select"]]
       ) %>%
@@ -199,7 +199,7 @@ run_pacta <- function(config) {
       dplyr::filter(
         .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data$metric),
+        grepl(.env[["scenario_select"]], .data[["metric"]]),
         .data[["region"]] == .env[["region_select"]],
         .data[["sector"]] == .env[["sector_select"]]
       ) %>%
@@ -230,7 +230,7 @@ run_pacta <- function(config) {
       dplyr::filter(
         .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data$metric),
+        grepl(.env[["scenario_select"]], .data[["metric"]]),
         .data[["region"]] == .env[["region_select"]],
         .data[["sector"]] == .env[["sector_select"]]
       ) %>%
@@ -261,7 +261,7 @@ run_pacta <- function(config) {
       dplyr::filter(
         .data[[by_group]] == .env[["tms_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data$metric),
+        grepl(.env[["scenario_select"]], .data[["metric"]]),
         .data[["region"]] == .env[["region_select"]],
         .data[["sector"]] == .env[["sector_select"]]
       ) %>%
@@ -293,7 +293,7 @@ run_pacta <- function(config) {
       dplyr::filter(
         .data[[by_group]] == .env[["sda_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data$emission_factor_metric),
+        grepl(.env[["scenario_select"]], .data[["emission_factor_metric"]]),
         .data[["region"]] == .env[["region_select"]],
         .data[["sector"]] == .env[["sector_select"]]
       ) %>%
@@ -324,7 +324,7 @@ run_pacta <- function(config) {
       dplyr::filter(
         .data[[by_group]] == .env[["sda_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data$emission_factor_metric),
+        grepl(.env[["scenario_select"]], .data[["emission_factor_metric"]]),
         .data[["region"]] == .env[["region_select"]],
         .data[["sector"]] == .env[["sector_select"]]
       ) %>%
@@ -355,7 +355,7 @@ run_pacta <- function(config) {
       dplyr::filter(
         .data[[by_group]] == .env[["sda_i"]],
         .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data$emission_factor_metric),
+        grepl(.env[["scenario_select"]], .data[["emission_factor_metric"]]),
         .data[["region"]] == .env[["region_select"]],
         .data[["sector"]] == .env[["sector_select"]]
       ) %>%

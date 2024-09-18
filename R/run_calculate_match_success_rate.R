@@ -73,8 +73,8 @@ run_calculate_match_success_rate <- function(config) {
 
   raw_lbk <- raw_lbk %>%
     dplyr::mutate(
-      group_id = gsub(glue::glue("{dir_raw}/"), "", .data$group_id),
-      group_id = gsub(".csv", "", .data$group_id)
+      group_id = gsub(glue::glue("{dir_raw}/"), "", .data[["group_id"]]),
+      group_id = gsub(".csv", "", .data[["group_id"]])
     )
 
   ## load matched prioritized loan books----
@@ -105,7 +105,7 @@ run_calculate_match_success_rate <- function(config) {
       col_select = dplyr::all_of(col_select_sector_classification)
     )
   } else {
-    sector_classifications_used <- unique(raw_lbk$sector_classification_system)
+    sector_classifications_used <- unique(raw_lbk[["sector_classification_system"]])
 
     if (length(sector_classifications_used) != 1) {
       cli::cli_abort(
@@ -118,7 +118,7 @@ run_calculate_match_success_rate <- function(config) {
     }
 
     sector_classification_system <- r2dii.data::sector_classifications %>%
-      dplyr::filter(.data$code_system == .env$sector_classifications_used)
+      dplyr::filter(.data[["code_system"]] == .env[["sector_classifications_used"]])
   }
 
   ## remove misclassified loans----
@@ -159,7 +159,7 @@ run_calculate_match_success_rate <- function(config) {
   )
 
   # plot match success rate----
-  plot_match_success_currency <- unique(raw_lbk$loan_size_outstanding_currency)
+  plot_match_success_currency <- unique(raw_lbk[["loan_size_outstanding_currency"]])
 
   ## plot relative match success rates for individual loan books----
   plot_match_success_rate_rel_n_ind <- data_lbk_match_success_rate %>%
