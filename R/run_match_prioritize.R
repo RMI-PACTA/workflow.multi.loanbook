@@ -52,7 +52,7 @@ run_match_prioritize <- function(config) {
     file = file.path(dir_matched, list_matched_manual),
     col_types = col_types_matched_manual
   ) %>%
-    dplyr::group_split(.data$group_id)
+    dplyr::group_split(.data[["group_id"]])
 
   ## optional: load sector split----
   if (apply_sector_split & sector_split_type_select == "equal_weights") {
@@ -69,12 +69,12 @@ run_match_prioritize <- function(config) {
 
   # prioritize and save files----
   for (i in seq_along(matched_lbk_manual)) {
-    group_name <- unique(matched_lbk_manual[[i]]$group_id)
+    group_name <- unique(matched_lbk_manual[[i]][["group_id"]])
 
     ## prioritize matched loan book----
     matched_prio_i <- matched_lbk_manual[[i]] %>%
       r2dii.match::prioritize(priority = match_prio_priority) %>%
-      dplyr::mutate(group_id = .env$group_name)
+      dplyr::mutate(group_id = .env[["group_name"]])
 
     # optional: apply sector split----
     if (apply_sector_split & sector_split_type_select == "equal_weights") {
@@ -88,7 +88,7 @@ run_match_prioritize <- function(config) {
     ## ensure that id_loan is unique across all loan books----
     matched_prio_i <- matched_prio_i %>%
       dplyr::mutate(
-        id_loan = paste(.data$id_loan, .data$group_id, sep = "_")
+        id_loan = paste(.data[["id_loan"]], .data[["group_id"]], sep = "_")
       )
 
     ## write matched prioritized loan book to file----

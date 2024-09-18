@@ -295,12 +295,12 @@ test_that("calculate_company_aggregate_alignment_tms returns expected directions
 # number of units analysed
 n_groups_net <- test_data_calculate_company_aggregate_alignment_tms %>%
   dplyr::distinct(
-    .data$name_abcd,
-    .data$scenario_source,
-    .data$region,
-    .data$year,
-    .data$sector,
-    .data$activity_unit
+    .data[["name_abcd"]],
+    .data[["scenario_source"]],
+    .data[["region"]],
+    .data[["year"]],
+    .data[["sector"]],
+    .data[["activity_unit"]]
   ) %>%
   nrow()
 
@@ -447,12 +447,12 @@ test_output_fill_missing_direction <- fill_missing_direction(
 # number of units of analysis
 n_units <- test_data_fill_missing_direction %>%
   dplyr::distinct(
-    .data$name_abcd,
-    .data$scenario_source,
-    .data$region,
-    .data$year,
-    .data$sector,
-    .data$activity_unit
+    .data[["name_abcd"]],
+    .data[["scenario_source"]],
+    .data[["region"]],
+    .data[["year"]],
+    .data[["sector"]],
+    .data[["activity_unit"]]
   ) %>%
   nrow()
 
@@ -492,11 +492,11 @@ expected_output_columns <- expected_output_columns[!expected_output_columns %in%
 
 expected_output_rows <- test_data_calculate_company_aggregate_alignment_sda %>%
   dplyr::distinct(
-    .data$sector,
-    .data$year,
-    .data$region,
-    .data$scenario_source,
-    .data$name_abcd
+    .data[["sector"]],
+    .data[["year"]],
+    .data[["region"]],
+    .data[["scenario_source"]],
+    .data[["name_abcd"]]
   ) %>%
   nrow()
 
@@ -593,9 +593,9 @@ test_that("output columns replace emission_factor_* cols with projected and targ
 test_nrows <- nrow(test_output_prep_and_wrangle_aggregate_alignment_sda_1)
 expected_nrows <- test_data_prep_and_wrangle_aggregate_alignment_sda_1 %>%
   dplyr::distinct(
-    .data$scenario_source,
-    .data$name_abcd,
-    .data$year
+    .data[["scenario_source"]],
+    .data[["name_abcd"]],
+    .data[["year"]]
   ) %>%
   nrow()
 
@@ -630,8 +630,8 @@ test_output_prep_and_wrangle_aggregate_alignment_sda_2 <- prep_and_wrangle_aggre
 
 test_output_years <- unique(test_output_prep_and_wrangle_aggregate_alignment_sda_2$year)
 expected_output_year <- test_data_prep_and_wrangle_aggregate_alignment_sda_2 %>%
-  dplyr::filter(dplyr::between(.data$year, test_start_year, test_start_year + test_time_frame_short)) %>%
-  dplyr::pull(.data$year) %>%
+  dplyr::filter(dplyr::between(.data[["year"]], test_start_year, test_start_year + test_time_frame_short)) %>%
+  dplyr::pull(.data[["year"]]) %>%
   unique()
 
 test_that("years outside of start_year and start_year + time_frame are dropped", {

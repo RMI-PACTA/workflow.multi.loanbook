@@ -24,9 +24,9 @@ plot_match_success_rate <- function(data,
   stop_if_not_inherits(currency, "character")
 
   data <- data %>%
-    dplyr::filter(.data$sector != "not in scope") %>%
-    dplyr::filter(.data$metric_type == .env$metric_type) %>%
-    dplyr::filter(.data$match_success_type == .env$match_success_type)
+    dplyr::filter(.data[["sector"]] != "not in scope") %>%
+    dplyr::filter(.data[["metric_type"]] == .env[["metric_type"]]) %>%
+    dplyr::filter(.data[["match_success_type"]] == .env[["match_success_type"]])
 
   # plot design
   fill_scale <- c(
@@ -139,30 +139,30 @@ generate_individual_outputs <- function(data,
 
   data <- data %>%
     dplyr::filter(
-      .data[[by_group]] == .env$by_group_value,
-      .data[["scenario_source"]] == .env$scenario_source,
-      .data[["region"]] == .env$region,
-      .data[["sector"]] %in% .env$sector
+      .data[[by_group]] == .env[["by_group_value"]],
+      .data[["scenario_source"]] == .env[["scenario_source"]],
+      .data[["region"]] == .env[["region"]],
+      .data[["sector"]] %in% .env[["sector"]]
     )
 
   matched_prioritized <- matched_prioritized %>%
     dplyr::filter(
-      .data[[by_group]] == .env$by_group_value,
-      .data[["sector"]] %in% .env$sector
+      .data[[by_group]] == .env[["by_group_value"]],
+      .data[["sector"]] %in% .env[["sector"]]
     )
 
   if (target_type == "tms") {
     # plot tech mix for given sector
     data_techmix <- data %>%
       dplyr::filter(
-        .data[["metric"]] %in% c("projected", "corporate_economy", .env$target_scenario),
-        dplyr::between(.data[["year"]], .env$start_year, .env$start_year + .env$time_horizon)
+        .data[["metric"]] %in% c("projected", "corporate_economy", .env[["target_scenario"]]),
+        dplyr::between(.data[["year"]], .env[["start_year"]], .env[["start_year"]] + .env[["time_horizon"]])
       ) %>%
       dplyr::mutate(
         label = dplyr::case_when(
           .data[["metric"]] == "projected" ~ "Portfolio",
           .data[["metric"]] == "corporate_economy" ~ "Corporate Economy",
-          .data[["metric"]] == .env$target_scenario ~ glue::glue("{r2dii.plot::to_title(toupper(.env$scenario))} Scenario")
+          .data[["metric"]] == .env[["target_scenario"]] ~ glue::glue("{r2dii.plot::to_title(toupper(.env$scenario))} Scenario")
         )
       ) %>%
       r2dii.plot::prep_techmix(
@@ -207,13 +207,13 @@ generate_individual_outputs <- function(data,
 
     # plot trajectory charts for all available techs in given sector
     technologies_in_sector <- r2dii.data::increasing_or_decreasing %>%
-      dplyr::filter(.data[["sector"]] == .env$sector) %>%
+      dplyr::filter(.data[["sector"]] == .env[["sector"]]) %>%
       dplyr::pull(.data[["technology"]])
 
     technologies_to_plot <- data %>%
       dplyr::filter(
-        .data[["metric"]] == .env$target_scenario,
-        .data[["technology"]] %in% .env$technologies_in_sector
+        .data[["metric"]] == .env[["target_scenario"]],
+        .data[["technology"]] %in% .env[["technologies_in_sector"]]
       ) %>%
       dplyr::distinct(.data[["technology"]]) %>%
       dplyr::arrange(.data[["technology"]]) %>%
@@ -222,8 +222,8 @@ generate_individual_outputs <- function(data,
     for (i in 1:length(technologies_to_plot)) {
       data_trajectory <- data %>%
         dplyr::filter(
-          .data[["technology"]] == .env$technologies_to_plot[i],
-          dplyr::between(.data[["year"]], .env$start_year, .env$start_year + .env$time_horizon)
+          .data[["technology"]] == .env[["technologies_to_plot"]][i],
+          dplyr::between(.data[["year"]], .env[["start_year"]], .env[["start_year"]] + .env[["time_horizon"]])
         ) %>%
         r2dii.plot::prep_trajectory(
           convert_label = r2dii.plot::recode_metric_trajectory,
@@ -271,15 +271,15 @@ generate_individual_outputs <- function(data,
       dplyr::filter(
         dplyr::between(
           .data[["year"]],
-          .env$start_year,
-          .env$start_year + .env$time_horizon)
+          .env[["start_year"]],
+          .env[["start_year"]] + .env[["time_horizon"]])
       ) %>%
       dplyr::filter(
         .data[["emission_factor_metric"]] %in% c(
           "projected",
           "corporate_economy",
-          .env$target_scenario,
-          .env$adjusted_scenario
+          .env[["target_scenario"]],
+          .env[["adjusted_scenario"]]
         )
       ) %>%
       dplyr::mutate(
@@ -288,8 +288,8 @@ generate_individual_outputs <- function(data,
           levels = c(
             "projected",
             "corporate_economy",
-            .env$target_scenario,
-            .env$adjusted_scenario
+            .env[["target_scenario"]],
+            .env[["adjusted_scenario"]]
           )
         )
       ) %>%
@@ -350,7 +350,7 @@ generate_individual_outputs <- function(data,
     dplyr::select(
       dplyr::all_of(
         c(
-          .env$by_group, "name_abcd", "sector_abcd", "loan_size_outstanding",
+          .env[["by_group"]], "name_abcd", "sector_abcd", "loan_size_outstanding",
           "loan_size_outstanding_currency", "loan_size_credit_limit",
           "loan_size_credit_limit_currency"
         )

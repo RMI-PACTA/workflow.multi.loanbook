@@ -35,7 +35,7 @@ run_calculate_loanbook_coverage <- function(config) {
   abcd["production"][is.na(abcd["production"])] <- 0
 
   # filter to start year as we calculate coverage in start year
-  abcd <- dplyr::filter(abcd, .data$year == .env$start_year)
+  abcd <- dplyr::filter(abcd, .data[["year"]] == .env[["start_year"]])
 
   ## read matched prioritized loan books----
   list_matched_prioritized <- list.files(path = dir_matched, pattern = "^matched_prio_.*csv$")
@@ -51,18 +51,17 @@ run_calculate_loanbook_coverage <- function(config) {
   # TODO: decide if this should be removed from outputs
   if (is.null(by_group)) {
     by_group <- "meta"
-    matched_prioritized <- matched_prioritized %>%
-      dplyr::mutate(meta = "meta")
+    matched_prioritized <- dplyr::mutate(.data = matched_prioritized, meta = "meta")
   }
 
   matched_companies <- matched_prioritized %>%
     dplyr::distinct(
       .data[[by_group]],
-      .data$name_abcd,
-      .data$sector_abcd,
-      .data$loan_size_outstanding,
-      .data$loan_size_outstanding_currency,
-      .data$score
+      .data[["name_abcd"]],
+      .data[["sector_abcd"]],
+      .data[["loan_size_outstanding"]],
+      .data[["loan_size_outstanding_currency"]],
+      .data[["score"]]
     )
 
   ## get required countries for region_select----
@@ -70,33 +69,33 @@ run_calculate_loanbook_coverage <- function(config) {
 
   region_isos_select <- region_isos_complete %>%
     dplyr::filter(
-      .data$source == .env$scenario_source_input
+      .data[["source"]] == .env[["scenario_source_input"]]
     )
 
   # create summary of loan book coverage----
   # coverage of production by companies in loan books compared to total production
   # calculate summary stats for each available region
 
-  available_regions <- unique(region_isos_select$region)
+  available_regions <- unique(region_isos_select[["region"]])
 
   production_coverage_summary <- NULL
 
   for (region_i in available_regions) {
     countries_select_i <- region_isos_select %>%
-      dplyr::filter(.data$region == .env$region_i) %>%
-      dplyr::pull(.data$isos) %>%
+      dplyr::filter(.data[["region"]] == .env[["region_i"]]) %>%
+      dplyr::pull(.data[["isos"]]) %>%
       toupper()
 
     # get total production and average emission intensity for each relevant region for all companies
     production_coverage_summary_i <- abcd %>%
-      dplyr::filter(.data$plant_location %in% .env$countries_select_i) %>%
+      dplyr::filter(.data[["plant_location"]] %in% .env[["countries_select_i"]]) %>%
       dplyr::summarise(
         emission_factor = stats::weighted.mean(
-          x = .data$emission_factor,
-          w = .data$production,
+          x = .data[["emission_factor"]],
+          w = .data[["production"]],
           na.rm = TRUE
         ),
-        production = sum(.data$production, na.rm = TRUE),
+        production = sum(.data[["production"]], na.rm = TRUE),
         .by = c(
           "company_id",
           "name_company",
@@ -124,11 +123,11 @@ run_calculate_loanbook_coverage <- function(config) {
     # calculate summary statistics
     production_coverage_summary_i <- production_coverage_summary_i %>%
       dplyr::mutate(
-        financed_production = dplyr::if_else(.data$score == 1, .data$production, 0),
-        matched_company = dplyr::if_else(.data$score == 1, .data$name_company, NA_character_)
+        financed_production = dplyr::if_else(.data[["score"]] == 1, .data[["production"]], 0),
+        matched_company = dplyr::if_else(.data[["score"]] == 1, .data[["name_company"]], NA_character_)
       ) %>%
       dplyr::mutate(
-        matched_rows_company_sector = sum(.data$score, na.rm = TRUE),
+        matched_rows_company_sector = sum(.data[["score"]], na.rm = TRUE),
         .by = dplyr::all_of(
           c(
             by_group,
@@ -138,14 +137,14 @@ run_calculate_loanbook_coverage <- function(config) {
         )
       ) %>%
       dplyr::mutate(
-        n_companies_total = dplyr::n_distinct(.data$name_company, na.rm = TRUE),
-        production_total = sum(.data$production, na.rm = TRUE),
+        n_companies_total = dplyr::n_distinct(.data[["name_company"]], na.rm = TRUE),
+        production_total = sum(.data[["production"]], na.rm = TRUE),
         .by = c("sector")
       ) %>%
       dplyr::summarise(
-        total_exposure = sum(.data$loan_size_outstanding / .data$matched_rows_company_sector, na.rm = TRUE),
-        n_companies_matched = dplyr::n_distinct(.data$matched_company, na.rm = TRUE),
-        production_financed = sum(.data$financed_production, na.rm = TRUE),
+        total_exposure = sum(.data[["loan_size_outstanding"]] / .data[["matched_rows_company_sector"]], na.rm = TRUE),
+        n_companies_matched = dplyr::n_distinct(.data[["matched_company"]], na.rm = TRUE),
+        production_financed = sum(.data[["financed_production"]], na.rm = TRUE),
         .by = dplyr::all_of(
           c(
             by_group,
@@ -156,9 +155,9 @@ run_calculate_loanbook_coverage <- function(config) {
         )
       ) %>%
       dplyr::mutate(
-        share_companies_matched = .data$n_companies_matched / .data$n_companies_total,
-        share_production_financed = .data$production_financed / .data$production_total,
-        region = .env$region_i
+        share_companies_matched = .data[["n_companies_matched"]] / .data[["n_companies_total"]],
+        share_production_financed = .data[["production_financed"]] / .data[["production_total"]],
+        region = .env[["region_i"]]
       )
 
     # remove entries that were not matched to any loan book AFTER calculating
