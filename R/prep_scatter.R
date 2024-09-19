@@ -1,5 +1,3 @@
-#' Prepare data to plot scatterplot
-#'
 #' @param data_bopo data.frame. Data containing buildout and phaseout alignment
 #'   values. Must contain columns: `'year'`, `'sector'`, `'region'`,
 #'   `'direction'` and either `'name_abcd'` and `'alignment_metric'` or
@@ -17,10 +15,11 @@
 #' @param groups_to_plot Character vector. Groups to filter on.
 #'
 #' @return data.frame
+#'
 #' @export
 #'
-#' @examples
-#' # TODO
+#' @rdname plot_scatter
+
 prep_scatter <- function(data_bopo,
                          data_net,
                          data_level = c("group_var", "company"),
