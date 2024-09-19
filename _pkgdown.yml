@@ -2,6 +2,22 @@ url: https://rmi-pacta.github.io/pacta.multi.loanbook/
 template:
   package: pacta.pkgdown.rmitemplate
 
+reference:
+- title: Analysis
+  desc:  Run the analysis.
+- contents:
+  - run_pacta
+
+- title: Plotting
+  desc:  Make plots with the results of the analysis.
+- contents:
+  - starts_with("plot_|prep_")
+
+- title: Data
+  desc:  Datasets that are included.
+- contents:
+  - has_keyword("datasets")
+
 articles:
 - title: Methodology
   navbar: Methodology
