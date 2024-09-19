@@ -422,10 +422,10 @@ might look like:</p>
 <span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="at">      </span><span class="fu">p</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
 <span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a><span class="at">      </span><span class="fu">overwrite</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
 <span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
-<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a><span class="at">    </span><span class="fu">own_sector_classification</span><span class="kw">:</span></span>
-<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
-<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span>
-<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a><span class="at">    </span><span class="fu">manual_sector_classification</span><span class="kw">:</span></span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a><span class="at">      </span><span class="fu">use_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/manual_sector_classification_folder"</span></span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"manual_sector_classification.csv"</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="params_match_name">params_match_name:<a class="anchor" aria-label="anchor" href="#params_match_name"></a>
 </h4>
@@ -524,18 +524,18 @@ As an example:</p>
 </div>
 </div>
 <div class="section level4">
-<h4 id="own_sector_classification">own_sector_classification:<a class="anchor" aria-label="anchor" href="#own_sector_classification"></a>
+<h4 id="manual_sector_classification">manual_sector_classification:<a class="anchor" aria-label="anchor" href="#manual_sector_classification"></a>
 </h4>
-<p>A full example <code class="sourceCode yaml"><span class="at">own_sector_classification</span></code>
+<p>A full example <code class="sourceCode yaml"><span class="at">manual_sector_classification</span></code>
 section might look like:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="at">    </span><span class="fu">own_sector_classification</span><span class="kw">:</span></span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span>
-<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="at">    </span><span class="fu">manual_sector_classification</span><span class="kw">:</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="at">      </span><span class="fu">use_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/manual_sector_classification_folder"</span></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"manual_sector_classification.csv"</span></span></code></pre></div>
 <div class="section level5">
-<h5 id="use_own_sector_classification">use_own_sector_classification<a class="anchor" aria-label="anchor" href="#use_own_sector_classification"></a>
+<h5 id="use_manual_sector_classification">use_manual_sector_classification<a class="anchor" aria-label="anchor" href="#use_manual_sector_classification"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">use_own_sector_classification</span></code>
+<p><code class="sourceCode yaml"><span class="at">use_manual_sector_classification</span></code>
 determines if the matching should use an internally provided sector
 classification system or if it should use one provided by the user
 instead. Internal sector classification systems are given in
@@ -549,25 +549,25 @@ must be prepared following the same structure as found in
 <code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code>. It must be a single
 logical value (either <code class="sourceCode yaml"><span class="ch">TRUE</span></code> or <code class="sourceCode yaml"><span class="ch">FALSE</span></code>). As an
 example:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="at">      </span><span class="fu">use_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="at">      </span><span class="fu">use_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span></code></pre></div>
 </div>
 <div class="section level5">
-<h5 id="dir_own_sector_classification">dir_own_sector_classification<a class="anchor" aria-label="anchor" href="#dir_own_sector_classification"></a>
+<h5 id="dir_manual_sector_classification">dir_manual_sector_classification<a class="anchor" aria-label="anchor" href="#dir_manual_sector_classification"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">dir_own_sector_classification</span></code>
+<p><code class="sourceCode yaml"><span class="at">dir_manual_sector_classification</span></code>
 is a path to a directory that contains the manual sector classification
 CSV. It must be a single string/character value, and it must refer to a
 valid, accessible, local directory. As an example:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/own_sector_classification_folder"</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/manual_sector_classification_folder"</span></span></code></pre></div>
 </div>
 <div class="section level5">
-<h5 id="filename_own_sector_classification">filename_own_sector_classification<a class="anchor" aria-label="anchor" href="#filename_own_sector_classification"></a>
+<h5 id="filename_manual_sector_classification">filename_manual_sector_classification<a class="anchor" aria-label="anchor" href="#filename_manual_sector_classification"></a>
 </h5>
-<p><code class="sourceCode yaml"><span class="at">filename_own_sector_classification</span></code>
+<p><code class="sourceCode yaml"><span class="at">filename_manual_sector_classification</span></code>
 is the filename of the CSV that contains the manual sector
 classification data. It must be a single string/character value, and it
 must refer to a valid, accessible, local file. As an example:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_own_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"own_sector_classification.csv"</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"manual_sector_classification.csv"</span></span></code></pre></div>
 </div>
 </div>
 </div>
