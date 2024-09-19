@@ -4,9 +4,9 @@ run_calculate_match_success_rate <- function(config) {
   dir_raw <- get_raw_dir(config)
   dir_matched <- get_matched_dir(config)
 
-  matching_use_own_sector_classification <- get_use_maunal_sector_classification(config)
-  if (matching_use_own_sector_classification) {
-    path_own_sector_classification <- get_manual_sector_classification_path(config)
+  matching_use_manual_sector_classification <- get_use_maunal_sector_classification(config)
+  if (matching_use_manual_sector_classification) {
+    path_manual_sector_classification <- get_manual_sector_classification_path(config)
   }
 
   by_group <- get_by_group(config)
@@ -27,14 +27,14 @@ run_calculate_match_success_rate <- function(config) {
   stop_if_not_inherits(dir_matched, "character")
   stop_if_dir_not_found(dir_matched, desc = "Matched loanbook")
 
-  stop_if_not_length(matching_use_own_sector_classification, 1L)
-  stop_if_not_inherits(matching_use_own_sector_classification, "logical")
+  stop_if_not_length(matching_use_manual_sector_classification, 1L)
+  stop_if_not_inherits(matching_use_manual_sector_classification, "logical")
 
-  # path to own sector classification only required if boolean TRUE
-  if (matching_use_own_sector_classification) {
-    stop_if_not_length(path_own_sector_classification, 1L)
-    stop_if_not_inherits(path_own_sector_classification, "character")
-    stop_if_file_not_found(path_own_sector_classification, desc = "Manual sector classification")
+  # path to manual sector classification only required if boolean TRUE
+  if (matching_use_manual_sector_classification) {
+    stop_if_not_length(path_manual_sector_classification, 1L)
+    stop_if_not_inherits(path_manual_sector_classification, "character")
+    stop_if_file_not_found(path_manual_sector_classification, desc = "Manual sector classification")
   }
 
   stop_if_not_length(match_success_rate_plot_width, 1L)
@@ -98,9 +98,9 @@ run_calculate_match_success_rate <- function(config) {
   }
 
   ## load classification system----
-  if (matching_use_own_sector_classification) {
+  if (matching_use_manual_sector_classification) {
     sector_classification_system <- readr::read_csv(
-      file = path_own_sector_classification,
+      file = path_manual_sector_classification,
       col_types = col_types_sector_classification,
       col_select = dplyr::all_of(col_select_sector_classification)
     )
