@@ -13,7 +13,7 @@ run_matching <- function(config) {
   matching_overwrite <- get_match_overwrite(config)
   matching_join_id <- get_match_join_id(config)
 
-  matching_use_manual_sector_classification <- get_use_maunal_sector_classification(config)
+  matching_use_manual_sector_classification <- get_use_manual_sector_classification(config)
   if (matching_use_manual_sector_classification) {
     path_manual_sector_classification <- get_manual_sector_classification_path(config)
   }
