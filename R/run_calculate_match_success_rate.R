@@ -4,7 +4,7 @@ run_calculate_match_success_rate <- function(config) {
   dir_raw <- get_raw_dir(config)
   dir_matched <- get_matched_dir(config)
 
-  matching_use_manual_sector_classification <- get_use_maunal_sector_classification(config)
+  matching_use_manual_sector_classification <- get_use_manual_sector_classification(config)
   if (matching_use_manual_sector_classification) {
     path_manual_sector_classification <- get_manual_sector_classification_path(config)
   }

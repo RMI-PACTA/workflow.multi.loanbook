@@ -119,7 +119,7 @@ get_sector_split_type <- function(params) {
   params[["sector_split"]][["sector_split_type"]]
 }
 
-get_use_maunal_sector_classification <- function(params) {
+get_use_manual_sector_classification <- function(params) {
   params[["matching"]][["manual_sector_classification"]][["use_manual_sector_classification"]]
 }
 
