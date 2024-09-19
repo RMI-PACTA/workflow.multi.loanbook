@@ -2,7 +2,7 @@
 title: Configuring the application
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{config_yml}
+  %\VignetteIndexEntry{Configuring the application}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
