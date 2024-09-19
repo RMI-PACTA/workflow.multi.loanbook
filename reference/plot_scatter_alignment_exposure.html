@@ -45,7 +45,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot alignment scatterplot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/plot_scatter_alignment_exposure.R" class="external-link"><code>R/plot_scatter_alignment_exposure.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/plot_scatter_alignment_exposure.R" class="external-link"><code>R/plot_scatter_alignment_exposure.R</code></a>, <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/prep_scatter_alignment_exposure.R" class="external-link"><code>R/prep_scatter_alignment_exposure.R</code></a></small>
       <div class="d-none name"><code>plot_scatter_alignment_exposure.Rd</code></div>
     </div>
 
@@ -61,6 +61,15 @@
 <span>  <span class="va">cap_outliers</span>,</span>
 <span>  <span class="va">group_var</span>,</span>
 <span>  <span class="va">currency</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">prep_scatter_alignment_exposure</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">year</span>,</span>
+<span>  <span class="va">region</span>,</span>
+<span>  <span class="va">scenario</span>,</span>
+<span>  <span class="va">group_var</span>,</span>
+<span>  exclude_groups <span class="op">=</span> <span class="st">"benchmark"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -69,9 +78,10 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>data.frame. Should have the same format as output of
-<code><a href="prep_scatter.html">prep_scatter()</a></code> and contain columns: <code>'name'</code>, <code>'buildout'</code>, <code>'phaseout'</code>,
-<code>'net'</code>, and any column implied by <code>group_var</code>.</p></dd>
+<dd><p>data.frame. Holds net aggregated alignment metrics on the loan
+book level. Must contain columns: <code>"scenario"</code>, <code>"region"</code>,
+<code>"sector"</code>, <code>"year"</code>, <code>"exposure_weighted_net_alignment"</code>,
+<code>"sum_loan_size_outstanding"</code> and any column implied by <code>group_var</code>.</p></dd>
 
 
 <dt id="arg-floor-outliers">floor_outliers<a class="anchor" aria-label="anchor" href="#arg-floor-outliers"></a></dt>
@@ -87,17 +97,37 @@ plot.</p></dd>
 
 
 <dt id="arg-group-var">group_var<a class="anchor" aria-label="anchor" href="#arg-group-var"></a></dt>
-<dd><p>Character. Character specifying the variable that contains
-the groups by which to analyse the loan books.</p></dd>
+<dd><p>Character. Vector of length 1. A column to group by. Must be
+available variables in <code>data</code>.</p></dd>
 
 
 <dt id="arg-currency">currency<a class="anchor" aria-label="anchor" href="#arg-currency"></a></dt>
 <dd><p>Character. Currency to display in the plot labels.</p></dd>
 
+
+<dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
+<dd><p>Integer. Year on which <code>data</code> should be filtered.</p></dd>
+
+
+<dt id="arg-region">region<a class="anchor" aria-label="anchor" href="#arg-region"></a></dt>
+<dd><p>Character. Region to filter <code>data</code> data frame on.</p></dd>
+
+
+<dt id="arg-scenario">scenario<a class="anchor" aria-label="anchor" href="#arg-scenario"></a></dt>
+<dd><p>Character. Scenario to filter <code>data</code> data frame on.</p></dd>
+
+
+<dt id="arg-exclude-groups">exclude_groups<a class="anchor" aria-label="anchor" href="#arg-exclude-groups"></a></dt>
+<dd><p>Character. Character specifying any values from
+<code>group_var</code> that should not be included in the analysis. This is useful to
+remove benchmarks that are not meant to be compared at the same level.
+Defaults to <code>"benchmark"</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>object of type "ggplot"</p>
+<p>data.frame</p>
     </div>
 
     <div class="section level2">
@@ -112,7 +142,7 @@ the groups by which to analyse the loan books.</p></dd>
     <footer><!-- begin footer --><div class="footer">
     <div class="container">
         <div class="row start top-4 bottom-8">
-            <div class="col-2"> <img id="footerlogo" src="../rmi_logo_stacked_tag_white.svg"></div>
+            <div class="col-2"> <img id="footerlogo" src="../rmi_logo_stacked_tag_white.svg" alt="RMI logo"></div>
             <div class="col-10">
                 <div class="row">
                     <div class="col-md-4 col-xs-6">

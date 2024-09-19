@@ -45,7 +45,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot alignment scatterplot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/plot_scatter_animated.R" class="external-link"><code>R/plot_scatter_animated.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/plot_scatter_animated.R" class="external-link"><code>R/plot_scatter_animated.R</code></a>, <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/prep_scatter_animated.R" class="external-link"><code>R/prep_scatter_animated.R</code></a></small>
       <div class="d-none name"><code>plot_scatter_animated.Rd</code></div>
     </div>
 
@@ -67,6 +67,16 @@
 <span>  alignment_limit <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  cap_outliers <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  floor_outliers <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">prep_scatter_animated</span><span class="op">(</span></span>
+<span>  <span class="va">data_bopo</span>,</span>
+<span>  <span class="va">data_net</span>,</span>
+<span>  data_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"group_var"</span>, <span class="st">"company"</span><span class="op">)</span>,</span>
+<span>  <span class="va">sector</span>,</span>
+<span>  <span class="va">region</span>,</span>
+<span>  <span class="va">group_var</span>,</span>
+<span>  groups_to_plot <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -76,17 +86,17 @@
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>data.frame. Should have the same format as output of
-<code><a href="prep_scatter_animated.html">prep_scatter_animated()</a></code> and contain columns: 'name', 'buildout',
+<code>prep_scatter_animated()</code> and contain columns: 'name', 'buildout',
 'phaseout', 'net' and 'year'.</p></dd>
 
 
 <dt id="arg-data-level">data_level<a class="anchor" aria-label="anchor" href="#arg-data-level"></a></dt>
-<dd><p>Character. Level of the plotted data. Can be 'group_var' or
-'company'.</p></dd>
+<dd><p>Character. Level of the plotted data. Can be <code>'group_var'</code> or
+<code>'company'</code>.</p></dd>
 
 
 <dt id="arg-sector">sector<a class="anchor" aria-label="anchor" href="#arg-sector"></a></dt>
-<dd><p>Character. Sector name to be used in the plot title.</p></dd>
+<dd><p>Character. Sector to filter data on.</p></dd>
 
 
 <dt id="arg-scenario-source">scenario_source<a class="anchor" aria-label="anchor" href="#arg-scenario-source"></a></dt>
@@ -99,7 +109,7 @@ caption.</p></dd>
 
 
 <dt id="arg-region">region<a class="anchor" aria-label="anchor" href="#arg-region"></a></dt>
-<dd><p>Character. Region to be used in the plot caption.</p></dd>
+<dd><p>Character. Region to filter data on.</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
@@ -127,10 +137,32 @@ plot.</p></dd>
 values in the data. Values smaller than floor are plotted on the border of
 the plot.</p></dd>
 
+
+<dt id="arg-data-bopo">data_bopo<a class="anchor" aria-label="anchor" href="#arg-data-bopo"></a></dt>
+<dd><p>data.frame. Data containing buildout and phaseout alignment
+values. Must contain columns: <code>'year'</code>, <code>'sector'</code>, <code>'region'</code>,
+<code>'direction'</code> and either <code>'name_abcd'</code> and <code>'alignment_metric'</code> or
+<code>'exposure_weighted_net_alignment'</code> plus any column implied by <code>group_var</code>.</p></dd>
+
+
+<dt id="arg-data-net">data_net<a class="anchor" aria-label="anchor" href="#arg-data-net"></a></dt>
+<dd><p>data.frame. Data containing net alignment values. Must
+contain columns: <code>group_var</code>, <code>'year'</code>, <code>'sector'</code>, <code>'region'</code>, <code>'direction'</code> and
+either <code>'name_abcd'</code> and <code>'alignment_metric'</code> or <code>'exposure_weighted_net_alignment'</code>.</p></dd>
+
+
+<dt id="arg-group-var">group_var<a class="anchor" aria-label="anchor" href="#arg-group-var"></a></dt>
+<dd><p>Character. Vector of length 1. Variable to group by.</p></dd>
+
+
+<dt id="arg-groups-to-plot">groups_to_plot<a class="anchor" aria-label="anchor" href="#arg-groups-to-plot"></a></dt>
+<dd><p>Character vector. Groups to filter on.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>object of type "plotly"</p>
+<p>data.frame</p>
     </div>
 
     <div class="section level2">
@@ -145,7 +177,7 @@ the plot.</p></dd>
     <footer><!-- begin footer --><div class="footer">
     <div class="container">
         <div class="row start top-4 bottom-8">
-            <div class="col-2"> <img id="footerlogo" src="../rmi_logo_stacked_tag_white.svg"></div>
+            <div class="col-2"> <img id="footerlogo" src="../rmi_logo_stacked_tag_white.svg" alt="RMI logo"></div>
             <div class="col-10">
                 <div class="row">
                     <div class="col-md-4 col-xs-6">

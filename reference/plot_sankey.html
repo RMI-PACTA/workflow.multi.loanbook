@@ -45,7 +45,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Make a sankey plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/plot_sankey.R" class="external-link"><code>R/plot_sankey.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/plot_sankey.R" class="external-link"><code>R/plot_sankey.R</code></a>, <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/R/prep_sankey.R" class="external-link"><code>R/prep_sankey.R</code></a></small>
       <div class="d-none name"><code>plot_sankey.Rd</code></div>
     </div>
 
@@ -62,6 +62,15 @@
 <span>  save_png_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  png_name <span class="op">=</span> <span class="st">"sankey.png"</span>,</span>
 <span>  nodes_order_from_data <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">prep_sankey</span><span class="op">(</span></span>
+<span>  <span class="va">data_alignment</span>,</span>
+<span>  <span class="va">region</span>,</span>
+<span>  <span class="va">year</span>,</span>
+<span>  <span class="va">group_var</span>,</span>
+<span>  <span class="va">middle_node</span>,</span>
+<span>  middle_node2 <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -71,7 +80,7 @@
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>data.frame. Should have the same format as output of
-<code><a href="prep_sankey.html">prep_sankey()</a></code> and contain columns: <code>"middle_node"</code>, optionally
+<code>prep_sankey()</code> and contain columns: <code>"middle_node"</code>, optionally
 <code>"middle_node2"</code>, <code>"is_aligned"</code>, <code>"loan_size_outstanding"</code>, and any column
 implied by <code>group_var</code>.</p></dd>
 
@@ -99,7 +108,35 @@ saved</p></dd>
 be determined by an algorithm (in case of big datasets often results in a
 better looking plot) or should they be ordered based on data.</p></dd>
 
+
+<dt id="arg-data-alignment">data_alignment<a class="anchor" aria-label="anchor" href="#arg-data-alignment"></a></dt>
+<dd><p>data.frame. Holds aggregated alignment metrics per
+company for tms sectors. Must contain columns: <code>"name_abcd"</code>,
+<code>"sector"</code> and any column implied by <code>group_var</code>.</p></dd>
+
+
+<dt id="arg-region">region<a class="anchor" aria-label="anchor" href="#arg-region"></a></dt>
+<dd><p>Character. Region to filter <code>data_alignment</code> data frame on.</p></dd>
+
+
+<dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
+<dd><p>Integer. Year on which <code>data_alignment</code> should be filtered.</p></dd>
+
+
+<dt id="arg-middle-node">middle_node<a class="anchor" aria-label="anchor" href="#arg-middle-node"></a></dt>
+<dd><p>Character. Column specifying the middle nodes to be
+plotted in sankey plot. Must be present in <code>data_alignment</code>.</p></dd>
+
+
+<dt id="arg-middle-node-">middle_node2<a class="anchor" aria-label="anchor" href="#arg-middle-node-"></a></dt>
+<dd><p>Character. Column specifying the middle nodes to be
+plotted in sankey plot. Must be present in <code>data_alignment</code>.</p></dd>
+
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>data.frame</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -113,7 +150,7 @@ better looking plot) or should they be ordered based on data.</p></dd>
     <footer><!-- begin footer --><div class="footer">
     <div class="container">
         <div class="row start top-4 bottom-8">
-            <div class="col-2"> <img id="footerlogo" src="../rmi_logo_stacked_tag_white.svg"></div>
+            <div class="col-2"> <img id="footerlogo" src="../rmi_logo_stacked_tag_white.svg" alt="RMI logo"></div>
             <div class="col-10">
                 <div class="row">
                     <div class="col-md-4 col-xs-6">
