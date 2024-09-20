@@ -320,16 +320,3 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
 plot_table(table)
 ```
-
-### Input data for animated buildout/phaseout scatter plot
-
-Data set meant to be used as input into `plot_scatter_animated()`.
-
-```{r dd_data_scatter_sector_animated, results = FALSE}
-dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector_animated")
-```
-
-```{r dd_data_scatter_sector_animated_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "dd_data_scatter_sector_animated")
-plot_table(table)
-```
