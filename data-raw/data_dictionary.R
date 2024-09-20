@@ -153,17 +153,6 @@ dd_data_scatter_sector <- dplyr::tribble(
   "data_scatter_sector", "datapoint", "character", "The level of the analysis, either group level or company level", "Must be one of: 'Group' or 'company'"
 )
 
-# TODO: currently the sector is only indicated by the file name, not by a column in the data
-dd_data_scatter_sector_animated <- dplyr::tribble(
-  ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_scatter_sector_animated", "name", "character", "Name of the entity to analyse. If analysed at group level, this variable contains the values of <by_group>. If analysed at company level, it contains the values of 'name_abcd'", "An identifying name of the entity",
-  "data_scatter_sector_animated", "year", "integer", "The year of the data", "A year between the 'start_year' of the analyis and the 'start_year' plus the 'time_frame'",
-  "data_scatter_sector_animated", "buildout", "character", "Net aggregate alignment value by sector, disaggregated to buildout technologies only", "Numerical value. Can be negative or positive",
-  "data_scatter_sector_animated", "phaseout", "character", "Net aggregate alignment value by sector, disaggregated to phaseout technologies only", "Numerical value. Can be negative or positive",
-  "data_scatter_sector_animated", "net", "character", "Net aggregate alignment value by sector of the entity analysed", "Numerical value. Can be negative or positive. Sum of the disaggregated components of 'buildout' and 'phaseout'",
-  "data_scatter_sector_animated", "datapoint", "character", "The level of the analysis, either group level or company level", "Must be one of: 'Group' or 'company'"
-)
-
 dd_tms_results <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "tms_results", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
@@ -293,7 +282,6 @@ data_dictionary <- dplyr::bind_rows(
   dd_data_sankey,
   dd_data_scatter_alignment_exposure,
   dd_data_scatter_sector,
-  dd_data_scatter_sector_animated,
   dd_tms_results,
   dd_sda_results,
   dd_data_tech_mix,
