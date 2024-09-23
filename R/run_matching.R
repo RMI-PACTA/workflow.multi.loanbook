@@ -25,6 +25,7 @@ run_matching <- function(config) {
   stop_if_not_length(abcd_dir, 1L)
   stop_if_not_inherits(abcd_dir, "character")
   stop_if_dir_not_found(abcd_dir, desc = "ABCD data")
+  stop_if_file_not_found(file.path(abcd_dir, "abcd_final.csv"), desc = "ABCD final")
 
   stop_if_not_length(dir_matched, 1L)
   stop_if_not_inherits(dir_matched, "character")
