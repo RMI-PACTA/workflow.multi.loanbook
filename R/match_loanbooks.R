@@ -1,7 +1,7 @@
 #' Match raw input loan books with ABCD for PACTA for Supervisors analysis
 #'
 #' @description
-#' `match()` runs the necessary steps to match the raw input loan books with the
+#' `match_loanbooks()` runs the necessary steps to match the raw input loan books with the
 #' asset based company data (ABCD) used in the PACTA for Supervisors analysis.
 #' Specifically, it prepares matched loan books based on name matching or direct
 #' identifiers, depending on the configuration. The output matched loan books
@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' # TODO
-match <- function(config) {
+match_loanbooks <- function(config) {
   config <- load_config(config)
 
   dir_raw <- get_raw_dir(config)

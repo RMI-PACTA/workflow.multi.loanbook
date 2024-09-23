@@ -2,7 +2,7 @@
 
 export(analyse)
 export(analyze)
-export(match)
+export(match_loanbooks)
 export(plot_sankey)
 export(plot_scatter)
 export(plot_scatter_alignment_exposure)
