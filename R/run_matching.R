@@ -2,8 +2,7 @@ run_matching <- function(config) {
   config <- load_config(config)
 
   dir_raw <- get_raw_dir(config)
-  path_abcd <- get_abcd_path(config)
-  sheet_abcd <- get_abcd_sheet(config)
+  abcd_dir <- get_abcd_dir(config)
   dir_matched <- get_matched_dir(config)
 
   matching_by_sector <- get_match_by_sector(config)
@@ -23,9 +22,10 @@ run_matching <- function(config) {
   stop_if_not_inherits(dir_raw, "character")
   stop_if_dir_not_found(dir_raw, desc = "Raw loanbook")
 
-  stop_if_not_length(path_abcd, 1L)
-  stop_if_not_inherits(path_abcd, "character")
-  stop_if_file_not_found(path_abcd, desc = "ABCD data")
+  stop_if_not_length(abcd_dir, 1L)
+  stop_if_not_inherits(abcd_dir, "character")
+  stop_if_dir_not_found(abcd_dir, desc = "ABCD data")
+  stop_if_file_not_found(file.path(abcd_dir, "abcd_final.csv"), desc = "ABCD final")
 
   stop_if_not_length(dir_matched, 1L)
   stop_if_not_inherits(dir_matched, "character")
@@ -64,8 +64,11 @@ run_matching <- function(config) {
   # load data----
 
   ## load abcd----
-  abcd <- read_abcd_raw(path_abcd, sheet_abcd)
-  stop_if_not_expected_columns(abcd, cols_abcd, desc = "ABCD")
+  abcd <- readr::read_csv(
+    file.path(abcd_dir, "abcd_final.csv"),
+    col_select = dplyr::all_of(cols_abcd),
+    col_types = col_types_abcd_final
+  )
 
   ## optionally load manual classification system----
   if (matching_use_manual_sector_classification) {
