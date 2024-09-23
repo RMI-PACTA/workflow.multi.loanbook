@@ -121,8 +121,8 @@ plot_sankey <- function(data,
 
   my_color <- 'd3.scaleOrdinal() .domain(["Not aligned", "Aligned", "Unknown", "other"]) .range(["#e10000","#3d8c40", "#808080", "#808080"])'
 
-  links$IDsource <- base::match(links$source, nodes$name) - 1
-  links$IDtarget <- base::match(links$target, nodes$name) - 1
+  links$IDsource <- match(links$source, nodes$name) - 1
+  links$IDtarget <- match(links$target, nodes$name) - 1
 
   if (nodes_order_from_data) {
     n_iter <- 0
