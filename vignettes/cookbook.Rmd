@@ -22,10 +22,10 @@ config_path <- "config.yml"
 
 # Data preparation
 
-The first step of the analysis is to prepare your input data sets for the requirements of the analysis. Your ABCD data will need to be prepared and you can optionally use a custom sector split, that will also need to be prepared. The relevant function is `prepare()`, which takes configurations from the `config.yml` that you have prepared. The function will store intermediary files in a sub-directory in your `output` folder. You can run this function as follows:
+The first step of the analysis is to prepare your input data sets for the requirements of the analysis. Your ABCD data will need to be prepared and you can optionally use a custom sector split, that will also need to be prepared. The relevant function is `prepare_abcd()`, which takes configurations from the `config.yml` that you have prepared. The function will store intermediary files in a sub-directory in your `output` folder. You can run this function as follows:
 
 ```r
-pacta.multi.loanbook::prepare(config_path)
+pacta.multi.loanbook::prepare_abcd(config_path)
 ```
 
 # Matching process
