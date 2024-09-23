@@ -2,8 +2,7 @@ run_match_prioritize <- function(config) {
   config <- load_config(config)
 
   dir_matched <- get_matched_dir(config)
-  path_abcd <- get_abcd_path(config)
-  sheet_abcd <- get_abcd_sheet(config)
+  abcd_dir <- get_abcd_dir(config)
 
   match_prio_priority <- get_match_priority(config)
 
@@ -11,6 +10,10 @@ run_match_prioritize <- function(config) {
   sector_split_type_select <- get_sector_split_type(config)
 
   # validate config values----
+  stop_if_not_length(abcd_dir, 1L)
+  stop_if_not_inherits(abcd_dir, "character")
+  stop_if_dir_not_found(abcd_dir, desc = "ABCD data")
+
   stop_if_not_length(dir_matched, 1L)
   stop_if_not_inherits(dir_matched, "character")
   stop_if_dir_not_found(dir_matched, desc = "Matched loanbook")
@@ -62,9 +65,11 @@ run_match_prioritize <- function(config) {
       col_select = dplyr::all_of(col_select_companies_sector_split)
     )
 
-    # TODO: better use prepared abcd?
-    abcd <- read_abcd_raw(path_abcd, sheet_abcd)
-    stop_if_not_expected_columns(abcd, cols_abcd, desc = "ABCD")
+    abcd <- readr::read_csv(
+      file.path(abcd_dir, "abcd_final.csv"),
+      col_select = dplyr::all_of(cols_abcd),
+      col_types = col_types_abcd_final
+    )
   }
 
   # prioritize and save files----
