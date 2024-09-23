@@ -31,10 +31,10 @@ prepare_sector_split(config_path)
 
 # Matching process
 
-To run the matching process, you will use the `run_matching()` function.
+To run the matching process, you will use the `match()` function.
 
 ```r
-run_matching(config_path)
+match(config_path)
 ```
 
 After the matching process is complete, you will need to do some manual matching.

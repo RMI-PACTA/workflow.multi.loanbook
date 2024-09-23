@@ -1,4 +1,24 @@
-run_matching <- function(config) {
+#' Match raw input loan books with ABCD for PACTA for Supervisors analysis
+#'
+#' @description
+#' `match()` runs the necessary steps to match the raw input loan books with the
+#' asset based company data (ABCD) used in the PACTA for Supervisors analysis.
+#' Specifically, it prepares matched loan books based on name matching or direct
+#' identifiers, depending on the configuration. The output matched loan books
+#' need to be manually validated for further processing.
+#' Parameters the matching step are read from a `config.yml` file and follow the
+#' options available in `r2dii.match::match_name`. The function is called for its
+#' side effects and writes the prepared data sets to the directory `output/match`,
+#' where `output` is the output directory specified in the `config.yml`.
+#'
+#' @param config either a path to a config.yml file or a list of parameters
+#'
+#' @return NULL
+#' @export
+#'
+#' @examples
+#' # TODO
+match <- function(config) {
   config <- load_config(config)
 
   dir_raw <- get_raw_dir(config)
