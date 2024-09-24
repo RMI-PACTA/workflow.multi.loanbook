@@ -152,7 +152,7 @@ get_manual_sector_classification_filename <- function(params) {
 
 get_manual_sector_classification_path <- function(params) {
   file.path(
-    get_input_dir(config),
+    get_input_dir(params),
     get_manual_sector_classification_filename(params)
   )
 }
