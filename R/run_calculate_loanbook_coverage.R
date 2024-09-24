@@ -1,10 +1,8 @@
 run_calculate_loanbook_coverage <- function(config) {
   config <- load_config(config)
 
-  abcd_dir <- get_abcd_dir(config)
-  dir_matched <- get_matched_dir(config)
-  dir_output <- dir_matched
-  dir.create(dir_output, recursive = TRUE, showWarnings = FALSE)
+  output_prepare_dir <- get_output_prepare_dir(config)
+  output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
 
   scenario_source_input <- get_scenario_source(config)
   start_year <- get_start_year(config)
@@ -14,9 +12,9 @@ run_calculate_loanbook_coverage <- function(config) {
   by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
 
   # validate config values----
-  stop_if_not_length(dir_matched, 1L)
-  stop_if_not_inherits(dir_matched, "character")
-  stop_if_dir_not_found(dir_matched, desc = "Matched loanbooks")
+  stop_if_not_length(output_prio_diagnostics_dir, 1L)
+  stop_if_not_inherits(output_prio_diagnostics_dir, "character")
+  stop_if_dir_not_found(output_prio_diagnostics_dir, desc = "Matched loanbooks")
 
   stop_if_not_length(scenario_source_input, 1L)
   stop_if_not_inherits(scenario_source_input, "character")
@@ -27,7 +25,7 @@ run_calculate_loanbook_coverage <- function(config) {
   # load data ----
   ## read abcd data----
   abcd <- readr::read_csv(
-    file.path(abcd_dir, "abcd_final.csv"),
+    file.path(output_prepare_dir, "abcd_final.csv"),
     col_select = dplyr::all_of(cols_abcd),
     col_types = col_types_abcd_final
   )
@@ -38,11 +36,11 @@ run_calculate_loanbook_coverage <- function(config) {
   abcd <- dplyr::filter(abcd, .data[["year"]] == .env[["start_year"]])
 
   ## read matched prioritized loan books----
-  list_matched_prioritized <- list.files(path = dir_matched, pattern = "^matched_prio_.*csv$")
-  stop_if_no_files_found(list_matched_prioritized, dir_matched, "dir_matched", "matched prioritized loan book CSVs")
+  list_matched_prioritized <- list.files(path = output_prio_diagnostics_dir, pattern = "^matched_prio_.*csv$")
+  stop_if_no_files_found(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
-    file = file.path(dir_matched, list_matched_prioritized),
+    file = file.path(output_prio_diagnostics_dir, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
     col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
@@ -191,7 +189,7 @@ run_calculate_loanbook_coverage <- function(config) {
   # save output to matched directory----
   production_coverage_summary %>%
     readr::write_csv(
-      file.path(dir_output, paste0("summary_statistics_loanbook_coverage", by_group_ext, ".csv")),
+      file.path(output_prio_diagnostics_dir, paste0("summary_statistics_loanbook_coverage", by_group_ext, ".csv")),
       na = ""
     )
 }

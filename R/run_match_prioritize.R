@@ -1,8 +1,11 @@
 run_match_prioritize <- function(config) {
   config <- load_config(config)
 
-  dir_matched <- get_matched_dir(config)
-  abcd_dir <- get_abcd_dir(config)
+  output_matched_loanbooks_dir <- get_output_matched_loanbooks_dir(config)
+  output_prepare_dir <- get_output_prepare_dir(config)
+
+  output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
+  dir.create(output_prio_diagnostics_dir, recursive = TRUE, showWarnings = FALSE)
 
   match_prio_priority <- get_match_priority(config)
 
@@ -10,13 +13,13 @@ run_match_prioritize <- function(config) {
   sector_split_type_select <- get_sector_split_type(config)
 
   # validate config values----
-  stop_if_not_length(abcd_dir, 1L)
-  stop_if_not_inherits(abcd_dir, "character")
-  stop_if_dir_not_found(abcd_dir, desc = "ABCD data")
-  stop_if_file_not_found(file.path(abcd_dir, "abcd_final.csv"), desc = "ABCD final")
-  stop_if_not_length(dir_matched, 1L)
-  stop_if_not_inherits(dir_matched, "character")
-  stop_if_dir_not_found(dir_matched, desc = "Matched loanbook")
+  stop_if_not_length(output_prepare_dir, 1L)
+  stop_if_not_inherits(output_prepare_dir, "character")
+  stop_if_dir_not_found(output_prepare_dir, desc = "ABCD data")
+  stop_if_file_not_found(file.path(output_prepare_dir, "abcd_final.csv"), desc = "ABCD final")
+  stop_if_not_length(output_matched_loanbooks_dir, 1L)
+  stop_if_not_inherits(output_matched_loanbooks_dir, "character")
+  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Matched loanbook")
 
   if (!is.null(match_prio_priority)) {
     if (
@@ -41,18 +44,18 @@ run_match_prioritize <- function(config) {
 
   # load data----
   ## load manually matched files----
-  list_matched_manual <- list.files(path = dir_matched, pattern = "^matched_lbk_.*_manual[.]csv$")
+  list_matched_manual <- list.files(path = output_matched_loanbooks_dir, pattern = "^matched_lbk_.*_manual[.]csv$")
 
   if (length(list_matched_manual) == 0) {
     cli::cli_abort(c(
       "x" = "No manually matched loan book csvs were found.",
-      "i" = "No files matching the pattern {.code ^matched_lbk_.*_manual[.]csv$} were found in {.path {dir_matched}}. Have you done the manual matching process and named the edited CSVs properly?",
-      "i" = "If {.path {dir_matched}} is not the correct directory, check the {.val dir_matched} parameter set in your {.file config.yml}."
+      "i" = "No files matching the pattern {.code ^matched_lbk_.*_manual[.]csv$} were found in {.path {output_matched_loanbooks_dir}}. Have you done the manual matching process and named the edited CSVs properly?",
+      "i" = "If {.path {output_matched_loanbooks_dir}} is not the correct directory, check the {.val dir_input} parameter set in your {.file config.yml}."
     ))
   }
 
   matched_lbk_manual <- readr::read_csv(
-    file = file.path(dir_matched, list_matched_manual),
+    file = file.path(output_matched_loanbooks_dir, list_matched_manual),
     col_types = col_types_matched_manual
   ) %>%
     dplyr::group_split(.data[["group_id"]])
@@ -60,13 +63,13 @@ run_match_prioritize <- function(config) {
   ## optional: load sector split----
   if (apply_sector_split & sector_split_type_select == "equal_weights") {
     companies_sector_split <- readr::read_csv(
-      file.path(dir_matched, "companies_sector_split.csv"),
+      file.path(output_prepare_dir, "companies_sector_split.csv"),
       col_types = col_types_companies_sector_split,
       col_select = dplyr::all_of(col_select_companies_sector_split)
     )
 
     abcd <- readr::read_csv(
-      file.path(abcd_dir, "abcd_final.csv"),
+      file.path(output_prepare_dir, "abcd_final.csv"),
       col_select = dplyr::all_of(cols_abcd),
       col_types = col_types_abcd_final
     )
@@ -99,7 +102,7 @@ run_match_prioritize <- function(config) {
     ## write matched prioritized loan book to file----
     matched_prio_i %>%
       readr::write_csv(
-        file = file.path(dir_matched, glue::glue("matched_prio_{group_name}.csv")),
+        file = file.path(output_prio_diagnostics_dir, glue::glue("matched_prio_{group_name}.csv")),
         na = ""
       )
   }
@@ -111,7 +114,7 @@ run_match_prioritize <- function(config) {
       companies_sector_split = companies_sector_split
     ) %>%
       readr::write_csv(
-        file = file.path(dir_matched, glue::glue("lost_companies_sector_split.csv.csv")),
+        file = file.path(output_prio_diagnostics_dir, glue::glue("lost_companies_sector_split.csv.csv")),
         na = ""
       )
   }

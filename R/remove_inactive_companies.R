@@ -1,9 +1,12 @@
 remove_inactive_companies <- function(config) {
   config <- load_config(config)
 
-  abcd_dir <- get_abcd_dir(config)
   path_abcd <- get_abcd_path(config)
   sheet_abcd <- get_abcd_sheet(config)
+
+  output_prepare_dir <- get_output_prepare_dir(config)
+
+  dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
 
   remove_inactive_companies <- get_remove_inactive_companies(config)
   start_year <- get_start_year(config)
@@ -110,7 +113,7 @@ remove_inactive_companies <- function(config) {
     # write removed inactive companies to file for inspection
     abcd_removed %>%
       readr::write_csv(
-        file.path(abcd_dir, "abcd_removed_inactive_companies.csv"),
+        file.path(output_prepare_dir, "abcd_removed_inactive_companies.csv"),
         na = ""
       )
 
@@ -122,7 +125,7 @@ remove_inactive_companies <- function(config) {
   # write final version of abcd to file for use PACTA analysis
   abcd %>%
     readr::write_csv(
-      file.path(abcd_dir, "abcd_final.csv"),
+      file.path(output_prepare_dir, "abcd_final.csv"),
       na = ""
     )
 }

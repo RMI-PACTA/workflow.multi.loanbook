@@ -3,9 +3,17 @@ load_config <- function(config) {
   config
 }
 
-get_abcd_dir <- function(params) {
-  params[["directories"]][["dir_abcd"]]
+get_input_dir <- function(params) {
+  params[["directories"]][["dir_input"]]
 }
+
+get_loanbook_dir <- function(params) {
+  file.path(params[["directories"]][["dir_input"]], "loanbooks")
+}
+
+# get_abcd_dir <- function(params) {
+#   params[["directories"]][["dir_abcd"]]
+# }
 
 get_abcd_filename <- function(params) {
   params[["file_names"]][["filename_abcd"]]
@@ -15,20 +23,36 @@ get_abcd_sheet <- function(params) {
   params[["file_names"]][["sheet_abcd"]]
 }
 
-get_matched_dir <- function(params) {
-  params[["directories"]][["dir_matched"]]
-}
-
-get_raw_dir <- function(params) {
-  params[["directories"]][["dir_raw"]]
-}
-
-get_scenario_dir <- function(params) {
-  params[["directories"]][["dir_scenario"]]
-}
+# get_matched_dir <- function(params) {
+#   params[["directories"]][["dir_matched"]]
+# }
+#
+# get_raw_dir <- function(params) {
+#   params[["directories"]][["dir_raw"]]
+# }
+#
+# get_scenario_dir <- function(params) {
+#   params[["directories"]][["dir_scenario"]]
+# }
 
 get_output_dir <- function(params) {
   params[["directories"]][["dir_output"]]
+}
+
+get_output_prepare_dir <- function(params) {
+  file.path(params[["directories"]][["dir_output"]], "prepare_abcd")
+}
+
+get_output_matched_loanbooks_dir <- function(params) {
+  file.path(params[["directories"]][["dir_output"]], "matched_loanbooks")
+}
+
+get_output_prio_diagnostics_dir <- function(params) {
+  file.path(params[["directories"]][["dir_output"]], "prioritized_loanbooks_and_diagnostics")
+}
+
+get_output_analysis_dir <- function(params) {
+  file.path(params[["directories"]][["dir_output"]], "analysis")
 }
 
 get_scenario_tms_filename <- function(params) {
@@ -123,9 +147,9 @@ get_use_manual_sector_classification <- function(params) {
   params[["matching"]][["manual_sector_classification"]][["use_manual_sector_classification"]]
 }
 
-get_manual_sector_classification_dir <- function(params) {
-  params[["matching"]][["manual_sector_classification"]][["dir_manual_sector_classification"]]
-}
+# get_manual_sector_classification_dir <- function(params) {
+#   params[["matching"]][["manual_sector_classification"]][["dir_manual_sector_classification"]]
+# }
 
 get_manual_sector_classification_filename <- function(params) {
   params[["matching"]][["manual_sector_classification"]][["filename_manual_sector_classification"]]
@@ -133,28 +157,28 @@ get_manual_sector_classification_filename <- function(params) {
 
 get_manual_sector_classification_path <- function(params) {
   file.path(
-    get_manual_sector_classification_dir(params),
+    get_input_dir(config),
     get_manual_sector_classification_filename(params)
   )
 }
 
 get_abcd_path <- function(config) {
   file.path(
-    get_abcd_dir(config),
+    get_input_dir(config),
     get_abcd_filename(config)
   )
 }
 
 get_sector_split_path <- function(config) {
   file.path(
-    config[["sector_split"]][["dir_split_company_id"]],
+    get_input_dir(config),
     config[["sector_split"]][["filename_split_company_id"]]
   )
 }
 
 get_advanced_company_indicators_path <- function(config) {
   file.path(
-    config[["sector_split"]][["dir_advanced_company_indicators"]],
+    get_input_dir(config),
     config[["sector_split"]][["filename_advanced_company_indicators"]]
   )
 }
@@ -165,14 +189,14 @@ get_advanced_company_indicators_sheet <- function(config) {
 
 get_scenario_tms_path <- function(config) {
   file.path(
-    get_scenario_dir(config),
+    get_input_dir(config),
     get_scenario_tms_filename(config)
   )
 }
 
 get_scenario_sda_path <- function(config) {
   file.path(
-    get_scenario_dir(config),
+    get_input_dir(config),
     get_scenario_sda_filename(config)
   )
 }
