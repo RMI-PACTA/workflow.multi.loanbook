@@ -22,11 +22,11 @@ run_calculate_match_success_rate <- function(config) {
   # validate config values----
   stop_if_not_length(input_loanbooks_dir, 1L)
   stop_if_not_inherits(input_loanbooks_dir, "character")
-  stop_if_dir_not_found(input_loanbooks_dir, desc = "Raw loanbook")
+  stop_if_dir_not_found(input_loanbooks_dir, desc = "Input - loanbooks")
 
   stop_if_not_length(output_prio_diagnostics_dir, 1L)
   stop_if_not_inherits(output_prio_diagnostics_dir, "character")
-  stop_if_dir_not_found(output_prio_diagnostics_dir, desc = "Matched loanbook")
+  stop_if_dir_not_found(output_prio_diagnostics_dir, desc = "Output - Prioritized loanbooks and diagnostics")
 
   stop_if_not_length(matching_use_manual_sector_classification, 1L)
   stop_if_not_inherits(matching_use_manual_sector_classification, "logical")

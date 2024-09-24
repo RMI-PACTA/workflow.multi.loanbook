@@ -41,16 +41,16 @@ match_loanbooks <- function(config) {
   # validate config values----
   stop_if_not_length(input_loanbooks_dir, 1L)
   stop_if_not_inherits(input_loanbooks_dir, "character")
-  stop_if_dir_not_found(input_loanbooks_dir, desc = "Raw loanbook")
+  stop_if_dir_not_found(input_loanbooks_dir, desc = "Input - loanbooks")
 
   stop_if_not_length(output_prepare_dir, 1L)
   stop_if_not_inherits(output_prepare_dir, "character")
-  stop_if_dir_not_found(output_prepare_dir, desc = "ABCD data")
+  stop_if_dir_not_found(output_prepare_dir, desc = "Output - prepare ABCD")
   stop_if_file_not_found(file.path(output_prepare_dir, "abcd_final.csv"), desc = "ABCD final")
 
   stop_if_not_length(output_matched_loanbooks_dir, 1L)
   stop_if_not_inherits(output_matched_loanbooks_dir, "character")
-  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Matched loanbook")
+  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Output - Matched loanbooks")
 
   stop_if_not_length(matching_by_sector, 1L)
   stop_if_not_inherits(matching_by_sector, "logical")

@@ -15,11 +15,11 @@ run_match_prioritize <- function(config) {
   # validate config values----
   stop_if_not_length(output_prepare_dir, 1L)
   stop_if_not_inherits(output_prepare_dir, "character")
-  stop_if_dir_not_found(output_prepare_dir, desc = "ABCD data")
+  stop_if_dir_not_found(output_prepare_dir, desc = "Output - prepare ABCD")
   stop_if_file_not_found(file.path(output_prepare_dir, "abcd_final.csv"), desc = "ABCD final")
   stop_if_not_length(output_matched_loanbooks_dir, 1L)
   stop_if_not_inherits(output_matched_loanbooks_dir, "character")
-  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Matched loanbook")
+  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Output - Matched loanbooks")
 
   if (!is.null(match_prio_priority)) {
     if (
@@ -45,14 +45,7 @@ run_match_prioritize <- function(config) {
   # load data----
   ## load manually matched files----
   list_matched_manual <- list.files(path = output_matched_loanbooks_dir, pattern = "^matched_lbk_.*_manual[.]csv$")
-
-  if (length(list_matched_manual) == 0) {
-    cli::cli_abort(c(
-      "x" = "No manually matched loan book csvs were found.",
-      "i" = "No files matching the pattern {.code ^matched_lbk_.*_manual[.]csv$} were found in {.path {output_matched_loanbooks_dir}}. Have you done the manual matching process and named the edited CSVs properly?",
-      "i" = "If {.path {output_matched_loanbooks_dir}} is not the correct directory, check the {.val dir_input} parameter set in your {.file config.yml}."
-    ))
-  }
+  stop_if_no_files_found(list_matched_manual, output_matched_loanbooks_dir, "dir_output", "manually matched loan book CSVs matching the pattern {.code ^matched_lbk_.*_manual[.]csv$}")
 
   matched_lbk_manual <- readr::read_csv(
     file = file.path(output_matched_loanbooks_dir, list_matched_manual),

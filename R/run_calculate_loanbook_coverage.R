@@ -14,7 +14,7 @@ run_calculate_loanbook_coverage <- function(config) {
   # validate config values----
   stop_if_not_length(output_prio_diagnostics_dir, 1L)
   stop_if_not_inherits(output_prio_diagnostics_dir, "character")
-  stop_if_dir_not_found(output_prio_diagnostics_dir, desc = "Matched loanbooks")
+  stop_if_dir_not_found(output_prio_diagnostics_dir, desc = "Output - Matched loanbooks")
 
   stop_if_not_length(scenario_source_input, 1L)
   stop_if_not_inherits(scenario_source_input, "character")
