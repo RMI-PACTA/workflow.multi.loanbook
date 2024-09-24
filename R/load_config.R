@@ -8,12 +8,11 @@ get_input_dir <- function(params) {
 }
 
 get_loanbook_dir <- function(params) {
-  file.path(params[["directories"]][["dir_input"]], "loanbooks")
+  file.path(
+    params[["directories"]][["dir_input"]],
+    "loanbooks"
+  )
 }
-
-# get_abcd_dir <- function(params) {
-#   params[["directories"]][["dir_abcd"]]
-# }
 
 get_abcd_filename <- function(params) {
   params[["file_names"]][["filename_abcd"]]
@@ -23,36 +22,36 @@ get_abcd_sheet <- function(params) {
   params[["file_names"]][["sheet_abcd"]]
 }
 
-# get_matched_dir <- function(params) {
-#   params[["directories"]][["dir_matched"]]
-# }
-#
-# get_raw_dir <- function(params) {
-#   params[["directories"]][["dir_raw"]]
-# }
-#
-# get_scenario_dir <- function(params) {
-#   params[["directories"]][["dir_scenario"]]
-# }
-
 get_output_dir <- function(params) {
   params[["directories"]][["dir_output"]]
 }
 
 get_output_prepare_dir <- function(params) {
-  file.path(params[["directories"]][["dir_output"]], "prepare_abcd")
+  file.path(
+    params[["directories"]][["dir_output"]],
+    "prepare_abcd"
+  )
 }
 
 get_output_matched_loanbooks_dir <- function(params) {
-  file.path(params[["directories"]][["dir_output"]], "matched_loanbooks")
+  file.path(
+    params[["directories"]][["dir_output"]],
+    "matched_loanbooks"
+  )
 }
 
 get_output_prio_diagnostics_dir <- function(params) {
-  file.path(params[["directories"]][["dir_output"]], "prioritized_loanbooks_and_diagnostics")
+  file.path(
+    params[["directories"]][["dir_output"]],
+    "prioritized_loanbooks_and_diagnostics"
+  )
 }
 
 get_output_analysis_dir <- function(params) {
-  file.path(params[["directories"]][["dir_output"]], "analysis")
+  file.path(
+    params[["directories"]][["dir_output"]],
+    "analysis"
+  )
 }
 
 get_scenario_tms_filename <- function(params) {
@@ -146,10 +145,6 @@ get_sector_split_type <- function(params) {
 get_use_manual_sector_classification <- function(params) {
   params[["matching"]][["manual_sector_classification"]][["use_manual_sector_classification"]]
 }
-
-# get_manual_sector_classification_dir <- function(params) {
-#   params[["matching"]][["manual_sector_classification"]][["dir_manual_sector_classification"]]
-# }
 
 get_manual_sector_classification_filename <- function(params) {
   params[["matching"]][["manual_sector_classification"]][["filename_manual_sector_classification"]]
