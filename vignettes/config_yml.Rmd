@@ -32,43 +32,16 @@ The `directories`{.yaml} section contains options to define locally accessible p
 
 ```yaml
   directories:
-    dir_scenario: "~/Desktop/test/scenario"
-    dir_abcd: "~/Desktop/test/abcd"
-    dir_raw: "~/Desktop/test/raw"
-    dir_matched: "~/Desktop/test/matched"
+    dir_input: "~/Desktop/test/input"
     dir_output: "~/Desktop/test/output"
 ```
 
-#### dir_scenario
+#### dir_input
 
-`dir_scenario`{.yaml} is a path to a directory that contains scenario data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
-
-```yaml
-    dir_scenario: "~/Desktop/test/scenario"
-```
-
-#### dir_abcd
-
-`dir_abcd`{.yaml} is a path to a directory that contains asset based company production data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_input`{.yaml} is a path to a directory that contains all input data to be used. Input data is any data set that must be produced or obtained externally by the user and that is not the output of any of the functions in this package. This includes files only needed optionally. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
 ```yaml
-    dir_abcd: "~/Desktop/test/abcd"
-```
-
-#### dir_raw
-
-`dir_raw`{.yaml} is a path to a directory that contains raw loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
-
-```yaml
-    dir_raw: "~/Desktop/test/raw"
-```
-
-#### dir_matched
-
-`dir_matched`{.yaml} is a path to a directory that contains matched loanbook data to be used. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
-
-```yaml
-    dir_matched: "~/Desktop/test/matched"
+    dir_input: "~/Desktop/test/input"
 ```
 
 #### dir_output
@@ -193,9 +166,7 @@ A full example `sector_split`{.yaml} section might look like:
   sector_split:
     apply_sector_split: TRUE
     sector_split_type: "equal_weights"
-    dir_split_company_id: "~/Desktop/test/split"
     filename_split_company_id: "split_company_ids.csv"
-    dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
     filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
     sheet_advanced_company_indicators: "Company Activities"
 ```
@@ -216,28 +187,12 @@ A full example `sector_split`{.yaml} section might look like:
     sector_split_type: "equal_weights"
 ```
 
-#### dir_split_company_id
-
-`dir_split_company_id`{.yaml} is a path to a directory that contains the split company ID CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
-
-```yaml
-    dir_split_company_id: "~/Desktop/test/split"
-```
-
 #### filename_split_company_id
 
 `filename_split_company_id`{.yaml} is the filename of the CSV file that contains the split company ID data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
     filename_split_company_id: "split_company_ids.csv"
-```
-
-#### dir_advanced_company_indicators
-
-`dir_advanced_company_indicators`{.yaml} is a path to a directory that contains the Advanced Company Indicators XLSX file. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
-
-```yaml
-    dir_advanced_company_indicators: "~/data/pactarawdata/asset-impact/2024-02-15_AI_RMI_2023Q4"
 ```
 
 #### filename_advanced_company_indicators
@@ -343,7 +298,6 @@ A full example `manual_sector_classification`{.yaml} section might look like:
 ```yaml
     manual_sector_classification:
       use_manual_sector_classification: FALSE
-      dir_manual_sector_classification: "path/to/manual_sector_classification_folder"
       filename_manual_sector_classification: "manual_sector_classification.csv"
 ```
 
@@ -353,14 +307,6 @@ A full example `manual_sector_classification`{.yaml} section might look like:
 
 ```yaml
       use_manual_sector_classification: FALSE
-```
-
-#### dir_manual_sector_classification
-
-`dir_manual_sector_classification`{.yaml} is a path to a directory that contains the manual sector classification CSV. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
-
-```yaml
-      dir_manual_sector_classification: "path/to/manual_sector_classification_folder"
 ```
 
 #### filename_manual_sector_classification
