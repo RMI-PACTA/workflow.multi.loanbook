@@ -6,6 +6,10 @@ reference:
 - title: Analysis
   desc:  Run the analysis.
 - contents:
+  - prepare_abcd
+  - match_loanbooks
+  - prioritise_and_diagnose
+  - analyse
   - run_pacta
 
 - title: Plotting
