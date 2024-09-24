@@ -11,13 +11,17 @@
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/authors.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/index.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/abcd_test_data.html</loc></url>
+<url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/analyse.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/data_dictionary.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/index.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/loanbook_test_data.html</loc></url>
+<url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/match_loanbooks.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/plot_aggregate_loanbooks.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/plot_sankey.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/plot_scatter.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/plot_scatter_alignment_exposure.html</loc></url>
+<url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/prepare_abcd.html</loc></url>
+<url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/prioritise_and_diagnose.html</loc></url>
 <url><loc>https://rmi-pacta.github.io/pacta.multi.loanbook/reference/run_pacta.html</loc></url>
 </urlset>
 

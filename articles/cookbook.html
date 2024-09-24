@@ -86,12 +86,12 @@
 <div class="section level2">
 <h2 id="config">Config<a class="anchor" aria-label="anchor" href="#config"></a>
 </h2>
-<p>All of the functions take a <code>config</code> argument, which can
-either be a path to a <code>config.yml</code> file (see
-<code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>) or a config list object containing
-previously imported settings from a <code>config.yml</code> file. All of
-the settings/options are configured with this <code>config.yml</code>
-file.</p>
+<p>All of the functions needed to run a PACTA for Supervisors analysis
+take a <code>config</code> argument, which can either be a path to a
+<code>config.yml</code> file (see <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>)
+or a config list object containing previously imported settings from a
+<code>config.yml</code> file. All of the settings/options are configured
+with this <code>config.yml</code> file.</p>
 </div>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
@@ -105,66 +105,65 @@ file.</p>
 <div class="section level2">
 <h2 id="data-preparation">Data preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
 </h2>
-<p>Your ABCD data will need to be prepared first with the
-<code>prepare_abcd()</code> function. If you want to use a custom sector
-split, that will also need to be prepared with the
-<code>prepare_sector_split()</code> function:</p>
+<p>The first step of the analysis is to prepare your input data sets for
+the requirements of the analysis. Your ABCD data will need to be
+prepared and you can optionally use a custom sector split, that will
+also need to be prepared. The relevant function is
+<code><a href="../reference/prepare_abcd.html">prepare_abcd()</a></code>, which takes configurations from the
+<code>config.yml</code> that you have prepared. The function will store
+intermediary files in a sub-directory in your <code>output</code>
+folder. You can run this function as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">prepare_abcd</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span>
-<span><span class="fu">prepare_sector_split</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prepare_abcd.html">prepare_abcd</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="matching-process">Matching process<a class="anchor" aria-label="anchor" href="#matching-process"></a>
 </h2>
 <p>To run the matching process, you will use the
-<code>run_matching()</code> function.</p>
+<code><a href="../reference/match_loanbooks.html">match_loanbooks()</a></code> function. This will read the raw loan
+books from yout inputs and attempt to match them to the prepared ABCD
+data from the previous step. The function will store matched loan book
+files in a sub-directory in your <code>output</code> folder. You can run
+this function as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">run_matching</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/match_loanbooks.html">match_loanbooks</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <p>After the matching process is complete, you will need to do some
 manual matching.</p>
 </div>
 <div class="section level2">
-<h2 id="prioritization">Prioritization<a class="anchor" aria-label="anchor" href="#prioritization"></a>
+<h2 id="prioritization-of-loan-books-match-success-and-coverage-diagnostics">Prioritization of loan books; Match success and coverage
+diagnostics<a class="anchor" aria-label="anchor" href="#prioritization-of-loan-books-match-success-and-coverage-diagnostics"></a>
 </h2>
-<p>To prioritize the data in your loanbooks, you will use the
-<code>run_match_prioritize()</code> function.</p>
+<p>The next step is to prioritize the manually verified matched loan
+books and analyze their coverage, both relative to the raw loan book
+inputs and to the production capacity in the wider economy. Prioritizing
+the loan books means that you will only keep the best identified match
+for each loan and use that in the following steps of the analysis. You
+will probably want to check the status of your loan book and production
+coverage several times, as it is rare to get to the desired level of
+matching in one iteration. This means you may want to repeat the
+previous step and this step a number of times to reach the best possible
+outcome. To prioritize your matched loan books and calculate display the
+coverage diagnostics, you will use the
+<code><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose()</a></code> function. This call will store
+matched prioritized loan book files and coverage diagnostics in a
+sub-directory in your <code>output</code> folder.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">run_match_prioritize</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="match-success-and-coverage-stats">Match success and coverage stats<a class="anchor" aria-label="anchor" href="#match-success-and-coverage-stats"></a>
+<h2 id="run-pacta-for-supervisors-analysis">Run PACTA for Supervisors analysis<a class="anchor" aria-label="anchor" href="#run-pacta-for-supervisors-analysis"></a>
 </h2>
-<p>After the matching and prioritization process is complete, you may
-want to review the match success rate and loanbook coverage stats. This
-can be done with the <code>run_calculate_match_success_rate()</code> and
-<code>run_calculate_loanbook_coverage()</code> functions. In case you
-are not satisfied with your match success rate, you may have to go back
-to the manual matching process and try to match additional loans. You
-can then rerun <code>run_calculate_match_success_rate()</code> and
-<code>run_calculate_loanbook_coverage()</code> to check if your
-additional matching has improved coverage.</p>
+<p>The final step is running the analysis based on the parameters you
+have set in the <code>config.yml</code> file. This entails both a
+standard PACTA for Banks analysis and the calculation of the net
+aggregate alignment metric. For both parts of the analysis, outputs will
+be stored in a sub-directory in your <code>output</code> folder and
+comprise tabular outputs and plots. To run the analysis on all of your
+previously matched and prioritized loan books, you will use the
+<code><a href="../reference/analyse.html">analyse()</a></code> function.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">run_calculate_match_success_rate</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span>
-<span><span class="fu">run_calculate_loanbook_coverage</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="pacta-analysis">PACTA analysis<a class="anchor" aria-label="anchor" href="#pacta-analysis"></a>
-</h2>
-<p>To run PACTA on all of your previously matched and prioritized
-loanbooks, you will use the <code><a href="../reference/run_pacta.html">run_pacta()</a></code> function.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/run_pacta.html">run_pacta</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="pacta-metrics-and-plots">PACTA metrics and plots<a class="anchor" aria-label="anchor" href="#pacta-metrics-and-plots"></a>
-</h2>
-<p>Once the PACTA analysis has been run on your loanbooks, you may want
-to calculate aggregate alignment metrics and export some plots, which
-can be done with the <code>run_aggregate_alignment_metric()</code> and
-<code><a href="../reference/plot_aggregate_loanbooks.html">plot_aggregate_loanbooks()</a></code> functions.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">run_aggregate_alignment_metric</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_aggregate_loanbooks.html">plot_aggregate_loanbooks</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/analyse.html">analyse</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
