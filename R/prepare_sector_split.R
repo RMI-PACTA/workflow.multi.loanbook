@@ -36,8 +36,6 @@ prepare_sector_split <- function(config) {
   output_prepare_dir <- get_output_prepare_dir(config)
 
   dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
-  # dir_matched <- get_matched_dir(config)
-  # abcd_dir <- get_abcd_dir(config)
 
   sector_split_path <- get_sector_split_path(config)
 
