@@ -33,10 +33,12 @@
 prepare_sector_split <- function(config) {
   config <- load_config(config)
 
-  dir_matched <- get_matched_dir(config)
-  abcd_dir <- get_abcd_dir(config)
+  output_prepare_dir <- get_output_prepare_dir(config)
+
+  dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
 
   sector_split_path <- get_sector_split_path(config)
+
   advanced_company_indicators_path <- get_advanced_company_indicators_path(config)
   sheet_advanced_company_indicators <- get_advanced_company_indicators_sheet(config)
 
@@ -60,7 +62,7 @@ prepare_sector_split <- function(config) {
   # optional: remove inactive companies
   if (remove_inactive_companies) {
     abcd_removed_inactive_companies <- readr::read_csv(
-      file.path(abcd_dir, "abcd_removed_inactive_companies.csv"),
+      file.path(output_prepare_dir, "abcd_removed_inactive_companies.csv"),
       col_select = dplyr::all_of(cols_abcd),
       col_types = col_types_abcd_final
     )
@@ -299,7 +301,7 @@ prepare_sector_split <- function(config) {
       )
     ) %>%
     readr::write_csv(
-      file.path(dir_matched, "companies_sector_split_primary_energy_only.csv"),
+      file.path(output_prepare_dir, "companies_sector_split_primary_energy_only.csv"),
       na = ""
     )
 
@@ -315,7 +317,7 @@ prepare_sector_split <- function(config) {
       )
     ) %>%
     readr::write_csv(
-      file.path(dir_matched, "companies_sector_split_equal_weights_only.csv"),
+      file.path(output_prepare_dir, "companies_sector_split_equal_weights_only.csv"),
       na = ""
     )
 
@@ -331,7 +333,7 @@ prepare_sector_split <- function(config) {
       )
     ) %>%
     readr::write_csv(
-      file.path(dir_matched, "companies_sector_split.csv"),
+      file.path(output_prepare_dir, "companies_sector_split.csv"),
       na = ""
     )
 }

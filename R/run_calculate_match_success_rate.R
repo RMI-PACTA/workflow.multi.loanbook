@@ -1,8 +1,9 @@
 run_calculate_match_success_rate <- function(config) {
   config <- load_config(config)
 
-  dir_raw <- get_raw_dir(config)
-  dir_matched <- get_matched_dir(config)
+  dir_input <- get_input_dir(config)
+  input_loanbooks_dir <- get_loanbook_dir(config)
+  output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
 
   matching_use_manual_sector_classification <- get_use_manual_sector_classification(config)
   if (matching_use_manual_sector_classification) {
@@ -19,13 +20,13 @@ run_calculate_match_success_rate <- function(config) {
   match_success_rate_plot_resolution <- get_match_plot_resolution(config)
 
   # validate config values----
-  stop_if_not_length(dir_raw, 1L)
-  stop_if_not_inherits(dir_raw, "character")
-  stop_if_dir_not_found(dir_raw, desc = "Raw loanbook")
+  stop_if_not_length(input_loanbooks_dir, 1L)
+  stop_if_not_inherits(input_loanbooks_dir, "character")
+  stop_if_dir_not_found(input_loanbooks_dir, desc = "Input - loanbooks")
 
-  stop_if_not_length(dir_matched, 1L)
-  stop_if_not_inherits(dir_matched, "character")
-  stop_if_dir_not_found(dir_matched, desc = "Matched loanbook")
+  stop_if_not_length(output_prio_diagnostics_dir, 1L)
+  stop_if_not_inherits(output_prio_diagnostics_dir, "character")
+  stop_if_dir_not_found(output_prio_diagnostics_dir, desc = "Output - Prioritized loanbooks and diagnostics")
 
   stop_if_not_length(matching_use_manual_sector_classification, 1L)
   stop_if_not_inherits(matching_use_manual_sector_classification, "logical")
@@ -52,19 +53,19 @@ run_calculate_match_success_rate <- function(config) {
   # load data----
 
   ## load raw loan books----
-  list_raw <- list.files(dir_raw)[grepl("csv$", list.files(dir_raw))]
-  stop_if_no_files_found(list_raw, dir_raw, "dir_raw", "raw loan book CSVs")
+  list_raw <- list.files(input_loanbooks_dir)[grepl("csv$", list.files(input_loanbooks_dir))]
+  stop_if_no_files_found(list_raw, input_loanbooks_dir, "input_loanbooks_dir", "raw loan book CSVs")
 
   if (is.null(by_group) || by_group != "group_id") {
     raw_lbk <- readr::read_csv(
-      file = file.path(dir_raw, list_raw),
+      file = file.path(input_loanbooks_dir, list_raw),
       col_types = col_types_raw,
       col_select = dplyr::all_of(c(by_group, col_select_raw)),
       id = "group_id"
     )
   } else {
     raw_lbk <- readr::read_csv(
-      file = file.path(dir_raw, list_raw),
+      file = file.path(input_loanbooks_dir, list_raw),
       col_types = col_types_raw,
       col_select = dplyr::all_of(c(col_select_raw)),
       id = "group_id"
@@ -73,16 +74,16 @@ run_calculate_match_success_rate <- function(config) {
 
   raw_lbk <- raw_lbk %>%
     dplyr::mutate(
-      group_id = gsub(glue::glue("{dir_raw}/"), "", .data[["group_id"]]),
+      group_id = gsub(glue::glue("{input_loanbooks_dir}/"), "", .data[["group_id"]]),
       group_id = gsub(".csv", "", .data[["group_id"]])
     )
 
   ## load matched prioritized loan books----
-  list_matched_prioritized <- list.files(path = dir_matched, pattern = "^matched_prio_.*csv$")
-  stop_if_no_files_found(list_matched_prioritized, dir_matched, "dir_matched", "matched prioritized loan book CSVs")
+  list_matched_prioritized <- list.files(path = output_prio_diagnostics_dir, pattern = "^matched_prio_.*csv$")
+  stop_if_no_files_found(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
-    file = file.path(dir_matched, list_matched_prioritized),
+    file = file.path(output_prio_diagnostics_dir, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
     col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
@@ -125,9 +126,9 @@ run_calculate_match_success_rate <- function(config) {
   # optional: manually exclude loans from the match success calculation
   # this is intended to allow excluding loans that are misclassified as in scope,
   # but research shows that the company is not actually in scope
-  if (file.exists(file.path(dir_matched, "loans_to_remove.csv"))) {
+  if (file.exists(file.path(dir_input, "loans_to_remove.csv"))) {
     loans_to_remove <- readr::read_csv(
-      file = file.path(dir_matched, "loans_to_remove.csv"),
+      file = file.path(dir_input, "loans_to_remove.csv"),
       col_types = readr::cols_only(
         id_loan = "c",
         group_id = "c"
@@ -148,7 +149,7 @@ run_calculate_match_success_rate <- function(config) {
   # write to csv
   lbk_match_success_rate %>%
     readr::write_csv(
-      file = file.path(dir_matched, paste0("lbk_match_success_rate", by_group_ext, ".csv")),
+      file = file.path(output_prio_diagnostics_dir, paste0("lbk_match_success_rate", by_group_ext, ".csv")),
       na = ""
     )
 
@@ -171,7 +172,7 @@ run_calculate_match_success_rate <- function(config) {
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, paste0("plot_match_success_rate_rel_n", by_group_ext, ".png")),
+    filename = file.path(output_prio_diagnostics_dir, paste0("plot_match_success_rate_rel_n", by_group_ext, ".png")),
     plot = plot_match_success_rate_rel_n_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -188,7 +189,7 @@ run_calculate_match_success_rate <- function(config) {
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, paste0("plot_match_success_rate_rel_outstanding", by_group_ext, ".png")),
+    filename = file.path(output_prio_diagnostics_dir, paste0("plot_match_success_rate_rel_outstanding", by_group_ext, ".png")),
     plot = plot_match_success_rate_rel_outstanding_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -205,7 +206,7 @@ run_calculate_match_success_rate <- function(config) {
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, paste0("plot_match_success_rate_rel_credit_limit", by_group_ext, ".png")),
+    filename = file.path(output_prio_diagnostics_dir, paste0("plot_match_success_rate_rel_credit_limit", by_group_ext, ".png")),
     plot = plot_match_success_rate_rel_credit_limit_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -223,7 +224,7 @@ run_calculate_match_success_rate <- function(config) {
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, paste0("plot_match_success_rate_abs_n", by_group_ext, ".png")),
+    filename = file.path(output_prio_diagnostics_dir, paste0("plot_match_success_rate_abs_n", by_group_ext, ".png")),
     plot = plot_match_success_rate_abs_n_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -240,7 +241,7 @@ run_calculate_match_success_rate <- function(config) {
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, paste0("plot_match_success_rate_abs_outstanding", by_group_ext, ".png")),
+    filename = file.path(output_prio_diagnostics_dir, paste0("plot_match_success_rate_abs_outstanding", by_group_ext, ".png")),
     plot = plot_match_success_rate_abs_outstanding_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
@@ -257,7 +258,7 @@ run_calculate_match_success_rate <- function(config) {
     )
 
   ggplot2::ggsave(
-    filename = file.path(dir_matched, paste0("plot_match_success_rate_abs_credit_limit", by_group_ext, ".png")),
+    filename = file.path(output_prio_diagnostics_dir, paste0("plot_match_success_rate_abs_credit_limit", by_group_ext, ".png")),
     plot = plot_match_success_rate_abs_credit_limit_ind,
     width = match_success_rate_plot_width,
     height = match_success_rate_plot_height,
