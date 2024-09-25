@@ -1,5 +1,5 @@
 ---
-title: Running the analysis
+title: Cookbook
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Running the analysis}
@@ -7,11 +7,54 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Config
+# Overview
+
+This cookbook provides a step-by-step guide to running the PACTA for Supervisors analysis using the `pacta.multi.loanbook` package. The analysis is designed to help financial supervisors assess the alignment of banks' loan books with the Paris Agreement goals.
+
+## What is the PACTA for Supervisors analysis?
+
+PACTA for Supervisors is based on the PACTA methodology, which assesses the alignment of financial portfolios with climate goals utilizing forward-looking asset-based production data (ABCD) that are linked to financial assets and comparing those production profiles with climate transition scenarios on the sector and/or technology level.
+
+## Who is this tool built for?
+
+The PACTA for Supervisors analysis is primarily designed to be run by financial supervisors on their own, with minimal additional guidance. However, it can also be a useful tool for any other user, in case they would like to run a PACTA analysis on multiple loan books.
+
+The main difference between this tool and the individual PACTA for Banks software packages is that this tool aims to facilitate the analysis of multiple loan books at once, streamlining the process as much as possible, to keep the burden for the user to a minimum. As such it is a helpful tool for anyone who would like to run a PACTA analysis on multiple loan books.
+
+## What can the results of the PACTA for Supervisors analysis be used for?
+
+Financial supervisors or regulators can use the results of the analysis to assess the alignment of banks' loan books with the Paris Agreement goals, to identify sectors where banks may need to take action to improve alignment, and to screen the financial system for potential climate-related transition risks. The analysis can be parameterised in different ways to explore patterns across the analysed loan books. If run by private institutions, the results may additionally be used to identify opportunities for climate-aligned investments, as well as for detecting individual counterparties that may be exposed to climate-related transition risks and may therefore require dedicated focus in the risk management process.
+
+## What are the main steps of the analysis?
+
+The main steps of the analysis are as follows:
+
+1. Data preparation: Prepare the ABCD data and optionally a custom sector split.
+2. Matching process: Match the raw loan books to the ABCD data.
+3. Prioritization of loan books; Match success and coverage diagnostics: Prioritize the matched loan books and analyze their coverage.
+4. Run PACTA for Supervisors analysis: Run the analysis based on the parameters set in the `config.yml` file.
+
+This cookbook will guide you through each of the steps of the analysis in detail, explain the required input data sets and software, and provide guidance on how to interpret the results.
+
+# Preparatory Steps
+
+## Required Input Data Sets
+
+## Required Software
+
+## Project Setup
+
+### Config
 
 All of the functions needed to run a PACTA for Supervisors analysis take a `config` argument, which can either be a path to a `config.yml` file (see `vignette("config_yml")`) or a config list object containing previously imported settings from a `config.yml` file. All of the settings/options are configured with this `config.yml` file.
 
-# Setup
+### Input/Output folder structure
+
+# Running the Analysis
+
+## Simple Overview of the Workflow
+
+### Setup
 
 You'll likely want to load the package and save the path to the `config.yml` file in a variable first:
 
@@ -20,7 +63,7 @@ library(pacta.multi.loanbook)
 config_path <- "config.yml"
 ```
 
-# Data preparation
+### Data preparation
 
 The first step of the analysis is to prepare your input data sets for the requirements of the analysis. Your ABCD data will need to be prepared and you can optionally use a custom sector split, that will also need to be prepared. The relevant function is `prepare_abcd()`, which takes configurations from the `config.yml` that you have prepared. The function will store intermediary files in a sub-directory in your `output` folder. You can run this function as follows:
 
@@ -28,7 +71,7 @@ The first step of the analysis is to prepare your input data sets for the requir
 pacta.multi.loanbook::prepare_abcd(config_path)
 ```
 
-# Matching process
+### Matching process
 
 To run the matching process, you will use the `match_loanbooks()` function. This will read the raw loan books from yout inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a sub-directory in your `output` folder. You can run this function as follows:
 
@@ -38,7 +81,7 @@ pacta.multi.loanbook::match_loanbooks(config_path)
 
 After the matching process is complete, you will need to do some manual matching.
 
-# Prioritization of loan books; Match success and coverage diagnostics
+### Prioritization of loan books; Match success and coverage diagnostics
 
 The next step is to prioritize the manually verified matched loan books and analyze their coverage, both relative to the raw loan book inputs and to the production capacity in the wider economy. Prioritizing the loan books means that you will only keep the best identified match for each loan and use that in the following steps of the analysis. You will probably want to check the status of your loan book and production coverage several times, as it is rare to get to the desired level of matching in one iteration. This means you may want to repeat the previous step and this step a number of times to reach the best possible outcome. To prioritize your matched loan books and calculate display the coverage diagnostics, you will use the `prioritise_and_diagnose()` function. This call will store matched prioritized loan book files and coverage diagnostics in a sub-directory in your `output` folder.
 
@@ -46,7 +89,7 @@ The next step is to prioritize the manually verified matched loan books and anal
 pacta.multi.loanbook::prioritise_and_diagnose(config_path)
 ```
 
-# Run PACTA for Supervisors analysis
+### Run PACTA for Supervisors analysis
 
 The final step is running the analysis based on the parameters you have set in the `config.yml` file. This entails both a standard PACTA for Banks analysis and the calculation of the net aggregate alignment metric. For both parts of the analysis, outputs will be stored in a sub-directory in your `output` folder and comprise tabular outputs and plots.
 To run the analysis on all of your previously matched and prioritized loan books, you will use the `analyse()` function.
@@ -54,3 +97,21 @@ To run the analysis on all of your previously matched and prioritized loan books
 ```r
 pacta.multi.loanbook::analyse(config_path)
 ```
+
+## Details - Data Preparation
+
+## Details - Matching Process
+
+## Details - Prioritization of loan books; Match success and coverage diagnostics
+
+## Details - Run PACTA for Supervisors analysis
+
+# Interpretation of Results
+
+## Data Dictionary
+
+## Interpreting the Coverage Diagnostics
+
+## Interpreting the PACTA Outputs and Graphs
+
+## Interpreting the Net Aggregate Alignment Metric Outputs and Graphs
