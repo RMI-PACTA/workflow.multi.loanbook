@@ -42,11 +42,53 @@ This cookbook will guide you through each of the steps of the analysis in detail
 
 # Preparatory Steps
 
+This section provides an overview of the preparatory steps that need to be taken before running the PACTA for Supervisors analysis. It includes information on the required input data sets, the required software, and the how to setup the project folder and file structure. Finally, it provides a checklist of the steps that need to be taken before running the analysis, summarizing in brief the steps explained in more detail before.
+
 ## Required Input Data Sets
+
+The PACTA for Supervisors analysis requires a number of input data sets to run. Some of these can be obtained from external sources, while others need to be prepared by the user. Furthermore, some of the input data sets are optional and there inclusion will depend on the settings provided in the `config.yml` file. 
+
+The main input data sets required for the analysis are:
+
+### Asset-based Company Data (ABCD)
+
+This data set provides information on the production profiles and emission intensities of companies active in the following real economy sectors: Automotive (light-duty vehicles) manufacturing, aviation, cement production, coal mining, upstream oil & gas extraction, power generation, and steel production. The ABCD is typically obtained from third party data providers. However, it is possible to prepare the ABCD yourself or complement an external data set with entries that may not be covered out of the box.
+
+The ABCD data set must be an XLSX file and contains the following columns:
+ADD
+
+Further information on how to obtain ABCD for PACTA and documentation of the individual sectors and data points can be found here LINK.
+
+### Scenario Data
+
+The scenario data set provides information on the trajectories of technologies/fuel types and of emission intensities pathways for each of (or a subset of) the sectors covered in PACTA.
+
+For sectors with technology level trajectories, the data set provides the TMSR and SMSP pathways based on the Market Share Approach, an allocation rule that implies all companies active in a sector have to adjust their production in a way that keeps market shares constant and solves for the aggregate climate transition scenario (LINK to the market share documentation).
+
+The target market share scenario data set must be a CSV file and contains the following columns:
+ADD
+
+For sectors that do not have technology level pathways, PACTA uses the Sectoral Decarbonization Approach (SDA), an allocation rule that implies that all companies in a sector have to converge their physical emission intensity at a future scenario value - e.g. in the year 2050. This implies that more polluting companies have to reduce their physical emissions intensity more drastically than companies using cleaner technology. It does not have any direct implications on the amount of units produced by any company (LINK to the SDA documentation).
+
+The SDA scenario data set must be a CSV file and contains the following columns:
+ADD
+
+While the raw input values of the scenarios are based on external third party organisations - such as the International Energy Agency (IEA), the Joint Research Center of the European Commission (JRC), or the Institute for Sustainable Futures (ISF) - the input data set for PACTA must be prepared using additional steps, which are documented publicly on the following GitHub repositories:
+
+- [pacta.scenario.data.preparation](https://github.com/RMI-PACTA/pacta.scenario.data.preparation)
+- [workflow.scenario.preparation](https://github.com/RMI-PACTA/workflow.scenario.preparation)
+
+Since RMI has taken over stewardship of PACTA the prepared scenario files can also be accessed as CSV downloads the [PACTA website](https://pacta.rmi.org/pacta-for-banks-2020/) under the "Methodology and Documents" tab of the "PACTA for Banks" section. The files are usually updated annually based on the latest scenario publications.
+
+### Raw Loan Books
+
+ADD
 
 ## Required Software
 
 ## Project Setup
+
+## Checklist of Preparatory Steps
 
 ### Config
 
