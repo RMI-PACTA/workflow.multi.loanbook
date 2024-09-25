@@ -13,7 +13,7 @@ This cookbook provides a step-by-step guide to running the PACTA for Supervisors
 
 ## What is the PACTA for Supervisors analysis?
 
-PACTA for Supervisors is based on the PACTA methodology, which assesses the alignment of financial portfolios with climate goals utilizing forward-looking asset-based production data (ABCD) that are linked to financial assets and comparing those production profiles with climate transition scenarios on the sector and/or technology level.
+PACTA for Supervisors is based on the PACTA methodology, which assesses the alignment of financial portfolios with climate goals utilizing forward-looking asset-based company data (ABCD) that is linked to financial assets and compares the production profiles of those companies with technology and emissions pathways from climate transition scenarios at the sector and/or technology level.
 
 ## Who is this tool built for?
 
@@ -24,6 +24,10 @@ The main difference between this tool and the individual PACTA for Banks softwar
 ## What can the results of the PACTA for Supervisors analysis be used for?
 
 Financial supervisors or regulators can use the results of the analysis to assess the alignment of banks' loan books with the Paris Agreement goals, to identify sectors where banks may need to take action to improve alignment, and to screen the financial system for potential climate-related transition risks. The analysis can be parameterised in different ways to explore patterns across the analysed loan books. If run by private institutions, the results may additionally be used to identify opportunities for climate-aligned investments, as well as for detecting individual counterparties that may be exposed to climate-related transition risks and may therefore require dedicated focus in the risk management process.
+
+Users will be able to obtain both tabular outputs and plots that can be used for any of the above use cases. The tabular output further enables processing of the alignment results in other models or tools, for example as an input into financial risk models, or as a recurring input into internal monitoring systems.
+
+The level of granularity of the outputs allows for a systematic analysis of climate alignment starting at the financial system level (across all analyzed loan books together), down to the individual counterparty level, and across sectors and technologies. Grouping of the results at any of these levels by additional dimensions can easily be achieved using the configuration file.
 
 ## What are the main steps of the analysis?
 
