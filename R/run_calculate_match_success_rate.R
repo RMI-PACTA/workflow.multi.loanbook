@@ -450,7 +450,7 @@ prep_match_success_rate <- function(data,
     ) %>%
     tidyr::pivot_longer(
       cols = -c(
-        by_group,
+        dplyr::all_of(by_group),
         "sector",
         "matched"
       ),
