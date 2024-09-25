@@ -178,10 +178,11 @@ refer to a valid, accessible, local file. As an example:</p>
 <h5 id="filename_abcd">filename_abcd<a class="anchor" aria-label="anchor" href="#filename_abcd"></a>
 </h5>
 <p><code class="sourceCode yaml"><span class="at">filename_abcd</span></code> is
-the filename of the file that contains asset based company data,
-including production values and physical emission intensity values. It
-must be a single string/character value, and it must refer to a valid,
-accessible, local file. As an example:</p>
+the filename of the file in the directory defined by <code class="sourceCode yaml"><span class="at">dir_input</span></code> that
+contains asset based company data, including production values and
+physical emission intensity values. It must be a single string/character
+value, and it must refer to a valid, accessible, local file. As an
+example:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="at">    </span><span class="fu">filename_abcd</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"</span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -190,8 +191,8 @@ accessible, local file. As an example:</p>
 <p><code class="sourceCode yaml"><span class="at">sheet_abcd</span></code> is the
 name of the sheet that contains asset based company data in the file
 defined by <code class="sourceCode yaml"><span class="at">filename_abcd</span></code> and
-stored in the directory defined by <code class="sourceCode yaml"><span class="at">dir_abcd</span></code>. It must
-be a single string/character value, and it must refer to a valid,
+stored in the directory defined by <code class="sourceCode yaml"><span class="at">dir_input</span></code>. It
+must be a single string/character value, and it must refer to a valid,
 accessible, sheet name in the appropriate file. As an example:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="at">    </span><span class="fu">sheet_abcd</span><span class="kw">:</span><span class="at"> </span><span class="st">"Company Indicators - PACTA Comp"</span></span></code></pre></div>
 </div>
@@ -355,10 +356,9 @@ refer to a valid, accessible, local file. As an example:</p>
 <p><code class="sourceCode yaml"><span class="at">sheet_advanced_company_indicators</span></code>
 is the name of the sheet that contains asset based company production
 data in the file defined by <code class="sourceCode yaml"><span class="at">filename_advanced_company_indicators</span></code>
-and stored in the directory defined by <code class="sourceCode yaml"><span class="at">dir_advanced_company_indicators</span></code>.
-It must be a single string/character value, and it must refer to a
-valid, accessible, sheet name in the appropriate file. As an
-example:</p>
+and stored in the directory defined by <code class="sourceCode yaml"><span class="at">dir_input</span></code>. It
+must be a single string/character value, and it must refer to a valid,
+accessible, sheet name in the appropriate file. As an example:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="at">    </span><span class="fu">sheet_advanced_company_indicators</span><span class="kw">:</span><span class="at"> </span><span class="st">"Company Activities"</span></span></code></pre></div>
 </div>
 </div>
@@ -377,8 +377,7 @@ might look like:</p>
 <span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="at">      </span><span class="fu">join_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">NULL</span></span>
 <span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="at">    </span><span class="fu">manual_sector_classification</span><span class="kw">:</span></span>
 <span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="at">      </span><span class="fu">use_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="ch">FALSE</span></span>
-<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="at">      </span><span class="fu">dir_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/manual_sector_classification_folder"</span></span>
-<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"manual_sector_classification.csv"</span></span></code></pre></div>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="at">      </span><span class="fu">filename_manual_sector_classification</span><span class="kw">:</span><span class="at"> </span><span class="st">"manual_sector_classification.csv"</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="params_match_name">params_match_name:<a class="anchor" aria-label="anchor" href="#params_match_name"></a>
 </h4>
