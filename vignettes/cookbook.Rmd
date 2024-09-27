@@ -181,15 +181,116 @@ When applying the sector split on company exposures, the user can provide a list
 
 ## Required Software
 
-## Project Setup
+Using the `pacta.multi.loanbook` package for the PACTA for Supervisors analysis requires the following software to be installed on your system:
 
-## Checklist of Preparatory Steps
+### R (version 4.1.0 or higher)
+
+R is the programming language that the `pacta.multi.loanbook` package is written in. You can download R from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/).
+
+### RStudio (optional)
+
+RStudio is an integrated development environment (IDE) for R developed by Posit. It is not strictly required to run the analysis, but it can be helpful for managing your project and running the analysis. Generally, RStudio is very widely used among the R cummunity and probably the easiest way to interact with most R tools, such as `pacta.multi.loanbook`. RStudio Desktop is an open source tool and free of charge. You can download RStudio from the [Posit RStudio website](https://posit.co/downloads/).
+
+### `pacta.multi.loanbook` R package
+
+The `pacta.multi.loanbook` package is the main software tool that you will use to run the PACTA for Supervisors analysis. You can install the package from the [RStudio CRAN mirror](https://cran.r-project.org/web/packages/pacta.multi.loanbook/index.html) by running the following command in R:
+
+```{r install_package, eval = FALSE}
+install.packages("pacta.multi.loanbook")
+```
+
+Alternatively, you can install the development version of the package from GitHub by running the following command in R:
+
+```{r install_dev_package, eval = FALSE}
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
+```
+
+### Required R packages
+
+The `pacta.multi.loanbook` package depends on a number of other R packages. These dependencies will be installed automatically when you install the `pacta.multi.loanbook` package. The required packages are:
+
+```{r imports, echo = FALSE}
+cat(utils::packageDescription("pacta.multi.loanbook")[["Imports"]])
+```
+
+### Suggested R packages
+
+The suggested packages are not required to run the analysis, but they are used in the examples and vignettes provided with the package:
+
+```{r suggests, echo = FALSE}
+cat(utils::packageDescription("pacta.multi.loanbook")[["Suggests"]])
+```
+
+### FAQ
+
+#### How do I install the `pacta.multi.loanbook` package?
+
+The most common ways to install R packages are via CRAN or GitHub. Public institutions often have restrictions on the installation of packages from GitHub, so you may need to install the package from CRAN. In some cases, your institution may mirror CRAN in their internal application registry, so you may need to install the package from there. Should you have any issues with the installation from the internal application registry, it is best to reach out to your IT department. If you cannot obtain the package any of these ways, please reach out to the package maintainers directly for exploring other options.
+
+#### How do I install the required R packages?
+
+In principle, all dependencies required to run the `pacta.multi.loanbook` package will be installed automatically when you install the package. However, if you encounter any issues with the installation of the required packages, you can install them manually by running the following command in R, where ... should be replaced with the package names from the list above, separated by commas:
+
+```{r install_deps, eval = FALSE}
+install.packages(c(...))
+```
+
+## Project Setup
 
 ### Config
 
 All of the functions needed to run a PACTA for Supervisors analysis take a `config` argument, which can either be a path to a `config.yml` file (see `vignette("config_yml")`) or a config list object containing previously imported settings from a `config.yml` file. All of the settings/options are configured with this `config.yml` file.
 
 ### Input/Output folder structure
+
+The `config.yml` file then points to an input and an output directory that the user can choose anywhere on their system, as long as R has read and write access to these directories. A recommendable choice to structure an analysis project would be to place both these folders and the `config.yml` file in a project folder. The input folder must contain all input files as described above, with the raw loan books being placed in a sub-directory that must be named `"loanbooks"`. The output folder can remain empty. It will be populated by running the analysis.
+
+An example of how the project folder could be structured:
+
+- project_folder
+  - config.yml
+  - input
+    - loanbooks
+      - raw_loanbook_1.csv
+      - raw_loanbook_2.csv
+      - ...
+    - ABCD.xlsx
+    - scenario_data_tms.csv
+    - scenario_data_sda.csv
+    - ...
+  - output
+
+## Checklist of Preparatory Steps
+
+Before running the PACTA for Supervisors analysis, you should make sure that you have completed the following preparatory steps:
+
+-[] Obtained the required external input data sets:
+  -[] Asset-based Company Data (ABCD)
+  -[] Scenario Data
+-[] Prepared the required input data sets:
+  -[] Raw Loan Books
+-[] OPTIONAL - Obtained the optional external input data sets:
+  -[] Asset-based Company Data (ABCD) for company sector split
+-[] OPTIONAL - Prepared the optional input data sets:
+  -[] Companies to apply primary energy split on
+  -[] Misclassified Loans
+  -[] Manual Sector Classification
+-[] Installed the required software:
+  -[] R (version 4.1.0 or higher)
+  -[] RStudio (optional)
+  -[] `pacta.multi.loanbook` R package
+-[] Installed the required R packages:
+  -[] `pacta.multi.loanbook` dependencies
+-[] OPTIONAL - Installed the suggested R packages:
+  -[] `pacta.multi.loanbook` suggests
+-[] Setup the project folder and file structure:
+  -[] Created a project folder
+  -[] Created a `config.yml` file and placed it in the project folder
+  -[] Created an `input` folder in the project folder
+  -[] Placed the raw loan books in the `input/loanbooks` sub-directory
+  -[] Placed the other input data sets in the `input` folder
+  -[] Created an `output` folder in the project folder
+
 
 # Running the Analysis
 
