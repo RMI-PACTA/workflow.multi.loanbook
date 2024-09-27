@@ -6,7 +6,45 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
+```{r setup, echo = FALSE}
+library(pacta.multi.loanbook)
+
+plot_table <- function(table) {
+  table_plot <- gt::gt(dplyr::select(table, -"dataset"))
+  
+  table_plot <- 
+    gt::cols_width(
+      .data = table_plot,
+      column ~ gt::px(150),
+      typeof ~ gt::px(90)
+    )
+  
+  table_plot <-
+    gt::tab_style(
+      data = table_plot,
+      style = gt::cell_text(size = "smaller"),
+      locations = gt::cells_body(columns = 1:2)
+    )
+  
+  table_plot <-
+    gt::tab_options(
+      data = table_plot,
+      ihtml.active = TRUE,
+      ihtml.use_pagination = FALSE,
+      ihtml.use_sorting = TRUE,
+      ihtml.use_highlight = TRUE
+    )
+  
+  gt::fmt_passthrough(table_plot)
+}
+```
 # Overview
 
 This cookbook provides a step-by-step guide to running the PACTA for Supervisors analysis using the `pacta.multi.loanbook` package. The analysis is designed to help financial supervisors assess the alignment of banks' loan books with the Paris Agreement goals.
@@ -48,30 +86,38 @@ This section provides an overview of the preparatory steps that need to be taken
 
 The PACTA for Supervisors analysis requires a number of input data sets to run. Some of these can be obtained from external sources, while others need to be prepared by the user. Furthermore, some of the input data sets are optional and there inclusion will depend on the settings provided in the `config.yml` file. 
 
-The main input data sets required for the analysis are:
+The main input data sets required for the analysis are the following:
 
 ### Asset-based Company Data (ABCD)
+
+- required input
+- external source
+- XLSX file
 
 This data set provides information on the production profiles and emission intensities of companies active in the following real economy sectors: Automotive (light-duty vehicles) manufacturing, aviation, cement production, coal mining, upstream oil & gas extraction, power generation, and steel production. The ABCD is typically obtained from third party data providers. However, it is possible to prepare the ABCD yourself or complement an external data set with entries that may not be covered out of the box.
 
 The ABCD data set must be an XLSX file and contains the following columns:
-ADD
+**ADD**
 
-Further information on how to obtain ABCD for PACTA and documentation of the individual sectors and data points can be found here LINK.
+Further information on how to obtain ABCD for PACTA and documentation of the individual sectors and data points can be found here **LINK**.
 
 ### Scenario Data
+
+- required input(s)
+- external source
+- CSV file(s)
 
 The scenario data set provides information on the trajectories of technologies/fuel types and of emission intensities pathways for each of (or a subset of) the sectors covered in PACTA.
 
 For sectors with technology level trajectories, the data set provides the TMSR and SMSP pathways based on the Market Share Approach, an allocation rule that implies all companies active in a sector have to adjust their production in a way that keeps market shares constant and solves for the aggregate climate transition scenario (LINK to the market share documentation).
 
 The target market share scenario data set must be a CSV file and contains the following columns:
-ADD
+**ADD**
 
 For sectors that do not have technology level pathways, PACTA uses the Sectoral Decarbonization Approach (SDA), an allocation rule that implies that all companies in a sector have to converge their physical emission intensity at a future scenario value - e.g. in the year 2050. This implies that more polluting companies have to reduce their physical emissions intensity more drastically than companies using cleaner technology. It does not have any direct implications on the amount of units produced by any company (LINK to the SDA documentation).
 
 The SDA scenario data set must be a CSV file and contains the following columns:
-ADD
+**ADD**
 
 While the raw input values of the scenarios are based on external third party organisations - such as the International Energy Agency (IEA), the Joint Research Center of the European Commission (JRC), or the Institute for Sustainable Futures (ISF) - the input data set for PACTA must be prepared using additional steps, which are documented publicly on the following GitHub repositories:
 
@@ -82,7 +128,54 @@ Since RMI has taken over stewardship of PACTA the prepared scenario files can al
 
 ### Raw Loan Books
 
-ADD
+- required input
+- self-prepared
+- CSV file(s)
+
+The raw loan books are the financial data sets that you would like to analyze. They contain information on the loans that banks have provided to companies. As a supervisor, the data required to construct these data sets will typically be available to you through regulatory filings that are accessed via internal data bases or similar. As a bank, the data required will be available in your internal systems.
+
+The raw loan books must be prepared as CSV files and contain at a minimum the following columns:
+```{r raw_loanbooks, echo = FALSE}
+# TODO: should this be in the data dictionary?
+pacta.multi.loanbook:::col_types_raw
+```
+**NOTE:** The tool will automatically add a column `group_id` to each of the loan books, which uses the file name as a value. This allows you to group the results the analysis by loan book, using the `by_group` parameter in the `config.yml` file. For any other variable that you may want to group the results by, you need to add a column to the raw loan book files that you then provide as the `by_group` parameter in the `config.yml` file.
+
+**LINK** to more thorough description.
+
+### Misclassified Loans
+
+- optional input
+- self-prepared
+- CSV file
+
+The user can provide a list of loans that have been misclassified in the raw loan books. The aim here is specifically to remove false positives, that is, loans that are classified in scope of one of the PACTA sectors, but where manual research shows that the companies do not actually operate within the PACTA scope. Such a false positive may be due to erroneous data entry in the raw loan book, for example. Removing these loans from the falsely indicated sector in the calculation of the match success rate will give a more accurate picture of what match success rate can really be reached.
+
+### Asset-Based Company Data (ABCD) for company sector split
+
+- optional input
+- external source
+- XLSX file
+
+In case the user wants to split company exposures across sectors of in scope activity, the user must provide a version of the ABCD data set that follows the format of the Advanced Company Indicators data set by Asset Impact. This data set includes power generation values which are required for the primary energy based sector split.
+
+### Companies to apply primary energy split on
+
+- optional input
+- self-prepared
+- CSV file
+
+When applying the sector split on company exposures, the user can provide a list of companies for which the sector split should be based on primary energy content. For all other companies, a simple equal weights split will be applied. For more information on the sector split, see the [documentation](https://github.com/RMI-PACTA/workflow.aggregate.loanbooks?tab=readme-ov-file#optional-calculate-sector-splits-for-multi-sector-companies).
+
+**TODO:** Move the sector split documentation to this repo!
+
+### Manual Sector Classification
+
+- optional input
+- self-prepared
+- CSV file
+
+**TODO:** Add once we have a stable implementation of this feature
 
 ## Required Software
 
