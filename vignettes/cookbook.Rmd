@@ -97,7 +97,7 @@ The main input data sets required for the analysis are the following:
 This data set provides information on the production profiles and emission intensities of companies active in the following real economy sectors: Automotive (light-duty vehicles) manufacturing, aviation, cement production, coal mining, upstream oil & gas extraction, power generation, and steel production. The ABCD is typically obtained from third party data providers. However, it is possible to prepare the ABCD yourself or complement an external data set with entries that may not be covered out of the box.
 
 The ABCD data set must be an XLSX file and contains the following columns:
-```{r cols_tms_scenario, echo = FALSE}
+```{r cols_abcd, echo = FALSE}
 # TODO: should this be in the data dictionary?
 cat(paste(pacta.multi.loanbook:::cols_abcd, collapse = ",\n"))
 ```
