@@ -141,7 +141,9 @@ pacta.multi.loanbook:::col_types_raw
 ```
 **NOTE:** The tool will automatically add a column `group_id` to each of the loan books, which uses the file name as a value. This allows you to group the results the analysis by loan book, using the `by_group` parameter in the `config.yml` file. For any other variable that you may want to group the results by, you need to add a column to the raw loan book files that you then provide as the `by_group` parameter in the `config.yml` file.
 
-**LINK** to more thorough description.
+For detailed descriptions of how to prepare raw loan books, see the [PACTA for Banks documentation](https://pacta.rmi.org/pacta-for-banks-2020/) and navigate to the "Training Materials" tab of the "PACTA for Banks" section. The *"User Guide 2"*, the *"Data Dictionary"*, and the *"Loan Book Template"* files can all be helpful in preparing your data.
+
+**TODO:** check if the relevant documents are up to date
 
 ### Misclassified Loans
 
