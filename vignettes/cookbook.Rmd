@@ -151,6 +151,7 @@ The raw loan books must be prepared as CSV files and contain at a minimum the fo
 ```{r cols_raw_loanbooks, echo = FALSE, results = 'asis'}
 # TODO: should this be in the data dictionary?
 cat(paste0("- `", names(pacta.multi.loanbook:::col_types_raw[["cols"]]), "`", collapse = "\n"))
+```
 
 **NOTE:** The tool will automatically add a column `group_id` to each of the loan books, which uses the file name as a value. This allows you to group the results the analysis by loan book, using the `by_group` parameter in the `config.yml` file. For any other variable that you may want to group the results by, you need to add a column to the raw loan book files that you then provide as the `by_group` parameter in the `config.yml` file.
 
