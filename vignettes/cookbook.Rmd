@@ -97,9 +97,10 @@ The main input data sets required for the analysis are the following:
 This data set provides information on the production profiles and emission intensities of companies active in the following real economy sectors: Automotive (light-duty vehicles) manufacturing, aviation, cement production, coal mining, upstream oil & gas extraction, power generation, and steel production. The ABCD is typically obtained from third party data providers. However, it is possible to prepare the ABCD yourself or complement an external data set with entries that may not be covered out of the box.
 
 The ABCD data set must be an XLSX file and contains the following columns:
-```{r cols_abcd, echo = FALSE}
+
+```{r cols_abcd, echo = FALSE, results = 'asis'}
 # TODO: should this be in the data dictionary?
-cat(paste(pacta.multi.loanbook:::cols_abcd, collapse = ",\n"))
+cat(paste0("- `", pacta.multi.loanbook:::cols_abcd, "`", collapse = "\n"))
 ```
 
 Further information on how to obtain ABCD for PACTA and documentation of the individual sectors and data points can be found here **LINK**.
@@ -115,18 +116,19 @@ The scenario data set provides information on the trajectories of technologies/f
 For sectors with technology level trajectories, the data set provides the TMSR and SMSP pathways based on the Market Share Approach, an allocation rule that implies all companies active in a sector have to adjust their production in a way that keeps market shares constant and solves for the aggregate climate transition scenario (LINK to the market share documentation).
 
 The target market share scenario data set must be a CSV file and contains the following columns:
-```{r cols_tms_scenario, echo = FALSE}
-# TODO: should this be in the data dictionary?
-cat(paste(names(pacta.multi.loanbook:::col_types_scenario_tms[["cols"]]), collapse = ",\n"))
-```
 
+```{r cols_tms_scenario, echo = FALSE, results = 'asis'}
+# TODO: should this be in the data dictionary?
+cat(paste0("- `", names(pacta.multi.loanbook:::col_types_scenario_tms[["cols"]]), "`", collapse = "\n"))
+```
 
 For sectors that do not have technology level pathways, PACTA uses the Sectoral Decarbonization Approach (SDA), an allocation rule that implies that all companies in a sector have to converge their physical emission intensity at a future scenario value - e.g. in the year 2050. This implies that more polluting companies have to reduce their physical emissions intensity more drastically than companies using cleaner technology. It does not have any direct implications on the amount of units produced by any company (LINK to the SDA documentation).
 
 The SDA scenario data set must be a CSV file and contains the following columns:
-```{r cols_sda_scenario, echo = FALSE}
+
+```{r cols_sda_scenario, echo = FALSE, results = 'asis'}
 # TODO: should this be in the data dictionary?
-cat(paste(names(pacta.multi.loanbook:::col_types_scenario_sda[["cols"]]), collapse = ",\n"))
+cat(paste0("- `", names(pacta.multi.loanbook:::col_types_scenario_sda[["cols"]]), "`", collapse = "\n"))
 ```
 
 While the raw input values of the scenarios are based on external third party organisations - such as the International Energy Agency (IEA), the Joint Research Center of the European Commission (JRC), or the Institute for Sustainable Futures (ISF) - the input data set for PACTA must be prepared using additional steps, which are documented publicly on the following GitHub repositories:
@@ -145,10 +147,12 @@ Since RMI has taken over stewardship of PACTA the prepared scenario files can al
 The raw loan books are the financial data sets that you would like to analyze. They contain information on the loans that banks have provided to companies. As a supervisor, the data required to construct these data sets will typically be available to you through regulatory filings that are accessed via internal data bases or similar. As a bank, the data required will be available in your internal systems.
 
 The raw loan books must be prepared as CSV files and contain at a minimum the following columns:
-```{r cols_raw_loanbooks, echo = FALSE}
+
+```{r cols_raw_loanbooks, echo = FALSE, results = 'asis'}
 # TODO: should this be in the data dictionary?
-cat(paste(names(pacta.multi.loanbook:::col_types_raw[["cols"]]), collapse = ",\n"))
+cat(paste0("- `", names(pacta.multi.loanbook:::col_types_raw[["cols"]]), "`", collapse = "\n"))
 ```
+
 **NOTE:** The tool will automatically add a column `group_id` to each of the loan books, which uses the file name as a value. This allows you to group the results the analysis by loan book, using the `by_group` parameter in the `config.yml` file. For any other variable that you may want to group the results by, you need to add a column to the raw loan book files that you then provide as the `by_group` parameter in the `config.yml` file.
 
 For detailed descriptions of how to prepare raw loan books, see the [PACTA for Banks documentation](https://pacta.rmi.org/pacta-for-banks-2020/) and navigate to the "Training Materials" tab of the "PACTA for Banks" section. The *"User Guide 2"*, the *"Data Dictionary"*, and the *"Loan Book Template"* files can all be helpful in preparing your data.
