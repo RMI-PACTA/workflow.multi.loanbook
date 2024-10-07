@@ -278,32 +278,32 @@ An example of how the project folder could be structured:
 
 Before running the PACTA for Supervisors analysis, you should make sure that you have completed the following preparatory steps:
 
--[] Obtained the required external input data sets:
-  -[] Asset-based Company Data (ABCD)
-  -[] Scenario Data
--[] Prepared the required input data sets:
-  -[] Raw Loan Books
--[] OPTIONAL - Obtained the optional external input data sets:
-  -[] Asset-based Company Data (ABCD) for company sector split
--[] OPTIONAL - Prepared the optional input data sets:
-  -[] Companies to apply primary energy split on
-  -[] Misclassified Loans
-  -[] Manual Sector Classification
--[] Installed the required software:
-  -[] R (version 4.1.0 or higher)
-  -[] RStudio (optional)
-  -[] `pacta.multi.loanbook` R package
--[] Installed the required R packages:
-  -[] `pacta.multi.loanbook` dependencies
--[] OPTIONAL - Installed the suggested R packages:
-  -[] `pacta.multi.loanbook` suggests
--[] Setup the project folder and file structure:
-  -[] Created a project folder
-  -[] Created a `config.yml` file and placed it in the project folder
-  -[] Created an `input` folder in the project folder
-  -[] Placed the raw loan books in the `input/loanbooks` sub-directory
-  -[] Placed the other input data sets in the `input` folder
-  -[] Created an `output` folder in the project folder
+- [ ] Obtained the required external input data sets:
+  - [ ] Asset-based Company Data (ABCD)
+  - [ ] Scenario Data
+- [ ] Prepared the required input data sets:
+  - [ ] Raw Loan Books
+- [ ] OPTIONAL - Obtained the optional external input data sets:
+  - [ ] Asset-based Company Data (ABCD) for company sector split
+- [ ] OPTIONAL - Prepared the optional input data sets:
+  - [ ] Companies to apply primary energy split on
+  - [ ] Misclassified Loans
+  - [ ] Manual Sector Classification
+- [ ] Installed the required software:
+  - [ ] R (version 4.1.0 or higher)
+  - [ ] RStudio (optional)
+  - [ ] `pacta.multi.loanbook` R package
+- [ ] Installed the required R packages:
+  - [ ] `pacta.multi.loanbook` dependencies
+- [ ] OPTIONAL - Installed the suggested R packages:
+  - [ ] `pacta.multi.loanbook` suggests
+- [ ] Setup the project folder and file structure:
+  - [ ] Created a project folder
+  - [ ] Created a `config.yml` file and placed it in the project folder
+  - [ ] Created an `input` folder in the project folder
+  - [ ] Placed the raw loan books in the `input/loanbooks` sub-directory
+  - [ ] Placed the other input data sets in the `input` folder
+  - [ ] Created an `output` folder in the project folder
 
 
 # Running the Analysis
